@@ -536,7 +536,8 @@ code { font-family:'Menlo','Consolas',monospace;font-size:0.9em;background:rgba(
       <p><strong style="color:var(--dark-text);">Warp</strong> (warp.dev) — a modern terminal that works like an IDE.</p>
       <p>Block-based output, AI-powered search, normal text editing — like Google Docs but for commands.</p>
       <p style="color:var(--dark-text);font-weight:600;">Great safety net for anyone new to the terminal.</p>
-      <p>Free for individual use. Install it today.</p>
+      <p>Free for individual use.</p>
+      <p style="color:var(--dark-text);font-weight:700;font-size:0.65em;background:#E0E0E0;padding:8px 14px;border-radius:6px;display:inline-block;margin-top:6px;">→ Install it today: <code style="font-size:0.9em;">brew install warp</code> or <span style="color:var(--blue);">warp.dev</span></p>
     </div>
     <div class="warp" style="align-self:start;">
       <div class="warp-bar">
@@ -934,9 +935,9 @@ code { font-family:'Menlo','Consolas',monospace;font-size:0.9em;background:rgba(
           <div class="ln"><span class="cm"># Auto-compact at 95%</span></div>
         </div>
       </div>
-      <div class="pro-tip" style="margin-top:8px;">
-        <span class="label">Pro Tip</span>
-        <p>Claude auto-compacts at 95%. But by then quality may already degrade. Compact at ~70% for best results.</p>
+      <div class="pro-tip" style="margin-top:8px;border-left-color:var(--red);">
+        <span class="label" style="color:var(--red);">Warning</span>
+        <p>If Claude auto-compacts (at 95%), quality drops. <strong style="color:var(--dark-text);">Start a new conversation instead.</strong> Think of auto-compact as an emergency brake, not a feature.</p>
       </div>
     </div>
   </div>
@@ -955,40 +956,141 @@ code { font-family:'Menlo','Consolas',monospace;font-size:0.9em;background:rgba(
 <section class="s-gray" data-background="#F0F0F0">
   <div class="sq">SQUIRE</div>
   <h2>Available Models</h2>
-  <div class="two-col grow">
-    <div class="term">
-      <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">model switching</div></div>
-      <div class="term-body" style="font-size:13px;">
-        <div class="ln"><span class="s">Sonnet</span> <span class="o">(200K) — fast, everyday work</span></div>
-        <div class="ln"><span class="ok">  → Your default. Start here.</span></div>
-        <div class="ln">&nbsp;</div>
-        <div class="ln"><span class="pu">Opus</span> <span class="o">(1M) — deep reasoning</span></div>
-        <div class="ln"><span class="ok">  → Complex architecture decisions</span></div>
-        <div class="ln">&nbsp;</div>
-        <div class="ln"><span class="f">Haiku</span> <span class="o">(200K) — fastest</span></div>
-        <div class="ln"><span class="ok">  → Simple questions, quick tasks</span></div>
-        <div class="ln">&nbsp;</div>
+  <div class="three-col grow">
+    <!-- Haiku -->
+    <div style="background:#E4E4E4;border-radius:8px;padding:18px;border-top:3px solid var(--orange);">
+      <p style="font-size:0.7em;font-weight:700;color:var(--dark-text);margin:0;">Haiku</p>
+      <p style="font-size:0.42em;color:var(--muted);margin:2px 0 8px 0;">200K tokens &middot; Fastest &middot; Cheapest</p>
+      <p style="font-size:0.48em;color:var(--dark-text);font-weight:600;">Best for:</p>
+      <p style="font-size:0.45em;">"What does this function do?"</p>
+      <p style="font-size:0.45em;">"Rename this variable to camelCase"</p>
+      <p style="font-size:0.45em;">"Quick context about a file"</p>
+      <p style="font-size:0.42em;color:var(--orange);font-weight:600;margin-top:6px;">→ Quick questions, simple edits</p>
+    </div>
+    <!-- Sonnet -->
+    <div style="background:#E4E4E4;border-radius:8px;padding:18px;border-top:3px solid var(--blue);box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+      <p style="font-size:0.7em;font-weight:700;color:var(--dark-text);margin:0;">Sonnet <span style="background:var(--blue);color:#FFF;font-size:0.5em;padding:2px 8px;border-radius:10px;vertical-align:middle;">DEFAULT</span></p>
+      <p style="font-size:0.42em;color:var(--muted);margin:2px 0 8px 0;">200K tokens &middot; Fast &middot; Great balance</p>
+      <p style="font-size:0.48em;color:var(--dark-text);font-weight:600;">Best for:</p>
+      <p style="font-size:0.45em;">"Add rate limiting to this endpoint"</p>
+      <p style="font-size:0.45em;">"Write tests for the checkout flow"</p>
+      <p style="font-size:0.45em;">"Refactor this module to use hooks"</p>
+      <p style="font-size:0.42em;color:var(--blue);font-weight:600;margin-top:6px;">→ Your daily driver. Start here.</p>
+    </div>
+    <!-- Opus -->
+    <div style="background:#E4E4E4;border-radius:8px;padding:18px;border-top:3px solid var(--code-purple);">
+      <p style="font-size:0.7em;font-weight:700;color:var(--dark-text);margin:0;">Opus</p>
+      <p style="font-size:0.42em;color:var(--muted);margin:2px 0 8px 0;">1M tokens &middot; Smartest &middot; Most expensive</p>
+      <p style="font-size:0.48em;color:var(--dark-text);font-weight:600;">Best for:</p>
+      <p style="font-size:0.45em;">"Design the architecture for a new service"</p>
+      <p style="font-size:0.45em;">"Create a comprehensive migration plan"</p>
+      <p style="font-size:0.45em;">"Review this complex PR for edge cases"</p>
+      <p style="font-size:0.42em;color:var(--code-purple);font-weight:600;margin-top:6px;">→ Big decisions, complex planning</p>
+    </div>
+  </div>
+  <div style="display:flex;gap:12px;margin-top:auto;">
+    <div class="term" style="flex:1;font-size:11px;">
+      <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">switch models</div></div>
+      <div class="term-body" style="padding:8px 14px;">
         <div class="ln"><span class="p">></span> <span class="c">/model</span> <span class="s">opus</span></div>
         <div class="ln"><span class="ok">✓ Switched to claude-opus-4</span></div>
       </div>
     </div>
-    <div class="app">
-      <div class="app-bar"><div class="app-icon">C</div><span class="app-title">Claude</span><span class="app-model">▼ Sonnet</span></div>
-      <div class="app-body" style="min-height:160px;">
-        <div style="background:#1E1E1E;border-radius:8px;padding:12px;font-size:12px;">
-          <div style="color:#DDD;font-weight:600;margin-bottom:8px;">Choose a model:</div>
-          <div style="padding:6px 10px;background:var(--app-user);border-radius:4px;color:#FFF;margin:4px 0;">● Sonnet — fast, daily tasks</div>
-          <div style="padding:6px 10px;color:#AAA;margin:4px 0;">○ Opus — deep thinking</div>
-          <div style="padding:6px 10px;color:#AAA;margin:4px 0;">○ Haiku — quick answers</div>
+    <div class="pro-tip" style="flex:2;margin:0;">
+      <span class="label">We have Team subs — no cost concerns for you</span>
+      <p>Switch freely with <code>/model</code> in terminal or click the model name in the Desktop App top bar.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ====== 22b. OPUS DEEP DIVE ====== -->
+<section class="s-gray" data-background="#F0F0F0">
+  <div class="sq">SQUIRE</div>
+  <h2>What Makes Opus Special?</h2>
+  <div class="two-col grow">
+    <div>
+      <p style="color:var(--dark-text);font-weight:700;font-size:0.65em;">1M token context — 5x more than Sonnet</p>
+      <p>That's roughly all 7 Harry Potter books. Opus can hold entire codebases in its head at once.</p>
+      <p style="color:var(--dark-text);font-weight:700;font-size:0.65em;margin-top:12px;">Extended Thinking</p>
+      <p>Opus can "think" internally before responding — like a senior engineer who pauses, considers tradeoffs, then gives a well-reasoned answer. Use <code>/effort max</code> to unlock deepest reasoning.</p>
+      <p style="color:var(--dark-text);font-weight:700;font-size:0.65em;margin-top:12px;">The catch: tokens</p>
+      <p>Opus 4.6 consumes significantly more tokens than 4.5 did. That "thinking" costs extra. This is why we don't use it for everything — save it for when you need the big brain.</p>
+    </div>
+    <div>
+      <div class="term">
+        <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">Opus thinking</div></div>
+        <div class="term-body auto-anim" style="font-size:12px;">
+          <div class="ln"><span class="p">></span> <span class="s">"design the auth service migration"</span></div>
+          <div class="ln">&nbsp;</div>
+          <div class="ln"><span class="pu">⧖ Thinking...</span></div>
+          <div class="ln"><span class="cm">  considering backwards compatibility...</span></div>
+          <div class="ln"><span class="cm">  evaluating session vs JWT tradeoffs...</span></div>
+          <div class="ln"><span class="cm">  checking for breaking changes in API...</span></div>
+          <div class="ln">&nbsp;</div>
+          <div class="ln">Here's my recommended migration plan:</div>
+          <div class="ln"><span class="ok">Phase 1:</span> <span class="o">Add new auth alongside old</span></div>
+          <div class="ln"><span class="ok">Phase 2:</span> <span class="o">Migrate endpoints gradually</span></div>
+          <div class="ln"><span class="ok">Phase 3:</span> <span class="o">Remove legacy after 2 sprints</span></div>
+          <div class="ln">&nbsp;</div>
+          <div class="ln"><span class="cm"># Opus considered 3 approaches and</span></div>
+          <div class="ln"><span class="cm"># picked the safest one. Sonnet would</span></div>
+          <div class="ln"><span class="cm"># have jumped straight to code.</span></div>
         </div>
-        <div class="app-msg claude" style="font-size:11px;"><div class="label">Tip</div>In the Desktop App, click the model name in the top bar to switch.</div>
-        <div class="app-input"><div class="inp">Ask Claude anything...</div></div>
       </div>
     </div>
   </div>
-  <div class="pro-tip" style="margin-top:auto;">
-    <span class="label">Pro Tip</span>
-    <p>Opus has "extended thinking" — it reasons internally before responding. Great for complex architecture decisions. Use <code style="background:rgba(0,0,0,0.06);padding:1px 4px;border-radius:2px;">/effort max</code> to enable deepest reasoning on any model.</p>
+</section>
+
+<!-- ====== 22c. THE IDEAL WORKFLOW: 3 MODELS ====== -->
+<section class="s-black" data-background="#000">
+  <div class="sq">SQUIRE</div>
+  <h2 style="color:var(--white);font-size:1.5em;">The Ideal Workflow</h2>
+  <p style="color:#888;font-size:0.5em;margin-bottom:16px;">Use the right model for the right job — like shifting gears.</p>
+  <div class="three-col grow" style="align-items:stretch;">
+    <div style="background:#111;border-radius:10px;padding:20px;border-top:3px solid var(--orange);text-align:center;display:flex;flex-direction:column;">
+      <div style="font-size:32px;margin-bottom:6px;">1</div>
+      <p style="color:var(--orange);font-weight:700;font-size:0.7em;margin:0;">HAIKU</p>
+      <p style="color:#888;font-size:0.42em;margin:4px 0;">Quick context gathering</p>
+      <div class="term" style="font-size:10px;margin:10px 0;text-align:left;">
+        <div class="term-body" style="padding:8px 12px;">
+          <div class="ln"><span class="p">$</span> <span class="c">claude</span> <span class="f">--model haiku</span></div>
+          <div class="ln"><span class="p">></span> <span class="s">"explain the auth module structure"</span></div>
+          <div class="ln"><span class="o">The auth module has 3 parts...</span></div>
+        </div>
+      </div>
+      <p style="color:#CCC;font-size:0.48em;margin-top:auto;font-weight:600;">Understand the landscape</p>
+    </div>
+    <div style="background:#111;border-radius:10px;padding:20px;border-top:3px solid var(--code-purple);text-align:center;display:flex;flex-direction:column;">
+      <div style="font-size:32px;margin-bottom:6px;">2</div>
+      <p style="color:var(--code-purple);font-weight:700;font-size:0.7em;margin:0;">OPUS</p>
+      <p style="color:#888;font-size:0.42em;margin:4px 0;">Comprehensive planning</p>
+      <div class="term" style="font-size:10px;margin:10px 0;text-align:left;">
+        <div class="term-body" style="padding:8px 12px;">
+          <div class="ln"><span class="p">></span> <span class="c">/model</span> <span class="s">opus</span></div>
+          <div class="ln"><span class="p">></span> <span class="s">"create a migration plan with phases"</span></div>
+          <div class="ln"><span class="pu">⧖ Thinking...</span></div>
+          <div class="ln"><span class="ok">Phase 1: ...</span> <span class="ok">Phase 2: ...</span></div>
+        </div>
+      </div>
+      <p style="color:#CCC;font-size:0.48em;margin-top:auto;font-weight:600;">Design the solution</p>
+    </div>
+    <div style="background:#111;border-radius:10px;padding:20px;border-top:3px solid var(--blue);text-align:center;display:flex;flex-direction:column;">
+      <div style="font-size:32px;margin-bottom:6px;">3</div>
+      <p style="color:var(--blue);font-weight:700;font-size:0.7em;margin:0;">SONNET</p>
+      <p style="color:#888;font-size:0.42em;margin:4px 0;">Fast implementation</p>
+      <div class="term" style="font-size:10px;margin:10px 0;text-align:left;">
+        <div class="term-body" style="padding:8px 12px;">
+          <div class="ln"><span class="p">></span> <span class="c">/model</span> <span class="s">sonnet</span></div>
+          <div class="ln"><span class="p">></span> <span class="s">"implement Phase 1 from the plan"</span></div>
+          <div class="ln"><span class="ok">✓</span> <span class="o">Created 4 files, updated 2</span></div>
+        </div>
+      </div>
+      <p style="color:#CCC;font-size:0.48em;margin-top:auto;font-weight:600;">Write the code</p>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:auto;">
+    <p style="color:var(--blue);font-weight:700;font-size:0.55em;">Haiku explores → Opus plans → Sonnet builds</p>
+    <p style="color:#666;font-size:0.42em;">This saves tokens AND gets better results than using one model for everything.</p>
   </div>
 </section>
 
@@ -1125,7 +1227,47 @@ code { font-family:'Menlo','Consolas',monospace;font-size:0.9em;background:rgba(
   <p>Use <code>/init</code> to scaffold one for an existing project.</p>
 </section>
 
-<!-- ====== 26b. LIVE DEMO ====== -->
+<!-- ====== 26b. PLAN MODE ====== -->
+<section class="s-gray" data-background="#F0F0F0">
+  <div class="sq">SQUIRE</div>
+  <h2>Plan Mode</h2>
+  <div class="two-col grow">
+    <div>
+      <p style="color:var(--dark-text);font-weight:700;font-size:0.65em;">Before Claude writes a single line of code — make it plan first.</p>
+      <p><code>/plan</code> tells Claude to think about the approach, list the files it will touch, identify risks, and lay out the steps — without making any changes yet.</p>
+      <p style="color:var(--dark-text);font-weight:600;margin-top:10px;">Why this matters:</p>
+      <p>Without a plan, Claude jumps straight to code. With a plan, you review the strategy, catch mistakes early, and guide the direction before any code is written.</p>
+      <p style="color:var(--dark-text);font-weight:600;margin-top:10px;">Best combo: plan with Opus, implement with Sonnet.</p>
+      <p>Opus thinks deeply about architecture. Sonnet executes quickly. Use each where it shines.</p>
+    </div>
+    <div>
+      <div class="term">
+        <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">/plan example</div></div>
+        <div class="term-body auto-anim" style="font-size:12px;">
+          <div class="ln"><span class="cm"># Step 1: Plan with Opus</span></div>
+          <div class="ln"><span class="p">></span> <span class="c">/model</span> <span class="s">opus</span></div>
+          <div class="ln"><span class="p">></span> <span class="c">/plan</span></div>
+          <div class="ln"><span class="p">></span> <span class="s">"migrate auth from sessions to JWT"</span></div>
+          <div class="ln">&nbsp;</div>
+          <div class="ln"><span class="pu">⧖ Planning...</span></div>
+          <div class="ln"><span class="ok">Plan:</span></div>
+          <div class="ln"><span class="o">1. Add JWT utils in src/auth/jwt.ts</span></div>
+          <div class="ln"><span class="o">2. Update middleware (3 files)</span></div>
+          <div class="ln"><span class="o">3. Migrate /login and /refresh</span></div>
+          <div class="ln"><span class="o">4. Add tests for token expiry</span></div>
+          <div class="ln"><span class="o">5. Keep session fallback for 2 weeks</span></div>
+          <div class="ln">&nbsp;</div>
+          <div class="ln"><span class="cm"># Step 2: Approve, switch, implement</span></div>
+          <div class="ln"><span class="p">></span> <span class="s">"looks good, implement it"</span></div>
+          <div class="ln"><span class="p">></span> <span class="c">/model</span> <span class="s">sonnet</span></div>
+          <div class="ln"><span class="ok">✓</span> <span class="o">Implementing Phase 1...</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== 26c. LIVE DEMO ====== -->
 <section class="s-black" data-background="#000">
   <div class="sq">SQUIRE</div>
   <div class="grow" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;">
@@ -1237,16 +1379,91 @@ code { font-family:'Menlo','Consolas',monospace;font-size:0.9em;background:rgba(
   </div>
 </section>
 
-<!-- ====== 30. KEY TAKEAWAYS ====== -->
+<!-- ====== 30. THE WORKSHOP SERIES ====== -->
+<section class="s-gray" data-background="#F0F0F0">
+  <div class="sq">SQUIRE</div>
+  <h2>The Workshop Series</h2>
+  <div class="grow">
+    <div class="cmd-list">
+      <div class="item" style="background:#E4E4E4;border-radius:6px;padding:10px 14px;margin:6px 0;border:none;border-left:3px solid var(--blue);">
+        <span class="k" style="color:var(--blue);min-width:60px;">S1</span>
+        <span class="v" style="color:var(--dark-text);font-weight:700;">Getting Started — Terminal, Commands & Context</span>
+        <span style="margin-left:auto;font-size:0.85em;color:var(--blue);font-weight:600;">@Santi</span>
+        <span class="role-tag all" style="margin-left:8px;">TODAY</span>
+      </div>
+      <div class="item" style="background:#E4E4E4;border-radius:6px;padding:10px 14px;margin:6px 0;border:none;border-left:3px solid var(--green);">
+        <span class="k" style="color:var(--green);min-width:60px;">S2</span>
+        <span class="v" style="color:var(--dark-text);font-weight:700;">Skills & MCP Integrations — Jira, Slack, Figma</span>
+        <span style="margin-left:auto;font-size:0.85em;color:var(--green);font-weight:600;">@Artur</span>
+        <span class="role-tag all" style="margin-left:8px;">ALL</span>
+      </div>
+      <div class="item" style="background:#E4E4E4;border-radius:6px;padding:10px 14px;margin:6px 0;border:none;border-left:3px solid var(--orange);">
+        <span class="k" style="color:var(--orange);min-width:60px;">S3</span>
+        <span class="v" style="color:var(--dark-text);font-weight:700;">Subagents, Agent Teams & Hooks</span>
+        <span style="margin-left:auto;font-size:0.85em;color:var(--orange);font-weight:600;">@Jonathan</span>
+        <span class="role-tag eng" style="margin-left:8px;">ENG</span>
+      </div>
+      <div class="item" style="background:#E4E4E4;border-radius:6px;padding:10px 14px;margin:6px 0;border:none;border-left:3px solid var(--code-purple);">
+        <span class="k" style="color:var(--code-purple);min-width:60px;">S4</span>
+        <span class="v" style="color:var(--dark-text);font-weight:700;">Specification-Driven Development</span>
+        <span style="margin-left:auto;font-size:0.85em;color:var(--code-purple);font-weight:600;">@Nico</span>
+        <span class="role-tag all" style="margin-left:8px;">ALL</span>
+      </div>
+      <div class="item" style="background:#E4E4E4;border-radius:6px;padding:10px 14px;margin:6px 0;border:none;border-left:3px solid var(--red);">
+        <span class="k" style="color:var(--red);min-width:60px;">S5</span>
+        <span class="v" style="color:var(--dark-text);font-weight:700;">Plugins, CI/CD & End-to-End Demo</span>
+        <span style="margin-left:auto;font-size:0.85em;color:var(--red);font-weight:600;">TBD</span>
+        <span class="role-tag eng" style="margin-left:8px;">ENG</span>
+      </div>
+    </div>
+    <p style="font-size:0.45em;color:var(--muted);margin-top:8px;">Sessions build on each other. S1, S2, S4 are for everyone. S3, S5 go deeper into engineering topics.</p>
+  </div>
+</section>
+
+<!-- ====== 31. MODELS & TOKENS: LOOKING AHEAD ====== -->
+<section class="s-black" data-background="#000">
+  <div class="sq">SQUIRE</div>
+  <h2 style="color:var(--white);font-size:1.4em;">Why Learning This Matters Now</h2>
+  <div class="grow" style="display:flex;flex-direction:column;justify-content:center;">
+    <div class="two-col">
+      <div>
+        <p style="color:#CCC;font-size:0.58em;">Models are getting smarter — but also more expensive to run.</p>
+        <p style="color:#CCC;font-size:0.58em;">Opus 4.6 consumes more tokens than 4.5 did. The "thinking" features add overhead. As models improve, <strong style="color:var(--blue);">knowing how to manage context, pick the right model, and prompt efficiently will matter more, not less.</strong></p>
+        <p style="color:#CCC;font-size:0.58em;margin-top:10px;">If you learn to work with models efficiently now:</p>
+        <p style="color:var(--green);font-size:0.55em;font-weight:600;">→ You'll get better results</p>
+        <p style="color:var(--green);font-size:0.55em;font-weight:600;">→ You'll burn fewer tokens</p>
+        <p style="color:var(--green);font-size:0.55em;font-weight:600;">→ You'll be ready when models get even more powerful</p>
+      </div>
+      <div style="display:flex;flex-direction:column;justify-content:center;">
+        <div style="background:#111;border-radius:8px;padding:16px;margin:4px 0;border-left:3px solid var(--orange);">
+          <p style="color:var(--orange);font-weight:700;font-size:0.5em;margin:0;">Haiku — learn the codebase</p>
+          <p style="color:#888;font-size:0.42em;margin:2px 0;">Low cost, fast answers</p>
+        </div>
+        <div style="background:#111;border-radius:8px;padding:16px;margin:4px 0;border-left:3px solid var(--code-purple);">
+          <p style="color:var(--code-purple);font-weight:700;font-size:0.5em;margin:0;">Opus — plan, architect, review</p>
+          <p style="color:#888;font-size:0.42em;margin:2px 0;">High cost, deep thinking</p>
+        </div>
+        <div style="background:#111;border-radius:8px;padding:16px;margin:4px 0;border-left:3px solid var(--blue);">
+          <p style="color:var(--blue);font-weight:700;font-size:0.5em;margin:0;">Sonnet — implement fast</p>
+          <p style="color:#888;font-size:0.42em;margin:2px 0;">Great balance, your default</p>
+        </div>
+        <p style="color:#666;font-size:0.42em;text-align:center;margin-top:6px;">The right model for the right job = better output, lower cost.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== 32. KEY TAKEAWAYS ====== -->
 <section class="s-black" data-background="#000">
   <div class="sq">SQUIRE</div>
   <h2 style="color:var(--white);font-size:1.4em;">Key Takeaways</h2>
   <div class="grow" style="display:flex;flex-direction:column;justify-content:center;">
     <div class="tk-row"><span class="n">1</span><span class="tx">Claude reads your codebase — just type naturally (terminal or app)</span></div>
-    <div class="tk-row"><span class="n">2</span><span class="tx">/clear between tasks, /compact to keep going — manage your context</span></div>
-    <div class="tk-row"><span class="n">3</span><span class="tx">CLAUDE.md is your team's playbook — it shapes how Claude behaves for everyone</span></div>
-    <div class="tk-row"><span class="n">4</span><span class="tx">Be specific: What + Where + Constraints + Expected — works in both interfaces</span></div>
-    <div class="tk-row"><span class="n">5</span><span class="tx">Always review the output before accepting — Claude is a partner, not autopilot</span></div>
+    <div class="tk-row"><span class="n">2</span><span class="tx">Context is your most valuable resource — /clear between tasks, new chat > auto-compact</span></div>
+    <div class="tk-row"><span class="n">3</span><span class="tx">Haiku explores → Opus plans → Sonnet builds — use the right model for the right job</span></div>
+    <div class="tk-row"><span class="n">4</span><span class="tx">Plan first, code second — /plan with Opus saves time and gets better results</span></div>
+    <div class="tk-row"><span class="n">5</span><span class="tx">CLAUDE.md is your team's playbook — it shapes how Claude behaves for everyone</span></div>
+    <div class="tk-row"><span class="n">6</span><span class="tx">Always review the output — Claude is a powerful partner, not autopilot</span></div>
   </div>
   <div class="mt-auto">
     <div class="dots"><div class="dot done"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
