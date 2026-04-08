@@ -35,6 +35,7 @@
   --app-bg: #2B2B2B;
   --app-user: #4A8FE7;
   --app-claude: #3A3A3A;
+  --teal: #22D3EE;
 }
 .reveal { font-family: 'Inter', -apple-system, sans-serif; font-size: 28px; }
 .reveal .slides { text-align: left; }
@@ -99,7 +100,6 @@ code { font-family:'Menlo','Consolas',monospace;font-size:0.9em;background:rgba(
 .ok { color:var(--code-green); } /* success */
 .er { color:var(--code-red); } /* error */
 .pu { color:var(--code-purple); } /* purple */
-.cursor-old { /* moved to animations section */ }
 
 /* ================================================================
    CLAUDE APP MOCKUP (chat-style for non-devs)
@@ -139,10 +139,10 @@ code { font-family:'Menlo','Consolas',monospace;font-size:0.9em;background:rgba(
 .tk-row .tx { font-size:0.55em;color:#DDD; }
 
 /* Before/After */
-.ba-card { padding:24px; }
-.ba-card h3 { font-size:0.55em;margin-bottom:12px; }
-.ba-card li { font-size:0.5em;margin-bottom:4px;padding-left:16px;position:relative; }
-.ba-card li::before { content:'→';position:absolute;left:0; }
+.ba-card { padding:28px 30px; }
+.ba-card h3 { font-size:0.9em;margin-bottom:18px;letter-spacing:2px; }
+.ba-card li { font-size:0.58em;margin-bottom:8px;padding-left:16px;position:relative;line-height:1.5; }
+.ba-card li::before { content:'>';position:absolute;left:0; }
 .ba-before { background:#1A1A1A;border-top:3px solid var(--red); }
 .ba-before h3 { color:var(--red); } .ba-before li { color:#999; } .ba-before li::before { color:var(--red); }
 .ba-after { background:#1A1A1A;border-top:3px solid var(--green); }
@@ -230,6 +230,8 @@ code { font-family:'Menlo','Consolas',monospace;font-size:0.9em;background:rgba(
 @keyframes slideRight { from{transform:translateX(-20px);opacity:0;} to{transform:translateX(0);opacity:1;} }
 @keyframes fillBar { from{width:0%;} to{width:var(--fill);} }
 @keyframes spin { to{transform:rotate(360deg);} }
+@keyframes subtlePulse { 0%,100%{box-shadow:0 0 0 0 rgba(74,143,231,0.4);} 50%{box-shadow:0 0 12px 4px rgba(74,143,231,0.2);} }
+@keyframes termType { 0%{opacity:0;} 10%{opacity:1;} }
 
 .fragment.visible .anim-line { animation: fadeUp 0.4s ease both; }
 .fragment.visible .anim-line:nth-child(1) { animation-delay:0s; }
@@ -241,20 +243,47 @@ code { font-family:'Menlo','Consolas',monospace;font-size:0.9em;background:rgba(
 .fragment.visible .anim-line:nth-child(7) { animation-delay:0.9s; }
 .fragment.visible .anim-line:nth-child(8) { animation-delay:1.05s; }
 
-/* Auto-animate terminal lines on slide enter */
-.reveal section.present .auto-anim .ln { animation: fadeUp 0.3s ease both; }
-.reveal section.present .auto-anim .ln:nth-child(1) { animation-delay:0.1s; }
-.reveal section.present .auto-anim .ln:nth-child(2) { animation-delay:0.2s; }
-.reveal section.present .auto-anim .ln:nth-child(3) { animation-delay:0.3s; }
-.reveal section.present .auto-anim .ln:nth-child(4) { animation-delay:0.4s; }
-.reveal section.present .auto-anim .ln:nth-child(5) { animation-delay:0.5s; }
-.reveal section.present .auto-anim .ln:nth-child(6) { animation-delay:0.6s; }
-.reveal section.present .auto-anim .ln:nth-child(7) { animation-delay:0.7s; }
-.reveal section.present .auto-anim .ln:nth-child(8) { animation-delay:0.8s; }
-.reveal section.present .auto-anim .ln:nth-child(9) { animation-delay:0.9s; }
-.reveal section.present .auto-anim .ln:nth-child(10) { animation-delay:1.0s; }
-.reveal section.present .auto-anim .ln:nth-child(11) { animation-delay:1.1s; }
-.reveal section.present .auto-anim .ln:nth-child(12) { animation-delay:1.2s; }
+/* Auto-animate terminal lines on slide enter — typewriter style */
+.reveal section.present .auto-anim .ln {
+  opacity:0; transform:translateY(8px);
+  animation: typeLineIn 0.35s ease forwards;
+}
+@keyframes typeLineIn {
+  0% { opacity:0; transform:translateY(8px); }
+  100% { opacity:1; transform:translateY(0); }
+}
+.reveal section.present .auto-anim .ln:nth-child(1) { animation-delay:0.2s; }
+.reveal section.present .auto-anim .ln:nth-child(2) { animation-delay:0.5s; }
+.reveal section.present .auto-anim .ln:nth-child(3) { animation-delay:0.8s; }
+.reveal section.present .auto-anim .ln:nth-child(4) { animation-delay:1.1s; }
+.reveal section.present .auto-anim .ln:nth-child(5) { animation-delay:1.4s; }
+.reveal section.present .auto-anim .ln:nth-child(6) { animation-delay:1.7s; }
+.reveal section.present .auto-anim .ln:nth-child(7) { animation-delay:2.0s; }
+.reveal section.present .auto-anim .ln:nth-child(8) { animation-delay:2.3s; }
+.reveal section.present .auto-anim .ln:nth-child(9) { animation-delay:2.6s; }
+.reveal section.present .auto-anim .ln:nth-child(10) { animation-delay:2.9s; }
+.reveal section.present .auto-anim .ln:nth-child(11) { animation-delay:3.2s; }
+.reveal section.present .auto-anim .ln:nth-child(12) { animation-delay:3.5s; }
+.reveal section.present .auto-anim .ln:nth-child(13) { animation-delay:3.8s; }
+.reveal section.present .auto-anim .ln:nth-child(14) { animation-delay:4.1s; }
+.reveal section.present .auto-anim .ln:nth-child(15) { animation-delay:4.4s; }
+.reveal section.present .auto-anim .ln:nth-child(16) { animation-delay:4.7s; }
+.reveal section.present .auto-anim .ln:nth-child(17) { animation-delay:5.0s; }
+
+/* Demo terminal auto-play */
+.reveal section.present .demo-anim .ln { opacity:0; animation: fadeUp 0.4s ease forwards; }
+.reveal section.present .demo-anim .ln:nth-child(1) { animation-delay:0.3s; }
+.reveal section.present .demo-anim .ln:nth-child(2) { animation-delay:1.0s; }
+.reveal section.present .demo-anim .ln:nth-child(3) { animation-delay:1.5s; }
+.reveal section.present .demo-anim .ln:nth-child(4) { animation-delay:2.2s; }
+.reveal section.present .demo-anim .ln:nth-child(5) { animation-delay:2.8s; }
+.reveal section.present .demo-anim .ln:nth-child(6) { animation-delay:3.5s; }
+.reveal section.present .demo-anim .ln:nth-child(7) { animation-delay:4.2s; }
+.reveal section.present .demo-anim .ln:nth-child(8) { animation-delay:4.8s; }
+.reveal section.present .demo-anim .ln:nth-child(9) { animation-delay:5.5s; }
+.reveal section.present .demo-anim .ln:nth-child(10) { animation-delay:6.0s; }
+.reveal section.present .demo-anim .ln:nth-child(11) { animation-delay:6.5s; }
+.reveal section.present .demo-anim .ln:nth-child(12) { animation-delay:7.0s; }
 
 /* Progress bar */
 .bar-track { background:#2A2A2A;border-radius:4px;height:18px;overflow:hidden;position:relative; }
@@ -273,7 +302,20 @@ code { font-family:'Menlo','Consolas',monospace;font-size:0.9em;background:rgba(
 .role-tag.pm { background:var(--green);color:#FFF; }
 .role-tag.qa { background:var(--orange);color:#FFF; }
 .role-tag.design { background:var(--code-purple);color:#FFF; }
+.role-tag.recruit { background:var(--teal);color:#000; }
 .role-tag.all { background:#666;color:#FFF; }
+
+/* Try-it-now action box */
+.try-now { background:linear-gradient(135deg,#0D1117,#161B22);border:2px solid var(--blue);border-radius:8px;padding:12px 18px;margin:10px 0;animation:subtlePulse 3s ease infinite;display:flex;align-items:center;gap:12px; }
+.try-now .arrow { color:var(--blue);font-weight:900;font-size:1.2em; }
+.try-now code { background:rgba(74,143,231,0.15);color:var(--code-green);font-size:0.85em;padding:4px 10px;border-radius:4px; }
+.try-now span { color:#DDD;font-size:0.5em;font-weight:600; }
+.s-gray .try-now { background:linear-gradient(135deg,#E0E4EA,#D8DCE6);border-color:var(--blue); }
+.s-gray .try-now span { color:var(--dark-text); }
+.s-gray .try-now code { background:rgba(74,143,231,0.12);color:var(--dark-text); }
+
+/* Doc link style */
+a.doc-link { color:inherit;text-decoration:underline;text-decoration-style:dotted; }
 </style>
 </head>
 <body>
@@ -286,14 +328,52 @@ code { font-family:'Menlo','Consolas',monospace;font-size:0.9em;background:rgba(
   <div class="grow" style="display:flex;flex-direction:column;justify-content:center;">
     <h1 style="font-size:4.5em;margin-bottom:0;">CLAUDE CODE</h1>
     <h1 style="color:var(--blue);font-size:2.8em;margin-top:-5px;">SESSION 1: GETTING STARTED</h1>
+    <p style="color:#888;font-size:0.5em;font-style:italic;margin-top:16px;">One tool to rule them all 💍</p>
   </div>
+  <!-- Play this while people join the call: https://www.youtube.com/watch?v=HFlxEM6zZsc (Hobbiton / Shire theme)
+  -->
   <div class="mt-auto">
-    <p style="color:#666;font-size:0.4em;">Workshop 1 of 5 &nbsp;·&nbsp; Open to all roles</p>
+    <p style="color:#666;font-size:0.4em;">Workshop 1 of 5 &nbsp;&middot;&nbsp; Open to all roles</p>
     <div class="dots"><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
   </div>
+  <aside class="notes">Welcome everyone. This is for ALL roles -- engineers, PMs, QA, design, recruiting. No one should feel left out.</aside>
 </section>
 
-<!-- ====== 2. WHY CLAUDE CODE? ====== -->
+<!-- ====== 2. PRESENTERS ====== -->
+<section class="s-black" data-background="#000">
+  <div class="sq">SQUIRE</div>
+  <div class="grow" style="display:flex;align-items:center;justify-content:center;gap:60px;">
+    <div style="text-align:center;">
+      <img src="img/santi.png" style="width:120px;height:120px;border-radius:50%;object-fit:cover;margin:0 auto 12px;display:block;">
+      <p style="color:#FFF;font-weight:700;font-size:0.65em;margin:0;">Santi Anaya</p>
+      <p style="color:var(--blue);font-size:0.45em;margin:2px 0;">Presenter</p>
+    </div>
+    <div style="text-align:center;">
+      <img src="img/yurii.png" style="width:120px;height:120px;border-radius:50%;object-fit:cover;margin:0 auto 12px;display:block;">
+      <p style="color:#FFF;font-weight:700;font-size:0.65em;margin:0;">Yurii Petelko</p>
+      <p style="color:var(--blue);font-size:0.45em;margin:2px 0;">Workshop Series Lead</p>
+    </div>
+  </div>
+  <aside class="notes">Quick intro. "I'm Santi, and Yurii is co-leading the workshop series with me. Let's get into it."</aside>
+</section>
+
+<!-- ====== 3. AI AS A SECOND LANGUAGE ====== -->
+<section class="s-black" data-background="#000">
+  <div class="sq">SQUIRE</div>
+  <div class="grow" style="display:flex;flex-direction:column;justify-content:center;">
+    <h1 style="font-size:3.2em;margin-bottom:16px;">AI AS A<br>SECOND LANGUAGE</h1>
+    <p style="color:var(--blue);font-weight:700;font-size:0.7em;">Our goal: everyone at Squire uses AI daily.</p>
+    <p style="color:#CCC;font-size:0.58em;">AI is becoming a second language -- not just for engineers. PMs, QA, design, recruiters -- everyone benefits from knowing how to talk to AI tools effectively.</p>
+    <p style="color:#CCC;font-size:0.58em;">After this workshop, you should <strong style="color:var(--white);">use Claude for every question before asking a colleague.</strong> It saves time, makes you research better, and gives faster answers.</p>
+    <div style="background:#111;border-left:3px solid var(--blue);border-radius:6px;padding:14px 18px;margin:14px 0;">
+      <p style="color:#DDD;font-size:0.55em;font-style:italic;margin:0;">"You used to lose 30 minutes searching Slack threads. Now you ask Claude and get an answer in 10 seconds."</p>
+    </div>
+    <p style="color:#888;font-size:0.48em;">Claude can also read screenshots -- paste an error message screenshot and it understands it. This works for everyone, not just engineers.</p>
+  </div>
+  <aside class="notes">Pause here. Let this sink in. This is the mindset shift -- AI as a daily tool for everyone, not just a coding assistant.</aside>
+</section>
+
+<!-- ====== 3. WHY CLAUDE CODE? ====== -->
 <section class="s-black" data-background="#000">
   <div class="sq">SQUIRE</div>
   <h2 style="font-size:1.4em;">Why Claude Code?</h2>
@@ -319,45 +399,59 @@ code { font-family:'Menlo','Consolas',monospace;font-size:0.9em;background:rgba(
       </ul>
     </div>
   </div>
-  <p style="font-size:0.4em;color:#666;font-style:italic;margin-top:12px;">This applies to everyone — engineers write code with it, PMs draft specs, QA generates test plans, design gets dev context.</p>
+  <div class="pro-tip" style="margin-top:auto;background:rgba(255,255,255,0.05);border-left-color:var(--blue);">
+    <span class="label" style="color:var(--blue);">Why Claude Code over others?</span>
+    <p style="color:#CCC;">#1 on <a class="doc-link" href="https://www.swebench.com" target="_blank" rel="noopener" style="color:var(--blue);">SWE-bench</a> (industry coding benchmark). Reads your entire codebase. Connects to Jira, Slack, Figma via MCP. Runs in terminal, Desktop App, and IDE. One tool for every role.</p>
+  </div>
 </section>
 
-<!-- ====== 2b. WHAT CAN I DO WITH IT? (role-specific) ====== -->
+<!-- ====== 4. WHAT CAN I DO WITH IT? (role-specific, with fragments) ====== -->
 <section class="s-black" data-background="#000">
   <div class="sq">SQUIRE</div>
   <h2 style="font-size:1.6em;margin-bottom:16px;">What Can I Do With It?</h2>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;" class="grow">
-    <div style="background:#111;border-radius:8px;padding:18px;border-left:3px solid var(--blue);">
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;" class="grow">
+    <div class="fragment fade-up" data-fragment-index="0" style="background:#111;border-radius:8px;padding:16px;border-left:3px solid var(--blue);">
       <span class="role-tag eng">ENGINEERING</span>
-      <p style="color:#DDD;font-size:0.55em;margin-top:8px;">"Add rate limiting to the /api/users endpoint with Redis-backed sliding window"</p>
-      <p style="color:#888;font-size:0.42em;">Claude reads your code, writes the middleware, adds tests, opens a PR.</p>
+      <p style="color:#DDD;font-size:0.5em;margin-top:8px;">"Add rate limiting to the /api/users endpoint with Redis-backed sliding window"</p>
+      <p style="color:#888;font-size:0.38em;">Claude reads your code, writes the middleware, adds tests, opens a PR.</p>
     </div>
-    <div style="background:#111;border-radius:8px;padding:18px;border-left:3px solid var(--green);">
+    <div class="fragment fade-up" data-fragment-index="1" style="background:#111;border-radius:8px;padding:16px;border-left:3px solid var(--green);">
       <span class="role-tag pm">PRODUCT</span>
-      <p style="color:#DDD;font-size:0.55em;margin-top:8px;">"Review SHOP-456 and list edge cases the spec misses for the refund flow"</p>
-      <p style="color:#888;font-size:0.42em;">Claude reads the Jira ticket, cross-references the codebase, finds 3 gaps.</p>
+      <p style="color:#DDD;font-size:0.5em;margin-top:8px;">"Review SHOP-456 and list edge cases the spec misses for the refund flow"</p>
+      <p style="color:#888;font-size:0.38em;">Claude reads the Jira ticket, cross-references the codebase, finds 3 gaps.</p>
     </div>
-    <div style="background:#111;border-radius:8px;padding:18px;border-left:3px solid var(--orange);">
+    <div class="fragment fade-up" data-fragment-index="2" style="background:#111;border-radius:8px;padding:16px;border-left:3px solid var(--orange);">
       <span class="role-tag qa">QA</span>
-      <p style="color:#DDD;font-size:0.55em;margin-top:8px;">"Generate a test plan for the checkout flow covering happy path and edge cases"</p>
-      <p style="color:#888;font-size:0.42em;">Claude reads the implementation, produces 15 test cases with expected results.</p>
+      <p style="color:#DDD;font-size:0.5em;margin-top:8px;">"Generate a test plan for the checkout flow covering happy path and edge cases"</p>
+      <p style="color:#888;font-size:0.38em;">Claude reads the implementation, produces 15 test cases with expected results.</p>
     </div>
-    <div style="background:#111;border-radius:8px;padding:18px;border-left:3px solid var(--code-purple);">
+    <div class="fragment fade-up" data-fragment-index="3" style="background:#111;border-radius:8px;padding:16px;border-left:3px solid var(--code-purple);">
       <span class="role-tag design">DESIGN</span>
-      <p style="color:#DDD;font-size:0.55em;margin-top:8px;">"What components does the settings page use? Show me the current state from Figma"</p>
-      <p style="color:#888;font-size:0.42em;">Claude connects to Figma, reads the design system, maps to existing code.</p>
+      <p style="color:#DDD;font-size:0.5em;margin-top:8px;">"What components does the settings page use? Show me the current state from Figma"</p>
+      <p style="color:#888;font-size:0.38em;">Claude connects to Figma, reads the design system, maps to existing code.</p>
+    </div>
+    <div class="fragment fade-up" data-fragment-index="4" style="background:#111;border-radius:8px;padding:16px;border-left:3px solid var(--teal);">
+      <span class="role-tag recruit">RECRUITING</span>
+      <p style="color:#DDD;font-size:0.5em;margin-top:8px;">"Draft a job description for a senior backend engineer based on our current tech stack"</p>
+      <p style="color:#888;font-size:0.38em;">Claude reviews your codebase and open roles, writes a tailored JD in seconds.</p>
+    </div>
+    <div class="fragment fade-up" data-fragment-index="5" style="background:#111;border-radius:8px;padding:16px;border-left:3px solid #888;">
+      <span class="role-tag all">EVERYONE</span>
+      <p style="color:#DDD;font-size:0.5em;margin-top:8px;">"Summarize the last 3 Slack threads about the outage and list action items"</p>
+      <p style="color:#888;font-size:0.38em;">Claude reads Slack via MCP, summarizes, and lists next steps.</p>
     </div>
   </div>
-  <p style="font-size:0.45em;color:#666;text-align:center;margin-top:auto;">Same tool. Different questions. Everyone gets value from day one.</p>
+  <p style="font-size:0.42em;color:#666;text-align:center;margin-top:auto;">Same tool. Different questions. Everyone gets value from day one.</p>
+  <aside class="notes">Point to each role card. Ask who's a PM, QA, recruiter. Make them feel seen -- this is not just an eng tool.</aside>
 </section>
 
-<!-- ====== 3. WHAT WE'LL COVER ====== -->
+<!-- ====== 6. WHAT WE'LL COVER ====== -->
 <section class="s-gray" data-background="#F0F0F0">
   <div class="sq">SQUIRE</div>
   <h1 style="font-size:2.6em;">What We'll<br>Cover Today</h1>
   <div class="two-col grow">
     <div class="cmd-list">
-      <div class="item"><span class="k" style="color:var(--blue);min-width:30px;">01</span><span class="v" style="color:var(--dark-text);">THE TERMINAL — why it matters</span></div>
+      <div class="item"><span class="k" style="color:var(--blue);min-width:30px;">01</span><span class="v" style="color:var(--dark-text);">THE TERMINAL -- why it matters</span></div>
       <div class="item"><span class="k" style="color:var(--blue);min-width:30px;">02</span><span class="v" style="color:var(--dark-text);">INSTALLATION & CLI BASICS</span></div>
       <div class="item"><span class="k" style="color:var(--blue);min-width:30px;">03</span><span class="v" style="color:var(--dark-text);">COMMANDS DEEP DIVE</span></div>
       <div class="item"><span class="k" style="color:var(--blue);min-width:30px;">04</span><span class="v" style="color:var(--dark-text);">THE CONTEXT WINDOW</span></div>
@@ -366,72 +460,22 @@ code { font-family:'Menlo','Consolas',monospace;font-size:0.9em;background:rgba(
     </div>
     <div style="font-size:0.48em;color:var(--muted);">
       <p><strong style="color:var(--dark-text);">Duration:</strong> 40 minutes</p>
-      <p><strong style="color:var(--dark-text);">Audience:</strong> Everyone — eng, PM, QA, design</p>
+      <p><strong style="color:var(--dark-text);">Audience:</strong> Everyone -- eng, PM, QA, design, recruiting</p>
       <p><strong style="color:var(--dark-text);">Format:</strong> Slides + live demos</p>
-      <p style="margin-top:12px;color:var(--dark-text);font-weight:600;">🎯 Engineers will use the terminal.<br>Everyone else can use the Claude Desktop App.<br>We'll show both throughout.</p>
+      <p style="margin-top:12px;color:var(--dark-text);font-weight:600;">Engineers will use the terminal.<br>Everyone else can use the Claude Desktop App.<br>We'll show both throughout -- and why it matters for YOUR role.</p>
     </div>
   </div>
 </section>
 
-<!-- ====== 4. SECTION: TERMINAL ====== -->
-<section class="s-black" data-background="#000">
-  <div class="sq">SQUIRE</div>
-  <div class="grow" style="display:flex;align-items:flex-end;">
-    <h1 style="font-size:3.8em;">THE TERMINAL IS YOUR FRIEND</h1>
-  </div>
-</section>
-
-<!-- ====== 5. WHY THE TERMINAL ====== -->
-<section class="s-gray" data-background="#F0F0F0">
-  <div class="sq">SQUIRE</div>
-  <h2>Why the Terminal?</h2>
-  <div class="two-col grow">
-    <div>
-      <p style="color:var(--dark-text);font-weight:600;">The terminal is just a text conversation with your computer.</p>
-      <p>You don't need to memorize commands — Claude Code IS the terminal now.</p>
-      <p>GUI tools hide what's happening. The terminal shows everything.</p>
-      <p style="color:var(--blue);font-weight:700;font-style:italic;">If you can type a Slack message, you can use the terminal.</p>
-    </div>
-    <div class="term" style="align-self:start;">
-      <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">Terminal — zsh</div></div>
-      <div class="term-body">
-        <div class="ln"><span class="p">~ $</span> <span class="c">claude</span></div>
-        <div class="ln"><span class="o">╭─────────────────────────────╮</span></div>
-        <div class="ln"><span class="o">│  </span><span class="ok">Claude Code</span><span class="o"> v1.0.32       │</span></div>
-        <div class="ln"><span class="o">│  Reading project files...   │</span></div>
-        <div class="ln"><span class="o">╰─────────────────────────────╯</span></div>
-        <div class="ln">&nbsp;</div>
-        <div class="ln"><span class="ok">?</span> What would you like to do?</div>
-        <div class="ln"><span class="cursor"></span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ====== 6. TWO WAYS TO USE CLAUDE ====== -->
+<!-- ====== 7. TWO WAYS TO USE CLAUDE (Desktop App LEFT, Terminal RIGHT) ====== -->
 <section class="s-gray" data-background="#F0F0F0">
   <div class="sq">SQUIRE</div>
   <h2>Two Ways to Use Claude</h2>
   <p style="font-style:italic;font-size:0.5em;">Same brain, different window. Both connect to the same tools.</p>
   <div class="two-col grow mt-sm">
     <div>
-      <h3 style="color:var(--dark-text);font-size:0.6em;margin-bottom:8px;">FOR ENGINEERS: Terminal</h3>
-      <div class="term" style="font-size:12px;">
-        <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">Claude Code</div></div>
-        <div class="term-body">
-          <div class="ln"><span class="p">~/api $</span> <span class="c">claude</span></div>
-          <div class="ln"><span class="ok">?</span> What would you like to do?</div>
-          <div class="ln"><span class="p">></span> <span class="s">"add rate limiting to /api/users"</span></div>
-          <div class="ln">&nbsp;</div>
-          <div class="ln"><span class="ok">✓</span> <span class="o">Created src/middleware/rateLimit.ts</span></div>
-          <div class="ln"><span class="ok">✓</span> <span class="o">Updated src/routes/users.ts</span></div>
-          <div class="ln"><span class="ok">✓</span> <span class="o">Added tests in __tests__/rateLimit.test.ts</span></div>
-        </div>
-      </div>
-      <p style="font-size:0.42em;color:var(--dark-text);margin-top:6px;font-weight:600;">→ This is what today's session focuses on</p>
-    </div>
-    <div>
-      <h3 style="color:var(--dark-text);font-size:0.6em;margin-bottom:8px;">FOR EVERYONE: Desktop App</h3>
+      <h3 style="color:var(--dark-text);font-size:0.6em;margin-bottom:2px;">Desktop App</h3>
+      <p style="font-size:0.42em;color:var(--muted);margin:0 0 8px 0;">Same Claude, visual interface</p>
       <div class="app">
         <div class="app-bar">
           <div class="app-icon">C</div>
@@ -444,25 +488,41 @@ code { font-family:'Menlo','Consolas',monospace;font-size:0.9em;background:rgba(
             <div class="label">Claude</div>
             Based on SHOP-234, here's a test plan for the checkout flow:<br><br>
             <strong>Happy path:</strong><br>
-            1. Add item → cart → checkout → payment<br>
+            1. Add item &rarr; cart &rarr; checkout &rarr; payment<br>
             2. Verify order confirmation email<br><br>
             <strong>Edge cases:</strong><br>
-            3. Empty cart → checkout (should block)<br>
+            3. Empty cart &rarr; checkout (should block)<br>
             4. Expired promo code...
           </div>
           <div class="app-input"><div class="inp">Ask Claude anything...</div></div>
         </div>
       </div>
-      <p style="font-size:0.42em;color:var(--dark-text);margin-top:6px;font-weight:600;">→ Same Claude, zero terminal needed</p>
+    </div>
+    <div>
+      <h3 style="color:var(--dark-text);font-size:0.6em;margin-bottom:2px;">Terminal</h3>
+      <p style="font-size:0.42em;color:var(--muted);margin:0 0 8px 0;">Full power, all features</p>
+      <div class="term" style="font-size:12px;">
+        <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">Claude Code</div></div>
+        <div class="term-body">
+          <div class="ln"><span class="p">~/api $</span> <span class="c">claude</span></div>
+          <div class="ln"><span class="ok">?</span> What would you like to do?</div>
+          <div class="ln"><span class="p">></span> <span class="s">"add rate limiting to /api/users"</span></div>
+          <div class="ln">&nbsp;</div>
+          <div class="ln"><span class="ok">&#10003;</span> <span class="o">Created src/middleware/rateLimit.ts</span></div>
+          <div class="ln"><span class="ok">&#10003;</span> <span class="o">Updated src/routes/users.ts</span></div>
+          <div class="ln"><span class="ok">&#10003;</span> <span class="o">Added tests in __tests__/rateLimit.test.ts</span></div>
+        </div>
+      </div>
     </div>
   </div>
+  <p style="font-size:0.45em;color:var(--dark-text);font-weight:600;text-align:center;margin-top:auto;">Both are powerful. Use whichever feels natural. Today we'll mostly demo the terminal, but everything works in the app too.</p>
 </section>
 
-<!-- ====== 6b. DESKTOP APP: 3 MODES ====== -->
+<!-- ====== 8. DESKTOP APP: 3 MODES ====== -->
 <section class="s-gray" data-background="#F0F0F0">
   <div class="sq">SQUIRE</div>
   <h2>Desktop App: 3 Modes</h2>
-  <p style="font-size:0.5em;color:var(--muted);font-style:italic;">The Claude Desktop App isn't just a chatbot — it has 3 distinct modes for different workflows.</p>
+  <p style="font-size:0.5em;color:var(--muted);font-style:italic;">The Claude Desktop App isn't just a chatbot -- it has 3 distinct modes for different workflows.</p>
   <div class="three-col grow mt-sm">
     <!-- Chat mode -->
     <div>
@@ -481,7 +541,7 @@ code { font-family:'Menlo','Consolas',monospace;font-size:0.9em;background:rgba(
       <div style="margin-top:8px;font-size:0.45em;">
         <p style="color:var(--dark-text);font-weight:700;margin:0;">Chat</p>
         <p style="color:var(--muted);margin:2px 0;">Q&A, brainstorming, research. Like talking to a brilliant colleague.</p>
-        <p style="color:var(--dark-text);font-weight:600;margin:2px 0;">Best for: PMs, QA, everyone</p>
+        <p style="color:var(--dark-text);font-weight:600;margin:2px 0;">Best for: PMs, QA, recruiters, everyone</p>
       </div>
     </div>
     <!-- Cowork mode -->
@@ -494,14 +554,14 @@ code { font-family:'Menlo','Consolas',monospace;font-size:0.9em;background:rgba(
         </div>
         <div class="app-body" style="min-height:120px;">
           <div class="app-msg user" style="font-size:10px;">Create a test plan for SHOP-234 and save it as a doc</div>
-          <div class="app-msg claude" style="font-size:10px;"><div class="label">Claude</div><span style="color:var(--code-green);">✓</span> Created test-plan-SHOP-234.docx<br><span style="color:var(--code-green);">✓</span> Reading Jira ticket for context...</div>
+          <div class="app-msg claude" style="font-size:10px;"><div class="label">Claude</div><span style="color:var(--code-green);">&#10003;</span> Created test-plan-SHOP-234.docx<br><span style="color:var(--code-green);">&#10003;</span> Reading Jira ticket for context...</div>
           <div class="app-input"><div class="inp">Claude works on your files...</div></div>
         </div>
       </div>
       <div style="margin-top:8px;font-size:0.45em;">
         <p style="color:var(--dark-text);font-weight:700;margin:0;">Cowork</p>
         <p style="color:var(--muted);margin:2px 0;">Claude works with your files, creates docs, connects to tools (Jira, Slack, Figma).</p>
-        <p style="color:var(--dark-text);font-weight:600;margin:2px 0;">Best for: PMs, QA, design</p>
+        <p style="color:var(--dark-text);font-weight:600;margin:2px 0;">Best for: PMs, QA, design, recruiters</p>
       </div>
     </div>
     <!-- Code mode -->
@@ -514,7 +574,7 @@ code { font-family:'Menlo','Consolas',monospace;font-size:0.9em;background:rgba(
         </div>
         <div class="app-body" style="min-height:120px;">
           <div class="app-msg user" style="font-size:10px;">How does the rate limiter work in our API?</div>
-          <div class="app-msg claude" style="font-size:10px;"><div class="label">Claude</div>Looking at src/middleware/rateLimit.ts — it uses a sliding window algorithm with Redis...</div>
+          <div class="app-msg claude" style="font-size:10px;"><div class="label">Claude</div>Looking at src/middleware/rateLimit.ts -- it uses a sliding window algorithm with Redis...</div>
           <div class="app-input"><div class="inp">Ask about your codebase...</div></div>
         </div>
       </div>
@@ -527,21 +587,60 @@ code { font-family:'Menlo','Consolas',monospace;font-size:0.9em;background:rgba(
   </div>
 </section>
 
-<!-- ====== 7. MEET WARP ====== -->
+<!-- ====== 9. SECTION: THE TERMINAL ====== -->
+<section class="s-black" data-background="#000">
+  <div class="sq">SQUIRE</div>
+  <div class="grow" style="display:flex;align-items:flex-end;">
+    <h1 style="font-size:3.8em;">THE TERMINAL IS YOUR FRIEND</h1>
+  </div>
+</section>
+
+<!-- ====== 10. WHY THE TERMINAL ====== -->
+<section class="s-gray" data-background="#F0F0F0">
+  <div class="sq">SQUIRE</div>
+  <h2>Why the Terminal?</h2>
+  <div class="two-col grow">
+    <div>
+      <p style="color:var(--dark-text);font-weight:600;">The terminal is just a text conversation with your computer.</p>
+      <p>You don't need to memorize commands -- Claude Code IS the terminal now.</p>
+      <p>GUI tools hide what's happening. The terminal shows everything.</p>
+      <p style="color:var(--blue);font-weight:700;font-style:italic;">If you can type a Slack message, you can use the terminal.</p>
+    </div>
+    <div class="term" style="align-self:start;">
+      <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">Terminal -- zsh</div></div>
+      <div class="term-body">
+        <div class="ln"><span class="p">~ $</span> <span class="c">claude</span></div>
+        <div class="ln"><span class="o">+---------------------------------+</span></div>
+        <div class="ln"><span class="o">|  </span><span class="ok">Claude Code</span><span class="o"> v1.0.32         |</span></div>
+        <div class="ln"><span class="o">|  Reading project files...     |</span></div>
+        <div class="ln"><span class="o">+---------------------------------+</span></div>
+        <div class="ln">&nbsp;</div>
+        <div class="ln"><span class="ok">?</span> What would you like to do?</div>
+        <div class="ln"><span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== 11. MEET WARP ====== -->
 <section class="s-gray" data-background="#F0F0F0">
   <div class="sq">SQUIRE</div>
   <h2>Meet Warp</h2>
   <div class="two-col grow">
     <div>
-      <p><strong style="color:var(--dark-text);">Warp</strong> (warp.dev) — a modern terminal that works like an IDE.</p>
-      <p>Block-based output, AI-powered search, normal text editing — like Google Docs but for commands.</p>
+      <p><strong style="color:var(--dark-text);">Warp</strong> (warp.dev) -- a modern terminal that works like an IDE.</p>
+      <p>Block-based output, AI-powered search, normal text editing -- like Google Docs but for commands.</p>
       <p style="color:var(--dark-text);font-weight:600;">Great safety net for anyone new to the terminal.</p>
       <p>Free for individual use.</p>
-      <p style="color:var(--dark-text);font-weight:700;font-size:0.65em;background:#E0E0E0;padding:8px 14px;border-radius:6px;display:inline-block;margin-top:6px;">→ Install it today: <code style="font-size:0.9em;">brew install warp</code> or <span style="color:var(--blue);">warp.dev</span></p>
+      <div class="try-now">
+        <span class="arrow">&rarr;</span>
+        <span>Follow along now: open your terminal and run</span>
+        <code>brew install warp</code>
+      </div>
     </div>
     <div class="warp" style="align-self:start;">
       <div class="warp-bar">
-        <span class="logo">▸ Warp</span>
+        <span class="logo">&#9654; Warp</span>
         <span class="path">~/squire-platform</span>
       </div>
       <div class="warp-block">
@@ -550,13 +649,54 @@ code { font-family:'Menlo','Consolas',monospace;font-size:0.9em;background:rgba(
       </div>
       <div class="warp-block">
         <div class="prompt-line">$ claude</div>
-        <div class="output"><span style="color:var(--code-green);">✓</span> Claude Code v1.0.32<br><span style="color:var(--code-green);">✓</span> Found 847 files<br><span style="color:var(--code-green);">?</span> What would you like to do?<br><span style="color:var(--code-green);">▎</span></div>
+        <div class="output"><span style="color:var(--code-green);">&#10003;</span> Claude Code v1.0.32<br><span style="color:var(--code-green);">&#10003;</span> Found 847 files<br><span style="color:var(--code-green);">?</span> What would you like to do?<br><span style="color:var(--code-green);">|</span></div>
       </div>
     </div>
   </div>
+  <aside class="notes">Seriously, install this. It makes the terminal feel modern.</aside>
 </section>
 
-<!-- ====== 8. SECTION: INSTALLATION ====== -->
+<!-- ====== NON-ENGINEERS: HOW TO GET STARTED ====== -->
+<section class="s-gray" data-background="#F0F0F0">
+  <div class="sq">SQUIRE</div>
+  <h2>The Desktop Alternative</h2>
+  <div class="two-col grow">
+    <div>
+      <p style="color:var(--dark-text);font-weight:700;font-size:0.65em;">You don't need to know what a "repo" is.</p>
+      <p>The Desktop App works without a codebase -- just open it and chat. No terminal, no installation commands, no code.</p>
+      <p style="color:var(--dark-text);font-weight:600;margin-top:10px;">For codebase questions:</p>
+      <p>Ask your eng lead which repo to point Claude at, or we'll set up a central knowledge repo. The idea: a "repo of repos" -- a single repo with READMEs linking to all services, so anyone can ask Claude about the whole org.</p>
+      <p style="color:var(--dark-text);font-weight:600;margin-top:10px;">You can also paste directly into Claude:</p>
+      <p>Screenshots, docs, Jira links, error messages, Slack threads -- Claude reads them all.</p>
+      <p style="color:var(--blue);font-weight:700;font-style:italic;margin-top:10px;">Similar to ChatGPT, but connected to your work tools and codebase.</p>
+    </div>
+    <div>
+      <div class="app">
+        <div class="app-bar"><div class="app-icon">C</div><span class="app-title">Claude</span><span class="app-model">Sonnet</span></div>
+        <div class="app-body">
+          <div class="app-msg user" style="font-size:11px;"><span class="role-tag recruit" style="font-size:8px;margin-right:4px;">RECRUITER</span> Summarize the last 5 engineering candidates and flag who has React experience</div>
+          <div class="app-msg claude" style="font-size:11px;">
+            <div class="label">Claude</div>
+            Based on the ATS data:<br><br>
+            1. <strong>Sarah K.</strong> -- 4yr React, full-stack<br>
+            2. <strong>James M.</strong> -- Backend only, no React<br>
+            3. <strong>Priya R.</strong> -- 2yr React + Next.js<br>
+            ...<br><br>
+            <span style="color:var(--code-green);">3 of 5 candidates have React experience.</span>
+          </div>
+          <div class="app-input"><div class="inp">Ask about candidates, JDs, anything...</div></div>
+        </div>
+      </div>
+      <div class="pro-tip" style="margin-top:10px;">
+        <span class="label">Pro Tip</span>
+        <p>Claude can read screenshots. Paste a screenshot of an error, a Jira ticket, or a Figma frame and it understands the content visually.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">This is the most important slide for half the room. Make sure non-engineers feel welcome. Emphasize: Desktop App, no terminal needed, paste anything.</aside>
+</section>
+
+<!-- ====== 12. SECTION: INSTALLATION ====== -->
 <section class="s-black" data-background="#000">
   <div class="sq">SQUIRE</div>
   <div class="grow" style="display:flex;align-items:flex-end;">
@@ -564,11 +704,11 @@ code { font-family:'Menlo','Consolas',monospace;font-size:0.9em;background:rgba(
   </div>
 </section>
 
-<!-- ====== 9. INSTALLING CLAUDE CODE ====== -->
+<!-- ====== 13. INSTALLING CLAUDE CODE ====== -->
 <section class="s-gray" data-background="#F0F0F0">
   <div class="sq">SQUIRE</div>
   <h2>Installing Claude Code</h2>
-  <div class="term" style="margin-bottom:16px;">
+  <div class="term" style="margin-bottom:12px;">
     <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">Terminal</div></div>
     <div class="term-body">
       <div class="ln"><span class="p">~ $</span> <span class="c">npm install</span> <span class="f">-g</span> <span class="s">@anthropic-ai/claude-code</span></div>
@@ -578,13 +718,18 @@ code { font-family:'Menlo','Consolas',monospace;font-size:0.9em;background:rgba(
       <div class="ln"><span class="ok">claude-code v1.0.32</span></div>
     </div>
   </div>
-  <p>Requires <strong style="color:var(--dark-text);">Node.js 18+</strong>. Authenticate via Anthropic Console.</p>
+  <p>Requires <a class="doc-link" href="https://nodejs.org" target="_blank" rel="noopener"><strong style="color:var(--dark-text);">Node.js 18+</strong></a>. Don't have it? Ask in <span style="color:var(--blue);font-weight:600;">#claude-code-workshop</span> on Slack.</p>
   <p>Verify with <code>claude --version</code>, then run <code>claude</code> in any project.</p>
   <p>It reads your codebase automatically on launch.</p>
-  <p style="font-size:0.5em;color:var(--blue);font-weight:600;margin-top:12px;">Non-engineers: download the Desktop App from claude.ai/download — no install commands needed.</p>
+  <div class="try-now">
+    <span class="arrow">&rarr;</span>
+    <span>Try it now:</span>
+    <code>npm install -g @anthropic-ai/claude-code</code>
+  </div>
+  <p style="font-size:0.5em;color:var(--blue);font-weight:600;margin-top:8px;">Prefer a visual interface? Download the <a class="doc-link" href="https://claude.ai/download" target="_blank" rel="noopener" style="color:var(--blue);">Desktop App</a> — no install commands needed.</p>
 </section>
 
-<!-- ====== 10. FIRST INTERACTION ====== -->
+<!-- ====== 14. FIRST INTERACTION ====== -->
 <section class="s-gray" data-background="#F0F0F0">
   <div class="sq">SQUIRE</div>
   <h2>First Interaction</h2>
@@ -594,9 +739,9 @@ code { font-family:'Menlo','Consolas',monospace;font-size:0.9em;background:rgba(
       <div class="term-body auto-anim" style="font-size:12px;">
         <div class="ln"><span class="p">~/my-project $</span> <span class="c">claude</span></div>
         <div class="ln"><span class="spinner"></span> <span class="o">Scanning project...</span></div>
-        <div class="ln"><span class="ok">✓</span> <span class="o">Found 847 files, 23 directories</span></div>
-        <div class="ln"><span class="ok">✓</span> <span class="o">Detected: TypeScript, React, Node.js</span></div>
-        <div class="ln"><span class="ok">✓</span> <span class="o">Read CLAUDE.md (project instructions)</span></div>
+        <div class="ln"><span class="ok">&#10003;</span> <span class="o">Found 847 files, 23 directories</span></div>
+        <div class="ln"><span class="ok">&#10003;</span> <span class="o">Detected: TypeScript, React, Node.js</span></div>
+        <div class="ln"><span class="ok">&#10003;</span> <span class="o">Read CLAUDE.md (project instructions)</span></div>
         <div class="ln">&nbsp;</div>
         <div class="ln"><span class="p">></span> <span class="s">"explain this project"</span></div>
         <div class="ln">&nbsp;</div>
@@ -613,10 +758,10 @@ code { font-family:'Menlo','Consolas',monospace;font-size:0.9em;background:rgba(
         <div class="app-msg claude">
           <div class="label">Claude</div>
           The checkout-service is a Node.js microservice that handles payment processing. It:<br><br>
-          • Validates cart items against inventory<br>
-          • Processes payments via Stripe<br>
-          • Sends order confirmation emails<br>
-          • Publishes events to the order queue<br><br>
+          &bull; Validates cart items against inventory<br>
+          &bull; Processes payments via Stripe<br>
+          &bull; Sends order confirmation emails<br>
+          &bull; Publishes events to the order queue<br><br>
           The main entry point is <strong>src/index.ts</strong>.
         </div>
         <div class="app-input"><div class="inp">Ask about the codebase...</div></div>
@@ -626,7 +771,7 @@ code { font-family:'Menlo','Consolas',monospace;font-size:0.9em;background:rgba(
   <p style="font-size:0.45em;margin-top:8px;">Use <code>claude -p</code> for one-shot questions without starting a conversation.</p>
 </section>
 
-<!-- ====== 11. SECTION: COMMANDS ====== -->
+<!-- ====== 15. SECTION: COMMANDS ====== -->
 <section class="s-black" data-background="#000">
   <div class="sq">SQUIRE</div>
   <div class="grow" style="display:flex;align-items:flex-end;">
@@ -634,22 +779,24 @@ code { font-family:'Menlo','Consolas',monospace;font-size:0.9em;background:rgba(
   </div>
 </section>
 
-<!-- ====== 12. DAILY ESSENTIALS ====== -->
+<!-- ====== 16. DAILY ESSENTIALS ====== -->
 <section class="s-gray" data-background="#F0F0F0">
   <div class="sq">SQUIRE</div>
   <h2>Daily Essentials</h2>
   <div class="two-col grow">
     <div class="cmd-list">
-      <div class="item"><span class="k">/help</span><span class="v">see all 50+ commands (type / then filter)</span></div>
-      <div class="item"><span class="k">/clear</span><span class="v">reset conversation and free context</span></div>
-      <div class="item"><span class="k">/cost</span><span class="v">check token usage</span></div>
-      <div class="item"><span class="k">/model</span><span class="v">switch models mid-conversation</span></div>
-      <div class="item"><span class="k">/effort</span><span class="v">control reasoning depth (low → max)</span></div>
-      <div class="item"><span class="k">/status</span><span class="v">version info and usage streaks</span></div>
+      <div class="item"><span class="k"><a class="doc-link" href="https://docs.anthropic.com/en/docs/claude-code/commands" target="_blank" rel="noopener">/help</a></span><span class="v">see all 50+ commands (type / then filter)</span></div>
+      <div class="item"><span class="k"><a class="doc-link" href="https://docs.anthropic.com/en/docs/claude-code/commands" target="_blank" rel="noopener">/clear</a></span><span class="v">reset conversation and free context</span></div>
+      <div class="item"><span class="k"><a class="doc-link" href="https://docs.anthropic.com/en/docs/claude-code/commands" target="_blank" rel="noopener">/model</a></span><span class="v">switch models mid-conversation</span></div>
+      <div class="item"><span class="k"><a class="doc-link" href="https://docs.anthropic.com/en/docs/claude-code/commands" target="_blank" rel="noopener">/effort</a></span><span class="v">control reasoning depth (low &rarr; max)</span></div>
+      <div class="item"><span class="k"><a class="doc-link" href="https://docs.anthropic.com/en/docs/claude-code/commands" target="_blank" rel="noopener">/fast</a></span><span class="v">toggle fast mode — same model, faster output</span></div>
+      <div class="item"><span class="k"><a class="doc-link" href="https://docs.anthropic.com/en/docs/claude-code/commands" target="_blank" rel="noopener">/diff</a></span><span class="v">interactive diff viewer — browse changes per turn</span></div>
+      <div class="item"><span class="k"><a class="doc-link" href="https://docs.anthropic.com/en/docs/claude-code/commands" target="_blank" rel="noopener">/desktop</a></span><span class="v">continue this session in the Desktop App</span></div>
+      <div class="item"><span class="k"><a class="doc-link" href="https://docs.anthropic.com/en/docs/claude-code/commands" target="_blank" rel="noopener">/cost</a></span><span class="v">check token usage and session cost</span></div>
     </div>
     <div class="term" style="align-self:start;">
       <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">/cost output</div></div>
-      <div class="term-body" style="font-size:12px;">
+      <div class="term-body auto-anim" style="font-size:12px;">
         <div class="ln"><span class="p">></span> <span class="c">/cost</span></div>
         <div class="ln">&nbsp;</div>
         <div class="ln"><span class="o">Session cost:</span> <span class="ok">$0.42</span></div>
@@ -657,30 +804,32 @@ code { font-family:'Menlo','Consolas',monospace;font-size:0.9em;background:rgba(
         <div class="ln"><span class="o">Input tokens:</span> <span class="s">28,450</span></div>
         <div class="ln"><span class="o">Output tokens:</span> <span class="s">12,320</span></div>
         <div class="ln">&nbsp;</div>
-        <div class="ln"><span class="cm"># Don't worry about cost —</span></div>
+        <div class="ln"><span class="cm"># Don't worry about cost --</span></div>
         <div class="ln"><span class="cm"># we have Team subscriptions.</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ====== 13. CONTEXT & MEMORY ====== -->
+<!-- ====== 17. CONTEXT & MEMORY ====== -->
 <section class="s-gray" data-background="#F0F0F0">
   <div class="sq">SQUIRE</div>
   <h2>Context & Memory</h2>
   <div class="two-col grow">
     <div class="cmd-list">
-      <div class="item"><span class="k">/compact</span><span class="v">compress the conversation, keep what matters</span></div>
-      <div class="item"><span class="k">/context</span><span class="v">visualize your context usage as a grid</span></div>
-      <div class="item"><span class="k">/memory</span><span class="v">persistent preferences across sessions</span></div>
-      <div class="item"><span class="k">/init</span><span class="v">scaffold a CLAUDE.md for your project</span></div>
+      <div class="item"><span class="k"><a class="doc-link" href="https://docs.anthropic.com/en/docs/claude-code/commands" target="_blank" rel="noopener">/compact</a></span><span class="v">compress the conversation, keep what matters</span></div>
+      <div class="item"><span class="k"><a class="doc-link" href="https://docs.anthropic.com/en/docs/claude-code/commands" target="_blank" rel="noopener">/context</a></span><span class="v">visualize your context usage as a colored grid</span></div>
+      <div class="item"><span class="k"><a class="doc-link" href="https://docs.anthropic.com/en/docs/claude-code/commands" target="_blank" rel="noopener">/memory</a></span><span class="v">persistent preferences across sessions</span></div>
+      <div class="item"><span class="k"><a class="doc-link" href="https://docs.anthropic.com/en/docs/claude-code/commands" target="_blank" rel="noopener">/init</a></span><span class="v">scaffold a CLAUDE.md for your project</span></div>
+      <div class="item"><span class="k"><a class="doc-link" href="https://docs.anthropic.com/en/docs/claude-code/commands" target="_blank" rel="noopener">/resume</a></span><span class="v">pick up any previous session by name or ID</span></div>
+      <div class="item"><span class="k"><a class="doc-link" href="https://docs.anthropic.com/en/docs/claude-code/commands" target="_blank" rel="noopener">/rename</a></span><span class="v">name your session so you can find it later</span></div>
     </div>
     <div class="term" style="align-self:start;">
       <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">/compact output</div></div>
-      <div class="term-body" style="font-size:12px;">
+      <div class="term-body auto-anim" style="font-size:12px;">
         <div class="ln"><span class="p">></span> <span class="c">/compact</span></div>
         <div class="ln">&nbsp;</div>
-        <div class="ln"><span class="ok">✓</span> <span class="o">Compressed conversation</span></div>
+        <div class="ln"><span class="ok">&#10003;</span> <span class="o">Compressed conversation</span></div>
         <div class="ln"><span class="o">  Before:</span> <span class="er">142,800 tokens (71%)</span></div>
         <div class="ln"><span class="o">  After:</span>  <span class="ok">38,200 tokens (19%)</span></div>
         <div class="ln"><span class="o">  Freed:</span>  <span class="ok">104,600 tokens</span></div>
@@ -693,103 +842,105 @@ code { font-family:'Menlo','Consolas',monospace;font-size:0.9em;background:rgba(
   </div>
 </section>
 
-<!-- ====== 14. CONVERSATION CONTROL ====== -->
+<!-- ====== 18. CONVERSATION CONTROL ====== -->
 <section class="s-gray" data-background="#F0F0F0">
   <div class="sq">SQUIRE</div>
   <h2>Conversation Control</h2>
   <div class="cmd-list">
-    <div class="item"><span class="k">/btw</span><span class="v">ask a side question without polluting conversation history</span></div>
-    <div class="item"><span class="k">/branch</span><span class="v">fork the conversation to explore a different approach</span></div>
-    <div class="item"><span class="k">/rewind</span><span class="v">undo conversation AND code changes to a checkpoint</span></div>
-    <div class="item"><span class="k">/resume</span><span class="v">pick up where you left off</span></div>
+    <div class="item"><span class="k"><a class="doc-link" href="https://docs.anthropic.com/en/docs/claude-code/commands" target="_blank" rel="noopener">/btw</a></span><span class="v">side question without polluting conversation history</span></div>
+    <div class="item"><span class="k"><a class="doc-link" href="https://docs.anthropic.com/en/docs/claude-code/commands" target="_blank" rel="noopener">/branch</a></span><span class="v">fork the conversation to try a different approach</span></div>
+    <div class="item"><span class="k"><a class="doc-link" href="https://docs.anthropic.com/en/docs/claude-code/commands" target="_blank" rel="noopener">/rewind</a></span><span class="v">undo conversation AND code changes to a checkpoint</span></div>
+    <div class="item"><span class="k"><a class="doc-link" href="https://docs.anthropic.com/en/docs/claude-code/commands" target="_blank" rel="noopener">/plan</a></span><span class="v">think through the approach before writing any code</span></div>
+    <div class="item"><span class="k"><a class="doc-link" href="https://docs.anthropic.com/en/docs/claude-code/commands" target="_blank" rel="noopener">/copy</a></span><span class="v">copy last response to clipboard — picks code blocks</span></div>
+    <div class="item"><span class="k"><a class="doc-link" href="https://docs.anthropic.com/en/docs/claude-code/commands" target="_blank" rel="noopener">/export</a></span><span class="v">export the entire conversation as a text file</span></div>
   </div>
   <div class="term mt" style="max-width:75%;">
-    <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">/btw in action</div></div>
-    <div class="term-body" style="font-size:12px;">
-      <div class="ln"><span class="cm"># You're mid-task refactoring auth...</span></div>
-      <div class="ln"><span class="p">></span> <span class="c">/btw</span> <span class="s">what's our convention for error handling?</span></div>
+    <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">/btw + /branch in action</div></div>
+    <div class="term-body auto-anim" style="font-size:12px;">
+      <div class="ln"><span class="cm"># Mid-task refactoring auth...</span></div>
+      <div class="ln"><span class="p">></span> <span class="c">/btw</span> <span class="s">what's our error handling convention?</span></div>
+      <div class="ln"><span class="o">Use custom AppError in src/errors/.</span></div>
+      <div class="ln"><span class="cm"># Answered without leaving your task!</span></div>
       <div class="ln">&nbsp;</div>
-      <div class="ln">Your team uses custom <span class="s">AppError</span> classes in</div>
-      <div class="ln"><span class="s">src/errors/</span>. Throw <span class="s">new AppError(code, msg)</span>.</div>
-      <div class="ln">&nbsp;</div>
-      <div class="ln"><span class="cm"># Claude answers, then returns to your refactoring task.</span></div>
-      <div class="ln"><span class="cm"># The side-question doesn't pollute the context.</span></div>
+      <div class="ln"><span class="cm"># Want to try a different approach?</span></div>
+      <div class="ln"><span class="p">></span> <span class="c">/branch</span> <span class="s">try-with-middleware</span></div>
+      <div class="ln"><span class="ok">✓ Branched conversation</span></div>
+      <div class="ln"><span class="cm"># Explore freely — /rewind to go back</span></div>
     </div>
   </div>
-  <p class="mt-sm" style="font-weight:600;color:var(--dark-text);font-size:0.58em;">These three — /btw, /branch, /rewind — are game-changers.</p>
+  <p class="mt-sm" style="font-weight:600;color:var(--dark-text);font-size:0.58em;">These three -- /btw, /branch, /rewind -- are game-changers.</p>
 </section>
 
-<!-- ====== 15. CLI FLAGS ====== -->
+<!-- ====== 19. CLI FLAGS + BUNDLED SKILLS (MERGED) ====== -->
 <section class="s-gray" data-background="#F0F0F0">
   <div class="sq">SQUIRE</div>
-  <h2>CLI Flags</h2>
-  <div class="term grow">
-    <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">CLI flag examples</div></div>
-    <div class="term-body" style="font-size:13px;">
-      <div class="ln"><span class="cm"># One-shot question, no conversation</span></div>
-      <div class="ln"><span class="p">$</span> <span class="c">claude</span> <span class="f">-p</span> <span class="s">"what does getUserById do?"</span></div>
-      <div class="ln">&nbsp;</div>
-      <div class="ln"><span class="cm"># Resume your last session</span></div>
-      <div class="ln"><span class="p">$</span> <span class="c">claude</span> <span class="f">--continue</span></div>
-      <div class="ln">&nbsp;</div>
-      <div class="ln"><span class="cm"># Start with a specific model</span></div>
-      <div class="ln"><span class="p">$</span> <span class="c">claude</span> <span class="f">--model</span> <span class="s">opus</span></div>
-      <div class="ln">&nbsp;</div>
-      <div class="ln"><span class="cm"># Pre-approve file edits</span></div>
-      <div class="ln"><span class="p">$</span> <span class="c">claude</span> <span class="f">--allowedTools</span> <span class="s">edit,write</span></div>
-      <div class="ln">&nbsp;</div>
-      <div class="ln"><span class="cm"># Work across multiple repos</span></div>
-      <div class="ln"><span class="p">$</span> <span class="c">claude</span> <span class="f">--add-dir</span> <span class="s">../shared-lib</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- ====== 16. BUNDLED SKILLS ====== -->
-<section class="s-gray" data-background="#F0F0F0">
-  <div class="sq">SQUIRE</div>
-  <h2>Bundled Skills</h2>
+  <h2>CLI Flags & Skills</h2>
   <div class="two-col grow">
-    <div class="cmd-list">
-      <div class="item"><span class="k">/batch</span><span class="v">splits work into parallel agents, each opens its own PR</span></div>
-      <div class="item"><span class="k">/simplify</span><span class="v">3 review agents find complexity, then auto-fix</span></div>
-      <div class="item"><span class="k">/loop</span><span class="v">repeated prompts on a schedule</span></div>
-      <div class="item"><span class="k">/debug</span><span class="v">enable debug logging for troubleshooting</span></div>
+    <div>
+      <p style="color:var(--dark-text);font-weight:700;font-size:0.6em;margin-bottom:8px;">Essential Flags</p>
+      <div class="term" style="font-size:12px;">
+        <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">CLI flags</div></div>
+        <div class="term-body">
+          <div class="ln"><span class="cm"># One-shot question, no conversation</span></div>
+          <div class="ln"><span class="p">$</span> <span class="c">claude</span> <a class="doc-link" href="https://docs.anthropic.com/en/docs/claude-code/cli-usage" target="_blank" rel="noopener"><span class="f">-p</span></a> <span class="s">"what does getUserById do?"</span></div>
+          <div class="ln">&nbsp;</div>
+          <div class="ln"><span class="cm"># Resume your last session</span></div>
+          <div class="ln"><span class="p">$</span> <span class="c">claude</span> <a class="doc-link" href="https://docs.anthropic.com/en/docs/claude-code/cli-usage" target="_blank" rel="noopener"><span class="f">--continue</span></a></div>
+          <div class="ln">&nbsp;</div>
+          <div class="ln"><span class="cm"># Start with a specific model</span></div>
+          <div class="ln"><span class="p">$</span> <span class="c">claude</span> <a class="doc-link" href="https://docs.anthropic.com/en/docs/claude-code/cli-usage" target="_blank" rel="noopener"><span class="f">--model</span></a> <span class="s">opus</span></div>
+          <div class="ln">&nbsp;</div>
+          <div class="ln"><span class="cm"># Pre-approve file edits</span></div>
+          <div class="ln"><span class="p">$</span> <span class="c">claude</span> <a class="doc-link" href="https://docs.anthropic.com/en/docs/claude-code/cli-usage" target="_blank" rel="noopener"><span class="f">--allowedTools</span></a> <span class="s">edit,write</span></div>
+          <div class="ln">&nbsp;</div>
+          <div class="ln"><span class="cm"># Work across multiple repos</span></div>
+          <div class="ln"><span class="p">$</span> <span class="c">claude</span> <a class="doc-link" href="https://docs.anthropic.com/en/docs/claude-code/cli-usage" target="_blank" rel="noopener"><span class="f">--add-dir</span></a> <span class="s">../shared-lib</span></div>
+        </div>
+      </div>
     </div>
-    <div class="term" style="align-self:start;">
-      <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">/batch example</div></div>
-      <div class="term-body auto-anim" style="font-size:12px;">
-        <div class="ln"><span class="p">></span> <span class="c">/batch</span> <span class="s">"add i18n to all 5 pages"</span></div>
-        <div class="ln">&nbsp;</div>
-        <div class="ln"><span class="spinner"></span> <span class="o">Spawning 5 agents...</span></div>
-        <div class="ln"><span class="ok">✓</span> <span class="o">Agent 1: HomePage — </span><span class="ok">PR #142</span></div>
-        <div class="ln"><span class="ok">✓</span> <span class="o">Agent 2: Settings — </span><span class="ok">PR #143</span></div>
-        <div class="ln"><span class="ok">✓</span> <span class="o">Agent 3: Dashboard — </span><span class="ok">PR #144</span></div>
-        <div class="ln"><span class="spinner"></span> <span class="o">Agent 4: Profile — working...</span></div>
-        <div class="ln"><span class="spinner"></span> <span class="o">Agent 5: Checkout — working...</span></div>
+    <div>
+      <p style="color:var(--dark-text);font-weight:700;font-size:0.6em;margin-bottom:8px;">Key Skills</p>
+      <div class="cmd-list">
+        <div class="item"><span class="k"><a class="doc-link" href="https://docs.anthropic.com/en/docs/claude-code/commands" target="_blank" rel="noopener">/batch</a></span><span class="v">splits work into parallel agents, each opens its own PR</span></div>
+        <div class="item"><span class="k"><a class="doc-link" href="https://docs.anthropic.com/en/docs/claude-code/commands" target="_blank" rel="noopener">/simplify</a></span><span class="v">3 review agents find complexity, then auto-fix</span></div>
+      </div>
+      <div class="term" style="font-size:11px;margin-top:10px;">
+        <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">/batch example</div></div>
+        <div class="term-body auto-anim">
+          <div class="ln"><span class="p">></span> <span class="c">/batch</span> <span class="s">"add i18n to all 5 pages"</span></div>
+          <div class="ln"><span class="spinner"></span> <span class="o">Spawning 5 agents...</span></div>
+          <div class="ln"><span class="ok">&#10003;</span> <span class="o">Agent 1: HomePage -- </span><span class="ok">PR #142</span></div>
+          <div class="ln"><span class="ok">&#10003;</span> <span class="o">Agent 2: Settings -- </span><span class="ok">PR #143</span></div>
+          <div class="ln"><span class="spinner"></span> <span class="o">Agent 3: Dashboard -- working...</span></div>
+        </div>
       </div>
     </div>
   </div>
   <div class="pro-tip" style="margin-top:auto;">
-    <span class="label">Pro Tip</span>
-    <p>/batch spawns each agent in an isolated git worktree — real parallelism, no merge conflicts. Each agent sees the full codebase but makes changes independently. More in Session 2.</p>
+    <span class="label">Tip</span>
+    <p>You can send files directly to Claude: <code>cat error.log | claude -p 'what went wrong?'</code> — great for quick debugging without opening a session.</p>
   </div>
 </section>
 
-<!-- ====== 17. CHEAT SHEET ====== -->
+<!-- ====== 20. CHEAT SHEET ====== -->
 <section class="s-black" data-background="#000">
   <div class="sq">SQUIRE</div>
   <h2 style="color:var(--white);">Commands Cheat Sheet</h2>
   <div class="grow" style="display:flex;flex-direction:column;justify-content:center;">
-    <div class="cheat-row"><span class="t" style="background:var(--blue);color:#FFF;">DAILY</span><span class="cmds">/help  /clear  /cost  /model  /effort  /status  /stats</span></div>
-    <div class="cheat-row"><span class="t" style="background:var(--green);color:#FFF;">CONTEXT</span><span class="cmds">/compact  /context  /memory  /init</span></div>
-    <div class="cheat-row"><span class="t" style="background:var(--orange);color:#FFF;">CONVERSATION</span><span class="cmds">/btw  /branch  /rewind  /resume  /plan</span></div>
-    <div class="cheat-row"><span class="t" style="background:#888;color:#FFF;">SKILLS</span><span class="cmds">/batch  /simplify  /loop  /debug</span></div>
-    <div class="cheat-row"><span class="t" style="background:var(--blue);color:#FFF;opacity:0.7;">FLAGS</span><span class="cmds">-p  --continue  --model  --allowedTools</span></div>
+    <div class="cheat-row"><span class="t" style="background:var(--blue);color:#FFF;">DAILY</span><span class="cmds">/help  /clear  /cost  /model  /effort  /fast  /status  /stats  /diff</span></div>
+    <div class="cheat-row"><span class="t" style="background:var(--green);color:#FFF;">CONTEXT</span><span class="cmds">/compact  /context  /memory  /init  /config  /permissions  /copy  /export</span></div>
+    <div class="cheat-row"><span class="t" style="background:var(--orange);color:#FFF;">CONVERSATION</span><span class="cmds">/btw  /branch  /rewind  /resume  /plan  /rename  /desktop</span></div>
+    <div class="cheat-row"><span class="t" style="background:#888;color:#FFF;">SKILLS</span><span class="cmds">/batch  /simplify  /loop  /ultraplan  /schedule  /security-review</span></div>
+    <div class="cheat-row"><span class="t" style="background:var(--code-purple);color:#FFF;">POWER</span><span class="cmds">/doctor  /insights  /voice  /powerup  /remote-control  /mcp  /hooks</span></div>
+    <div class="cheat-row"><span class="t" style="background:var(--blue);color:#FFF;opacity:0.7;">FLAGS</span><span class="cmds">-p  --continue  --model  --allowedTools  --add-dir  --remote</span></div>
+    <div class="cheat-row"><span class="t" style="background:#444;color:#FFF;">FUN</span><span class="cmds">/buddy  /color  /theme  /stickers  /mobile  /passes  Escape  &uarr;</span></div>
   </div>
-  <p style="text-align:center;color:var(--blue);font-weight:700;font-style:italic;font-size:0.55em;margin-top:20px;">Screenshot this slide.</p>
+  <p style="text-align:center;color:var(--blue);font-weight:700;font-style:italic;font-size:0.75em;margin-top:16px;">Screenshot this slide.</p>
+  <p style="text-align:center;color:#888;font-size:0.42em;margin-top:4px;">Click any command in previous slides for full documentation &rarr;</p>
+  <aside class="notes">Pull out your phones. Screenshot this now. I'll wait.</aside>
 </section>
 
-<!-- ====== 18. SECTION: CONTEXT WINDOW ====== -->
+<!-- ====== 21. SECTION: CONTEXT WINDOW ====== -->
 <section class="s-black" data-background="#000">
   <div class="sq">SQUIRE</div>
   <div class="grow" style="display:flex;align-items:flex-end;">
@@ -797,29 +948,30 @@ code { font-family:'Menlo','Consolas',monospace;font-size:0.9em;background:rgba(
   </div>
 </section>
 
-<!-- ====== 19. CONTEXT WINDOW EXPLAINED ====== -->
+<!-- ====== 22. CONTEXT WINDOW EXPLAINED ====== -->
 <section class="s-gray" data-background="#F0F0F0">
   <div class="sq">SQUIRE</div>
   <h2>The Context Window</h2>
   <div class="two-col grow">
     <div>
       <p style="color:var(--dark-text);font-weight:600;font-size:0.7em;">Think of it like a desk.</p>
-      <p>Everything Claude works with — your prompts, files, conversation, system instructions — has to fit on this desk. When the desk is full, things fall off the edge.</p>
+      <p>Everything Claude works with -- your prompts, files, conversation, system instructions -- has to fit on this desk. When the desk is full, things fall off the edge.</p>
+      <p style="font-size:0.5em;color:var(--muted);font-style:italic;"><span class="role-tag pm" style="font-size:8px;vertical-align:middle;margin-right:4px;">PM</span> Think "conversation length" -- the longer your chat, the more the desk fills up.</p>
       <!-- Visual desk analogy -->
       <div style="border:3px solid #CCC;border-radius:10px;padding:14px;background:#E4E4E4;margin-top:10px;position:relative;">
         <div style="text-align:center;font-size:10px;color:#999;font-weight:600;margin-bottom:8px;letter-spacing:1px;">YOUR DESK (200K tokens)</div>
         <div style="display:flex;gap:4px;height:80px;">
           <div style="background:#888;flex:0 0 12%;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#FFF;font-size:9px;font-weight:600;text-align:center;padding:2px;">System<br>prompt</div>
           <div style="background:var(--blue);flex:0 0 10%;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#FFF;font-size:9px;font-weight:600;text-align:center;padding:2px;">CLAUDE<br>.md</div>
-          <div style="background:var(--green);flex:1 1 40%;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#FFF;font-size:9px;font-weight:600;text-align:center;padding:2px;">Conversation<br>(grows →)</div>
+          <div style="background:var(--green);flex:1 1 40%;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#FFF;font-size:9px;font-weight:600;text-align:center;padding:2px;">Conversation<br>(grows &rarr;)</div>
           <div style="background:var(--orange);flex:0 0 15%;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#FFF;font-size:9px;font-weight:600;text-align:center;padding:2px;">Files</div>
           <div style="background:repeating-linear-gradient(45deg,transparent,transparent 3px,#D0D0D0 3px,#D0D0D0 6px);flex:0 0 18%;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#999;font-size:9px;font-weight:600;text-align:center;border:1px dashed #BBB;">Free<br>space</div>
         </div>
-        <div style="font-size:9px;color:#999;text-align:center;margin-top:6px;">When free space runs out → Claude forgets earlier conversation</div>
+        <div style="font-size:9px;color:#999;text-align:center;margin-top:6px;">When free space runs out &rarr; Claude forgets earlier conversation</div>
       </div>
       <div class="pro-tip" style="margin-top:10px;">
         <span class="label">Pro Tip</span>
-        <p>The 200K isn't all yours — system prompt + CLAUDE.md + tools already use ~10-15%. Your actual workspace is closer to ~170K tokens.</p>
+        <p>The 200K isn't all yours -- system prompt + CLAUDE.md + tools already use ~10-15%. Your actual workspace is closer to ~170K tokens.</p>
       </div>
     </div>
     <div>
@@ -828,11 +980,11 @@ code { font-family:'Menlo','Consolas',monospace;font-size:0.9em;background:rgba(
         <div class="term-body" style="font-size:13px;">
           <div class="ln"><span class="s">Sonnet</span> <span class="o">& </span><span class="s">Haiku</span></div>
           <div class="ln" style="font-size:20px;font-weight:700;"><span class="ok">200,000</span> <span class="o" style="font-size:13px;">tokens</span></div>
-          <div class="ln"><span class="cm">  ≈ a 500-page book</span></div>
+          <div class="ln"><span class="cm">  ~ a 500-page book</span></div>
           <div class="ln">&nbsp;</div>
           <div class="ln"><span class="pu">Opus</span></div>
           <div class="ln" style="font-size:20px;font-weight:700;"><span class="ok">1,000,000</span> <span class="o" style="font-size:13px;">tokens</span></div>
-          <div class="ln"><span class="cm">  ≈ all 7 Harry Potter books</span></div>
+          <div class="ln"><span class="cm">  ~ all 7 Harry Potter books</span></div>
         </div>
       </div>
       <div class="app" style="font-size:11px;">
@@ -845,77 +997,32 @@ code { font-family:'Menlo','Consolas',monospace;font-size:0.9em;background:rgba(
       </div>
     </div>
   </div>
+  <aside class="notes">This is the most important concept today. If people understand nothing else, they should understand context limits and when to start fresh.</aside>
 </section>
 
-<!-- ====== 19b. CONTEXT LOADING ====== -->
-<section class="s-gray" data-background="#F0F0F0">
-  <div class="sq">SQUIRE</div>
-  <h2>Context Loading</h2>
-  <div class="two-col grow">
-    <div>
-      <p style="color:var(--dark-text);font-weight:700;font-size:0.65em;">Always loaded (fixed cost every session):</p>
-      <div style="margin:8px 0;">
-        <div style="display:flex;align-items:center;gap:10px;margin:6px 0;">
-          <div class="bar-track" style="flex:1;"><div class="bar-fill" style="background:var(--blue);--fill:40%;width:40%;"></div><div class="bar-label">CLAUDE.md</div></div>
-        </div>
-        <div style="display:flex;align-items:center;gap:10px;margin:6px 0;">
-          <div class="bar-track" style="flex:1;"><div class="bar-fill" style="background:#888;--fill:25%;width:25%;"></div><div class="bar-label">System prompt</div></div>
-        </div>
-        <div style="display:flex;align-items:center;gap:10px;margin:6px 0;">
-          <div class="bar-track" style="flex:1;"><div class="bar-fill" style="background:var(--code-purple);--fill:20%;width:20%;"></div><div class="bar-label">MCP tool descriptions</div></div>
-        </div>
-        <div style="display:flex;align-items:center;gap:10px;margin:6px 0;">
-          <div class="bar-track" style="flex:1;"><div class="bar-fill" style="background:var(--orange);--fill:15%;width:15%;"></div><div class="bar-label">Skill summaries</div></div>
-        </div>
-      </div>
-      <p style="color:var(--dark-text);font-weight:700;font-size:0.65em;margin-top:16px;">Loaded on demand (only when triggered):</p>
-      <div style="margin:8px 0;">
-        <div style="display:flex;align-items:center;gap:10px;margin:6px 0;">
-          <div class="bar-track" style="flex:1;"><div class="bar-fill" style="background:var(--green);--fill:60%;width:60%;"></div><div class="bar-label">File contents</div></div>
-        </div>
-        <div style="display:flex;align-items:center;gap:10px;margin:6px 0;">
-          <div class="bar-track" style="flex:1;"><div class="bar-fill" style="background:var(--green);--fill:35%;width:35%;opacity:0.7;"></div><div class="bar-label">Skill full content</div></div>
-        </div>
-        <div style="display:flex;align-items:center;gap:10px;margin:6px 0;">
-          <div class="bar-track" style="flex:1;"><div class="bar-fill" style="background:var(--green);--fill:45%;width:45%;opacity:0.5;"></div><div class="bar-label">MCP tool results</div></div>
-        </div>
-      </div>
-    </div>
-    <div>
-      <div style="background:#E0E0E0;border-radius:10px;padding:20px;text-align:center;">
-        <div style="font-size:10px;color:#999;font-weight:600;letter-spacing:1px;margin-bottom:12px;">CONTEXT BUDGET ANALOGY</div>
-        <div style="font-size:40px;margin:8px 0;">💼</div>
-        <p style="font-size:0.52em;color:var(--dark-text);font-weight:600;margin:4px 0;">Your context = a suitcase</p>
-        <p style="font-size:0.45em;color:var(--muted);margin:4px 0;">CLAUDE.md, tools, system = stuff already packed</p>
-        <p style="font-size:0.45em;color:var(--muted);margin:4px 0;">Files, conversation = what you add during the trip</p>
-        <p style="font-size:0.48em;color:var(--dark-text);font-weight:700;margin:10px 0 0 0;">Lean "always loaded" = more room for actual work</p>
-      </div>
-      <div class="pro-tip" style="margin-top:12px;">
-        <span class="label">Takeaway</span>
-        <p>Keep CLAUDE.md concise. Every line you add is "pre-packed" in every session. A bloated CLAUDE.md = less room for your conversation.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ====== 20. CONTEXT STRATEGIES ====== -->
+<!-- ====== 23. CONTEXT STRATEGIES (with merged Context Loading note) ====== -->
 <section class="s-gray" data-background="#F0F0F0">
   <div class="sq">SQUIRE</div>
   <h2>Context Strategies</h2>
   <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;" class="grow">
     <div>
-      <h3 style="color:var(--green);font-size:0.65em;">✓ DO</h3>
+      <h3 style="color:var(--green);font-size:0.65em;">DO</h3>
       <p><code>/clear</code> between unrelated tasks.</p>
-      <p><code>/compact</code> proactively — don't wait for the warning.</p>
+      <p><code>/compact</code> proactively -- don't wait for the warning.</p>
       <p>Be specific about which files to look at.</p>
       <p>Break large tasks into smaller conversations.</p>
+      <p style="color:var(--dark-text);font-weight:600;">Take screenshots of useful Claude outputs -- build your own knowledge base.</p>
     </div>
     <div>
-      <h3 style="color:var(--red);font-size:0.65em;">✗ DON'T</h3>
-      <p>Paste entire files — Claude can read them itself.</p>
+      <h3 style="color:var(--red);font-size:0.65em;">DON'T</h3>
+      <p>Paste entire files -- Claude can read them itself.</p>
       <p>One conversation for multiple unrelated tasks.</p>
-      <p>Forget to clear after a task — stale context causes drift.</p>
+      <p>Forget to clear after a task -- stale context causes drift.</p>
       <p>Expect Claude to "remember" from 50 messages ago.</p>
+      <div class="pro-tip" style="margin-top:10px;border-left-color:var(--orange);">
+        <span class="label" style="color:var(--orange);">Context Budget</span>
+        <p>CLAUDE.md, system prompt, and tools are "always packed" in every session. Keep CLAUDE.md lean = more room for actual work.</p>
+      </div>
     </div>
     <div>
       <div class="term" style="font-size:11px;">
@@ -929,7 +1036,7 @@ code { font-family:'Menlo','Consolas',monospace;font-size:0.9em;background:rgba(
             <div class="cell used"></div><div class="cell used"></div><div class="cell used"></div><div class="cell used"></div><div class="cell used"></div><div class="cell used"></div><div class="cell used"></div><div class="cell used"></div><div class="cell used"></div><div class="cell used"></div>
             <div class="cell free"></div><div class="cell free"></div><div class="cell free"></div><div class="cell free"></div><div class="cell free"></div><div class="cell free"></div><div class="cell free"></div>
           </div>
-          <div class="ln" style="font-size:10px;"><span class="cm">■</span> <span style="color:#666;">system</span> &nbsp;<span style="color:var(--blue);">■</span> <span style="color:#666;">you</span> &nbsp;<span style="color:#2A2A2A;">■</span> <span style="color:#666;">free</span></div>
+          <div class="ln" style="font-size:10px;"><span class="cm">&#9632;</span> <span style="color:#666;">system</span> &nbsp;<span style="color:var(--blue);">&#9632;</span> <span style="color:#666;">you</span> &nbsp;<span style="color:#2A2A2A;">&#9632;</span> <span style="color:#666;">free</span></div>
           <div class="ln">&nbsp;</div>
           <div class="ln"><span class="cm"># Above 80%? Run /compact</span></div>
           <div class="ln"><span class="cm"># Auto-compact at 95%</span></div>
@@ -941,10 +1048,58 @@ code { font-family:'Menlo','Consolas',monospace;font-size:0.9em;background:rgba(
       </div>
     </div>
   </div>
+  <div class="pro-tip" style="margin-top:8px;">
+    <span class="label">Real Case @ Squire</span>
+    <p>We had 4 memory files eating ~7.7k tokens (3.8%) every session. Merged them into a lean CLAUDE.md → dropped to 4.6k (2.3%). ~40% reduction in auto-loaded docs, freeing up 14k more tokens for work.</p>
+  </div>
+  <div style="display:flex;gap:8px;margin-top:6px;">
+    <div style="flex:1;text-align:center;">
+      <img src="img/context-before.png" style="width:100%;border-radius:6px;border:1px solid #CCC;">
+      <p style="font-size:0.35em;color:var(--muted);margin:4px 0 0 0;">Before: 7.7k tokens in memory files</p>
+    </div>
+    <div style="flex:1;text-align:center;">
+      <img src="img/context-after.png" style="width:100%;border-radius:6px;border:1px solid #CCC;">
+      <p style="font-size:0.35em;color:var(--muted);margin:4px 0 0 0;">After: 4.6k tokens, 78% free space</p>
+    </div>
+  </div>
   <p style="font-size:0.45em;color:var(--blue);font-weight:600;margin-top:auto;">Desktop App users: start a new conversation for each new topic. Same principle, different button.</p>
 </section>
 
-<!-- ====== 21. SECTION: MODELS & MEMORY ====== -->
+<!-- ====== 24. NEW: DATA & PRIVACY ====== -->
+<section class="s-gray" data-background="#F0F0F0">
+  <div class="sq">SQUIRE</div>
+  <h2>Data & Privacy</h2>
+  <div class="two-col grow">
+    <div>
+      <p style="color:var(--dark-text);font-weight:700;font-size:0.65em;">What Claude CAN see:</p>
+      <p>Your conversation, files it reads, CLAUDE.md, tool outputs</p>
+      <p style="color:var(--dark-text);font-weight:700;font-size:0.65em;margin-top:12px;">What Claude does NOT do:</p>
+      <p>Does not train on your data (Team plan). Conversations are not shared between users. Each session is isolated.</p>
+      <p style="color:var(--dark-text);font-weight:700;font-size:0.65em;margin-top:12px;">Our policy:</p>
+      <p>We use Claude Team -- enterprise-grade privacy. Your prompts and code are not used to train models.</p>
+    </div>
+    <div>
+      <div class="term">
+        <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">never paste these</div></div>
+        <div class="term-body" style="font-size:13px;">
+          <div class="ln"><span class="er">&#10007;</span> API keys or secrets</div>
+          <div class="ln"><span class="er">&#10007;</span> Customer PII (names, emails, SSNs)</div>
+          <div class="ln"><span class="er">&#10007;</span> Database credentials</div>
+          <div class="ln"><span class="er">&#10007;</span> Internal financial data</div>
+          <div class="ln"><span class="er">&#10007;</span> Passwords or tokens</div>
+          <div class="ln">&nbsp;</div>
+          <div class="ln"><span class="ok">&#10003;</span> Code, specs, docs, Jira tickets</div>
+          <div class="ln"><span class="ok">&#10003;</span> Error logs (redact PII first)</div>
+          <div class="ln"><span class="ok">&#10003;</span> Architecture questions</div>
+          <div class="ln"><span class="ok">&#10003;</span> Screenshots of UI/errors</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">This is critical for trust. Emphasize: Team plan = no training on our data. But still don't paste secrets -- they stay in the conversation history.</aside>
+</section>
+
+<!-- ====== 25. SECTION: MODELS & PLANS ====== -->
 <section class="s-black" data-background="#000">
   <div class="sq">SQUIRE</div>
   <div class="grow" style="display:flex;align-items:flex-end;">
@@ -952,289 +1107,86 @@ code { font-family:'Menlo','Consolas',monospace;font-size:0.9em;background:rgba(
   </div>
 </section>
 
-<!-- ====== 22. AVAILABLE MODELS ====== -->
+<!-- ====== 26. AVAILABLE MODELS (with fragments) ====== -->
 <section class="s-gray" data-background="#F0F0F0">
   <div class="sq">SQUIRE</div>
   <h2>Available Models</h2>
-  <div class="three-col grow">
+  <div class="three-col grow" style="align-items:stretch;">
     <!-- Haiku -->
-    <div style="background:#E4E4E4;border-radius:8px;padding:18px;border-top:3px solid var(--orange);">
+    <div class="fragment fade-up" data-fragment-index="0" style="background:#E4E4E4;border-radius:8px;padding:18px;border-top:3px solid var(--orange);display:flex;flex-direction:column;">
       <p style="font-size:0.7em;font-weight:700;color:var(--dark-text);margin:0;">Haiku</p>
-      <p style="font-size:0.42em;color:var(--muted);margin:2px 0 8px 0;">200K tokens &middot; Fastest &middot; Cheapest</p>
-      <p style="font-size:0.48em;color:var(--dark-text);font-weight:600;">Best for:</p>
-      <p style="font-size:0.45em;">"What does this function do?"</p>
-      <p style="font-size:0.45em;">"Rename this variable to camelCase"</p>
-      <p style="font-size:0.45em;">"Quick context about a file"</p>
-      <p style="font-size:0.42em;color:var(--orange);font-weight:600;margin-top:6px;">→ Quick questions, simple edits</p>
+      <p style="font-size:0.42em;color:var(--muted);margin:2px 0 10px 0;">200K tokens &middot; Fastest &middot; Cheapest</p>
+      <p style="font-size:0.45em;">Quick questions, simple renames, getting context about a file.</p>
+      <p style="font-size:0.42em;color:var(--orange);font-weight:600;margin-top:auto;">&rarr; "What does this function do?"</p>
     </div>
     <!-- Sonnet -->
-    <div style="background:#E4E4E4;border-radius:8px;padding:18px;border-top:3px solid var(--blue);box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+    <div class="fragment fade-up" data-fragment-index="1" style="background:#E4E4E4;border-radius:8px;padding:18px;border-top:3px solid var(--blue);box-shadow:0 2px 8px rgba(0,0,0,0.1);display:flex;flex-direction:column;">
       <p style="font-size:0.7em;font-weight:700;color:var(--dark-text);margin:0;">Sonnet <span style="background:var(--blue);color:#FFF;font-size:0.5em;padding:2px 8px;border-radius:10px;vertical-align:middle;">DEFAULT</span></p>
-      <p style="font-size:0.42em;color:var(--muted);margin:2px 0 8px 0;">200K tokens &middot; Fast &middot; Great balance</p>
-      <p style="font-size:0.48em;color:var(--dark-text);font-weight:600;">Best for:</p>
-      <p style="font-size:0.45em;">"Add rate limiting to this endpoint"</p>
-      <p style="font-size:0.45em;">"Write tests for the checkout flow"</p>
-      <p style="font-size:0.45em;">"Refactor this module to use hooks"</p>
-      <p style="font-size:0.42em;color:var(--blue);font-weight:600;margin-top:6px;">→ Your daily driver. Start here.</p>
+      <p style="font-size:0.42em;color:var(--muted);margin:2px 0 10px 0;">200K tokens &middot; Fast &middot; Great balance</p>
+      <p style="font-size:0.45em;">Write code, tests, refactor modules. Your daily driver for implementation.</p>
+      <p style="font-size:0.42em;color:var(--blue);font-weight:600;margin-top:auto;">&rarr; "Add rate limiting to /api/users"</p>
     </div>
     <!-- Opus -->
-    <div style="background:#E4E4E4;border-radius:8px;padding:18px;border-top:3px solid var(--code-purple);">
+    <div class="fragment fade-up" data-fragment-index="2" style="background:#E4E4E4;border-radius:8px;padding:18px;border-top:3px solid var(--code-purple);display:flex;flex-direction:column;">
       <p style="font-size:0.7em;font-weight:700;color:var(--dark-text);margin:0;">Opus</p>
-      <p style="font-size:0.42em;color:var(--muted);margin:2px 0 8px 0;">1M tokens &middot; Smartest &middot; Most expensive</p>
-      <p style="font-size:0.48em;color:var(--dark-text);font-weight:600;">Best for:</p>
-      <p style="font-size:0.45em;">"Design the architecture for a new service"</p>
-      <p style="font-size:0.45em;">"Create a comprehensive migration plan"</p>
-      <p style="font-size:0.45em;">"Review this complex PR for edge cases"</p>
-      <p style="font-size:0.42em;color:var(--code-purple);font-weight:600;margin-top:6px;">→ Big decisions, complex planning</p>
+      <p style="font-size:0.42em;color:var(--muted);margin:2px 0 10px 0;">1M tokens &middot; Smartest &middot; Most expensive</p>
+      <p style="font-size:0.45em;">Architecture decisions, migration plans, complex PR reviews. Thinks deeply before answering.</p>
+      <p style="font-size:0.42em;color:var(--code-purple);font-weight:600;margin-top:auto;">&rarr; "Design the auth service migration"</p>
     </div>
   </div>
-  <div style="display:flex;gap:12px;margin-top:auto;">
-    <div class="term" style="flex:1;font-size:11px;">
-      <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">switch models</div></div>
-      <div class="term-body" style="padding:8px 14px;">
-        <div class="ln"><span class="p">></span> <span class="c">/model</span> <span class="s">opus</span></div>
-        <div class="ln"><span class="ok">✓ Switched to claude-opus-4</span></div>
-      </div>
-    </div>
-    <div class="pro-tip" style="flex:2;margin:0;">
-      <span class="label">We have Team subs — no cost concerns for you</span>
-      <p>Switch freely with <code>/model</code> in terminal or click the model name in the Desktop App top bar.</p>
-    </div>
-  </div>
+  <p style="font-size:0.48em;color:var(--dark-text);margin-top:auto;">Switch with <code>/model</code> in terminal or click the model name in the Desktop App. <strong>We have Team subs -- switch freely.</strong></p>
+  <aside class="notes">Don't worry about cost -- we have Team subs. The key takeaway: use each model for what it's best at, don't default to Opus for everything.</aside>
 </section>
 
-<!-- ====== 22b. OPUS DEEP DIVE ====== -->
-<section class="s-gray" data-background="#F0F0F0">
-  <div class="sq">SQUIRE</div>
-  <h2>What Makes Opus Special?</h2>
-  <div class="two-col grow">
-    <div>
-      <p style="color:var(--dark-text);font-weight:700;font-size:0.65em;">1M token context — 5x more than Sonnet</p>
-      <p>That's roughly all 7 Harry Potter books. Opus can hold entire codebases in its head at once.</p>
-      <p style="color:var(--dark-text);font-weight:700;font-size:0.65em;margin-top:12px;">Extended Thinking</p>
-      <p>Opus can "think" internally before responding — like a senior engineer who pauses, considers tradeoffs, then gives a well-reasoned answer. Use <code>/effort max</code> to unlock deepest reasoning.</p>
-      <p style="color:var(--dark-text);font-weight:700;font-size:0.65em;margin-top:12px;">The catch: tokens</p>
-      <p>Opus 4.6 consumes significantly more tokens than 4.5 did. That "thinking" costs extra. This is why we don't use it for everything — save it for when you need the big brain.</p>
-    </div>
-    <div>
-      <div class="term">
-        <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">Opus thinking</div></div>
-        <div class="term-body auto-anim" style="font-size:12px;">
-          <div class="ln"><span class="p">></span> <span class="s">"design the auth service migration"</span></div>
-          <div class="ln">&nbsp;</div>
-          <div class="ln"><span class="pu">⧖ Thinking...</span></div>
-          <div class="ln"><span class="cm">  considering backwards compatibility...</span></div>
-          <div class="ln"><span class="cm">  evaluating session vs JWT tradeoffs...</span></div>
-          <div class="ln"><span class="cm">  checking for breaking changes in API...</span></div>
-          <div class="ln">&nbsp;</div>
-          <div class="ln">Here's my recommended migration plan:</div>
-          <div class="ln"><span class="ok">Phase 1:</span> <span class="o">Add new auth alongside old</span></div>
-          <div class="ln"><span class="ok">Phase 2:</span> <span class="o">Migrate endpoints gradually</span></div>
-          <div class="ln"><span class="ok">Phase 3:</span> <span class="o">Remove legacy after 2 sprints</span></div>
-          <div class="ln">&nbsp;</div>
-          <div class="ln"><span class="cm"># Opus considered 3 approaches and</span></div>
-          <div class="ln"><span class="cm"># picked the safest one. Sonnet would</span></div>
-          <div class="ln"><span class="cm"># have jumped straight to code.</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ====== 22c. THE IDEAL WORKFLOW: 3 MODELS ====== -->
+<!-- ====== 27. OPUS + IDEAL WORKFLOW (MERGED) ====== -->
 <section class="s-black" data-background="#000">
   <div class="sq">SQUIRE</div>
-  <h2 style="color:var(--white);font-size:1.5em;">The Ideal Workflow</h2>
-  <p style="color:#888;font-size:0.5em;margin-bottom:16px;">Use the right model for the right job — like shifting gears.</p>
-  <div class="three-col grow" style="align-items:stretch;">
-    <div style="background:#111;border-radius:10px;padding:20px;border-top:3px solid var(--orange);text-align:center;display:flex;flex-direction:column;">
-      <div style="font-size:32px;margin-bottom:6px;">1</div>
-      <p style="color:var(--orange);font-weight:700;font-size:0.7em;margin:0;">HAIKU</p>
-      <p style="color:#888;font-size:0.42em;margin:4px 0;">Quick context gathering</p>
-      <div class="term" style="font-size:10px;margin:10px 0;text-align:left;">
-        <div class="term-body" style="padding:8px 12px;">
-          <div class="ln"><span class="p">$</span> <span class="c">claude</span> <span class="f">--model haiku</span></div>
-          <div class="ln"><span class="p">></span> <span class="s">"explain the auth module structure"</span></div>
-          <div class="ln"><span class="o">The auth module has 3 parts...</span></div>
-        </div>
+  <h2 style="color:var(--white);font-size:1.4em;">Models & the Ideal Workflow</h2>
+  <div class="two-col grow" style="gap:24px;">
+    <div>
+      <p style="color:var(--code-purple);font-weight:700;font-size:0.65em;">What Makes Opus Special?</p>
+      <p style="color:#CCC;font-size:0.52em;"><strong style="color:var(--white);">1M token context</strong> -- 5x more than Sonnet. Holds entire codebases in its head.</p>
+      <p style="color:#CCC;font-size:0.52em;"><strong style="color:var(--white);">Extended Thinking</strong> -- Opus "thinks" internally before responding, like a senior engineer who pauses and considers tradeoffs. Use <code>/effort max</code> to unlock deepest reasoning.</p>
+      <p style="color:#CCC;font-size:0.52em;"><strong style="color:var(--white);">The catch:</strong> Opus 4.6 consumes significantly more tokens than 4.5 did. That "thinking" costs extra. Save it for when you need the big brain.</p>
+      <div class="pro-tip" style="margin-top:10px;">
+        <span class="label">Why This Matters</span>
+        <p>As models get smarter and more expensive, knowing how to pick the right model, manage context, and prompt efficiently will matter more, not less.</p>
       </div>
-      <p style="color:#CCC;font-size:0.48em;margin-top:auto;font-weight:600;">Understand the landscape</p>
     </div>
-    <div style="background:#111;border-radius:10px;padding:20px;border-top:3px solid var(--code-purple);text-align:center;display:flex;flex-direction:column;">
-      <div style="font-size:32px;margin-bottom:6px;">2</div>
-      <p style="color:var(--code-purple);font-weight:700;font-size:0.7em;margin:0;">OPUS</p>
-      <p style="color:#888;font-size:0.42em;margin:4px 0;">Comprehensive planning</p>
-      <div class="term" style="font-size:10px;margin:10px 0;text-align:left;">
-        <div class="term-body" style="padding:8px 12px;">
-          <div class="ln"><span class="p">></span> <span class="c">/model</span> <span class="s">opus</span></div>
-          <div class="ln"><span class="p">></span> <span class="s">"create a migration plan with phases"</span></div>
-          <div class="ln"><span class="pu">⧖ Thinking...</span></div>
-          <div class="ln"><span class="ok">Phase 1: ...</span> <span class="ok">Phase 2: ...</span></div>
+    <div>
+      <p style="color:var(--blue);font-weight:700;font-size:0.6em;margin-bottom:10px;">The 3-Step Workflow</p>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="background:#111;border-radius:8px;padding:14px 16px;border-left:3px solid var(--orange);">
+          <p style="color:var(--orange);font-weight:700;font-size:0.55em;margin:0;">1. HAIKU -- Explore</p>
+          <p style="color:#888;font-size:0.42em;margin:4px 0 0 0;">Quick context gathering. "Explain the auth module structure."</p>
+        </div>
+        <div style="text-align:center;color:#444;font-size:16px;">&darr;</div>
+        <div style="background:#111;border-radius:8px;padding:14px 16px;border-left:3px solid var(--code-purple);">
+          <p style="color:var(--code-purple);font-weight:700;font-size:0.55em;margin:0;">2. OPUS -- Plan</p>
+          <p style="color:#888;font-size:0.42em;margin:4px 0 0 0;">Comprehensive planning. "Design the migration with phases and risks."</p>
+        </div>
+        <div style="text-align:center;color:#444;font-size:16px;">&darr;</div>
+        <div style="background:#111;border-radius:8px;padding:14px 16px;border-left:3px solid var(--blue);">
+          <p style="color:var(--blue);font-weight:700;font-size:0.55em;margin:0;">3. SONNET -- Build</p>
+          <p style="color:#888;font-size:0.42em;margin:4px 0 0 0;">Fast implementation. "Implement Phase 1 from the plan."</p>
         </div>
       </div>
-      <p style="color:#CCC;font-size:0.48em;margin-top:auto;font-weight:600;">Design the solution</p>
-    </div>
-    <div style="background:#111;border-radius:10px;padding:20px;border-top:3px solid var(--blue);text-align:center;display:flex;flex-direction:column;">
-      <div style="font-size:32px;margin-bottom:6px;">3</div>
-      <p style="color:var(--blue);font-weight:700;font-size:0.7em;margin:0;">SONNET</p>
-      <p style="color:#888;font-size:0.42em;margin:4px 0;">Fast implementation</p>
-      <div class="term" style="font-size:10px;margin:10px 0;text-align:left;">
-        <div class="term-body" style="padding:8px 12px;">
-          <div class="ln"><span class="p">></span> <span class="c">/model</span> <span class="s">sonnet</span></div>
-          <div class="ln"><span class="p">></span> <span class="s">"implement Phase 1 from the plan"</span></div>
-          <div class="ln"><span class="ok">✓</span> <span class="o">Created 4 files, updated 2</span></div>
-        </div>
-      </div>
-      <p style="color:#CCC;font-size:0.48em;margin-top:auto;font-weight:600;">Write the code</p>
     </div>
   </div>
   <div style="text-align:center;margin-top:auto;">
-    <p style="color:var(--blue);font-weight:700;font-size:0.55em;">Haiku explores → Opus plans → Sonnet builds</p>
+    <p style="color:var(--blue);font-weight:700;font-size:0.55em;">Haiku explores &rarr; Opus plans &rarr; Sonnet builds</p>
     <p style="color:#666;font-size:0.42em;">This saves tokens AND gets better results than using one model for everything.</p>
   </div>
 </section>
 
-<!-- ====== 23. MEMORY & PERSISTENCE ====== -->
-<section class="s-gray" data-background="#F0F0F0">
-  <div class="sq">SQUIRE</div>
-  <h2>Memory & Persistence</h2>
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;" class="grow">
-    <div>
-      <p style="color:var(--dark-text);font-weight:600;">3 layers of "remembering":</p>
-      <div style="margin-top:8px;padding:12px;background:#E0E0E0;border-radius:6px;border-left:3px solid var(--green);">
-        <p style="color:var(--dark-text);font-weight:700;font-size:0.55em;margin:0 0 2px 0;">Context (temporary)</p>
-        <p style="font-size:0.45em;margin:0;color:var(--muted);">Dies when you /clear or close.</p>
-      </div>
-      <div style="margin-top:6px;padding:12px;background:#E0E0E0;border-radius:6px;border-left:3px solid var(--blue);">
-        <p style="color:var(--dark-text);font-weight:700;font-size:0.55em;margin:0 0 2px 0;">Memory (personal)</p>
-        <p style="font-size:0.45em;margin:0;color:var(--muted);">Saved in ~/.claude/memory — your preferences across all sessions.</p>
-      </div>
-      <div style="margin-top:6px;padding:12px;background:#E0E0E0;border-radius:6px;border-left:3px solid var(--orange);">
-        <p style="color:var(--dark-text);font-weight:700;font-size:0.55em;margin:0 0 2px 0;">CLAUDE.md (team-wide)</p>
-        <p style="font-size:0.45em;margin:0;color:var(--muted);">Shared rules in the repo. Everyone gets the same instructions.</p>
-      </div>
-    </div>
-    <div class="term" style="align-self:start;">
-      <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">/memory</div></div>
-      <div class="term-body" style="font-size:11px;">
-        <div class="ln"><span class="p">></span> <span class="c">/memory</span></div>
-        <div class="ln">&nbsp;</div>
-        <div class="ln"><span class="cm"># Stored preferences:</span></div>
-        <div class="ln"><span class="o">- Prefers TypeScript over JS</span></div>
-        <div class="ln"><span class="o">- Uses Zod for validation</span></div>
-        <div class="ln"><span class="o">- conventional commits style</span></div>
-        <div class="ln"><span class="o">- Testing: Vitest, not Jest</span></div>
-        <div class="ln">&nbsp;</div>
-        <div class="ln"><span class="cm"># Add new memory:</span></div>
-        <div class="ln"><span class="p">></span> <span class="s">"remember I prefer named exports"</span></div>
-        <div class="ln"><span class="ok">✓ Saved to memory</span></div>
-      </div>
-    </div>
-    <div class="term" style="align-self:start;">
-      <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">--continue</div></div>
-      <div class="term-body" style="font-size:11px;">
-        <div class="ln"><span class="p">~ $</span> <span class="c">claude</span> <span class="f">--continue</span></div>
-        <div class="ln">&nbsp;</div>
-        <div class="ln"><span class="ok">↻ Resuming session from 2h ago</span></div>
-        <div class="ln"><span class="o">  Task: refactoring auth module</span></div>
-        <div class="ln"><span class="o">  Context: 42% used</span></div>
-        <div class="ln">&nbsp;</div>
-        <div class="ln"><span class="ok">?</span> Ready to continue. Where were we?</div>
-        <div class="ln"><span class="cursor"></span></div>
-        <div class="ln">&nbsp;</div>
-        <div class="ln"><span class="cm"># Left for lunch? Pick up</span></div>
-        <div class="ln"><span class="cm"># right where you stopped.</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ====== 24. SECTION: CLAUDE.MD ====== -->
-<section class="s-black" data-background="#000">
-  <div class="sq">SQUIRE</div>
-  <div class="grow" style="display:flex;align-items:flex-end;">
-    <h1 style="font-size:3em;">CLAUDE.MD: YOUR TEAM'S PLAYBOOK</h1>
-  </div>
-</section>
-
-<!-- ====== 25. WHAT IS CLAUDE.MD ====== -->
-<section class="s-gray" data-background="#F0F0F0">
-  <div class="sq">SQUIRE</div>
-  <h2>What Is Claude.md?</h2>
-  <div class="two-col grow">
-    <div>
-      <p style="color:var(--dark-text);font-weight:600;">A markdown file at your repo root that Claude reads every time it starts.</p>
-      <p>Think of it as your team's constitution — coding style, architecture decisions, what to never do.</p>
-      <p>Version control it. Review changes in PRs like any other code.</p>
-      <div class="pro-tip">
-        <span class="label">Pro Tip</span>
-        <p>CLAUDE.md costs tokens every session (~500-2K depending on size). Keep it concise — every line you add gets loaded every time. Think of it like a config file, not a wiki.</p>
-      </div>
-      <p style="font-size:0.5em;color:var(--blue);font-weight:600;margin-top:8px;">Non-engineers: you don't edit this file, but it shapes how Claude responds for everyone — terminal and desktop app alike.</p>
-    </div>
-    <div class="vscode" style="align-self:start;">
-      <div class="vscode-bar">
-        <div class="d dr"></div><div class="d dy"></div><div class="d dg"></div>
-        <div class="tab"><span class="icon">M↓</span> CLAUDE.md</div>
-      </div>
-      <div class="vscode-body">
-        <div class="vscode-gutter">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17</div>
-        <div class="vscode-code">
-          <div class="ln"><span class="vsc-h"># squire-platform</span></div>
-          <div class="ln">&nbsp;</div>
-          <div class="ln"><span class="vsc-h">## Architecture</span></div>
-          <div class="ln"><span class="vsc-b">Monorepo: apps/web, apps/api, packages/</span></div>
-          <div class="ln"><span class="vsc-b">Stack: React, TypeScript, Express, Prisma</span></div>
-          <div class="ln">&nbsp;</div>
-          <div class="ln"><span class="vsc-h">## Conventions</span></div>
-          <div class="ln"><span class="vsc-b">- Use Zod for all input validation</span></div>
-          <div class="ln"><span class="vsc-b">- camelCase vars, PascalCase types</span></div>
-          <div class="ln"><span class="vsc-b">- Barrel exports from index.ts</span></div>
-          <div class="ln">&nbsp;</div>
-          <div class="ln"><span class="vsc-h">## Testing</span></div>
-          <div class="ln"><span class="vsc-b">- Vitest for unit, Playwright for e2e</span></div>
-          <div class="ln"><span class="vsc-b">- Run: </span><span class="vsc-s">pnpm test</span></div>
-          <div class="ln">&nbsp;</div>
-          <div class="ln"><span class="vsc-k">## Never</span></div>
-          <div class="ln"><span class="vsc-b">- No </span><span class="vsc-s">`any`</span><span class="vsc-b"> — use </span><span class="vsc-s">`unknown`</span><span class="vsc-b"> + narrowing</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ====== 26. INSIDE + TIPS ====== -->
-<section class="s-gray" data-background="#F0F0F0">
-  <div class="sq">SQUIRE</div>
-  <h2>Claude.md Tips</h2>
-  <div class="term grow">
-    <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">good vs bad CLAUDE.md</div></div>
-    <div class="term-body" style="font-size:13px;">
-      <div class="ln"><span class="cm"># ✗ Too vague — Claude will guess wrong:</span></div>
-      <div class="ln"><span class="er">Validate inputs.</span></div>
-      <div class="ln"><span class="er">Use good naming.</span></div>
-      <div class="ln"><span class="er">Follow best practices.</span></div>
-      <div class="ln">&nbsp;</div>
-      <div class="ln"><span class="cm"># ✓ Specific — Claude knows exactly what to do:</span></div>
-      <div class="ln"><span class="ok">Use Zod schemas for all API input validation.</span></div>
-      <div class="ln"><span class="ok">Variables: camelCase. Types: PascalCase. Files: kebab-case.</span></div>
-      <div class="ln"><span class="ok">Run `pnpm lint && pnpm test` before committing.</span></div>
-      <div class="ln"><span class="ok">Never use `any` — use `unknown` with type narrowing.</span></div>
-    </div>
-  </div>
-  <p class="mt-sm">Keep it concise — every line costs tokens every session.</p>
-  <p>Update it as the project evolves. Stale instructions are worse than none.</p>
-  <p>Use <code>/init</code> to scaffold one for an existing project.</p>
-</section>
-
-<!-- ====== 26b. PLAN MODE ====== -->
+<!-- ====== 28. PLAN MODE ====== -->
 <section class="s-gray" data-background="#F0F0F0">
   <div class="sq">SQUIRE</div>
   <h2>Plan Mode</h2>
   <div class="two-col grow">
     <div>
-      <p style="color:var(--dark-text);font-weight:700;font-size:0.65em;">Before Claude writes a single line of code — make it plan first.</p>
-      <p><code>/plan</code> tells Claude to think about the approach, list the files it will touch, identify risks, and lay out the steps — without making any changes yet.</p>
+      <p style="color:var(--dark-text);font-weight:700;font-size:0.65em;">Before Claude writes a single line of code -- make it plan first.</p>
+      <p><code>/plan</code> tells Claude to think about the approach, list the files it will touch, identify risks, and lay out the steps -- without making any changes yet.</p>
       <p style="color:var(--dark-text);font-weight:600;margin-top:10px;">Why this matters:</p>
       <p>Without a plan, Claude jumps straight to code. With a plan, you review the strategy, catch mistakes early, and guide the direction before any code is written.</p>
       <p style="color:var(--dark-text);font-weight:600;margin-top:10px;">Best combo: plan with Opus, implement with Sonnet.</p>
@@ -1249,7 +1201,7 @@ code { font-family:'Menlo','Consolas',monospace;font-size:0.9em;background:rgba(
           <div class="ln"><span class="p">></span> <span class="c">/plan</span></div>
           <div class="ln"><span class="p">></span> <span class="s">"migrate auth from sessions to JWT"</span></div>
           <div class="ln">&nbsp;</div>
-          <div class="ln"><span class="pu">⧖ Planning...</span></div>
+          <div class="ln"><span class="pu">&#10695; Planning...</span></div>
           <div class="ln"><span class="ok">Plan:</span></div>
           <div class="ln"><span class="o">1. Add JWT utils in src/auth/jwt.ts</span></div>
           <div class="ln"><span class="o">2. Update middleware (3 files)</span></div>
@@ -1260,32 +1212,141 @@ code { font-family:'Menlo','Consolas',monospace;font-size:0.9em;background:rgba(
           <div class="ln"><span class="cm"># Step 2: Approve, switch, implement</span></div>
           <div class="ln"><span class="p">></span> <span class="s">"looks good, implement it"</span></div>
           <div class="ln"><span class="p">></span> <span class="c">/model</span> <span class="s">sonnet</span></div>
-          <div class="ln"><span class="ok">✓</span> <span class="o">Implementing Phase 1...</span></div>
+          <div class="ln"><span class="ok">&#10003;</span> <span class="o">Implementing Phase 1...</span></div>
         </div>
       </div>
     </div>
   </div>
+  <aside class="notes">This is the biggest productivity tip. Plan first, code second.</aside>
 </section>
 
-<!-- ====== 26c. LIVE DEMO ====== -->
-<section class="s-black" data-background="#000">
+<!-- ====== 29. MEMORY & PERSISTENCE ====== -->
+<section class="s-gray" data-background="#F0F0F0">
   <div class="sq">SQUIRE</div>
-  <div class="grow" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;">
-    <span class="live-badge" style="font-size:14px;padding:6px 20px;margin-bottom:16px;">LIVE DEMO</span>
-    <h1 style="font-size:3em;text-align:center;">LET'S SEE IT<br>IN ACTION</h1>
-    <p style="color:#888;font-size:0.5em;max-width:600px;margin-top:12px;">Install Claude Code, run <code style="color:var(--code-green);">/init</code> to scaffold CLAUDE.md, try <code style="color:var(--code-green);">/context</code>, <code style="color:var(--code-green);">/compact</code>, and ask it to explain the project.</p>
-    <div class="term" style="max-width:500px;margin-top:20px;text-align:left;">
-      <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">live demo</div></div>
-      <div class="term-body auto-anim" style="font-size:13px;">
-        <div class="ln"><span class="p">~/squire-platform $</span> <span class="c">claude</span></div>
-        <div class="ln"><span class="ok">✓</span> <span class="o">Ready.</span></div>
-        <div class="ln"><span class="p">></span> <span class="cursor"></span></div>
+  <h2>Memory & Persistence</h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;" class="grow">
+    <div>
+      <p style="color:var(--dark-text);font-weight:600;">3 layers of "remembering":</p>
+      <div style="margin-top:8px;padding:12px;background:#E0E0E0;border-radius:6px;border-left:3px solid var(--green);">
+        <p style="color:var(--dark-text);font-weight:700;font-size:0.55em;margin:0 0 2px 0;">Context (temporary)</p>
+        <p style="font-size:0.45em;margin:0;color:var(--muted);">Dies when you /clear or close.</p>
+      </div>
+      <div style="margin-top:6px;padding:12px;background:#E0E0E0;border-radius:6px;border-left:3px solid var(--blue);">
+        <p style="color:var(--dark-text);font-weight:700;font-size:0.55em;margin:0 0 2px 0;">Memory (personal)</p>
+        <p style="font-size:0.45em;margin:0;color:var(--muted);">Saved in ~/.claude/memory -- your preferences across all sessions.</p>
+      </div>
+      <div style="margin-top:6px;padding:12px;background:#E0E0E0;border-radius:6px;border-left:3px solid var(--orange);">
+        <p style="color:var(--dark-text);font-weight:700;font-size:0.55em;margin:0 0 2px 0;">CLAUDE.md (team-wide)</p>
+        <p style="font-size:0.45em;margin:0;color:var(--muted);">Shared rules in the repo. Everyone gets the same instructions.</p>
+      </div>
+    </div>
+    <div class="term" style="align-self:start;">
+      <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">/memory</div></div>
+      <div class="term-body auto-anim" style="font-size:11px;">
+        <div class="ln"><span class="p">></span> <span class="c">/memory</span></div>
+        <div class="ln">&nbsp;</div>
+        <div class="ln"><span class="cm"># Stored preferences:</span></div>
+        <div class="ln"><span class="o">- Prefers TypeScript over JS</span></div>
+        <div class="ln"><span class="o">- Uses Zod for validation</span></div>
+        <div class="ln"><span class="o">- conventional commits style</span></div>
+        <div class="ln"><span class="o">- Testing: Vitest, not Jest</span></div>
+        <div class="ln">&nbsp;</div>
+        <div class="ln"><span class="cm"># Add new memory:</span></div>
+        <div class="ln"><span class="p">></span> <span class="s">"remember I prefer named exports"</span></div>
+        <div class="ln"><span class="ok">&#10003; Saved to memory</span></div>
+      </div>
+    </div>
+    <div class="term" style="align-self:start;">
+      <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">--continue</div></div>
+      <div class="term-body auto-anim" style="font-size:11px;">
+        <div class="ln"><span class="p">~ $</span> <span class="c">claude</span> <span class="f">--continue</span></div>
+        <div class="ln">&nbsp;</div>
+        <div class="ln"><span class="ok">&#8635; Resuming session from 2h ago</span></div>
+        <div class="ln"><span class="o">  Task: refactoring auth module</span></div>
+        <div class="ln"><span class="o">  Context: 42% used</span></div>
+        <div class="ln">&nbsp;</div>
+        <div class="ln"><span class="ok">?</span> Ready to continue. Where were we?</div>
+        <div class="ln"><span class="cursor"></span></div>
+        <div class="ln">&nbsp;</div>
+        <div class="ln"><span class="cm"># Left for lunch? Pick up</span></div>
+        <div class="ln"><span class="cm"># right where you stopped.</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ====== 27. SECTION: PROMPTING ====== -->
+<!-- ====== 30. SECTION: CLAUDE.MD ====== -->
+<section class="s-black" data-background="#000">
+  <div class="sq">SQUIRE</div>
+  <div class="grow" style="display:flex;align-items:flex-end;">
+    <h1 style="font-size:3em;">CLAUDE.MD: YOUR TEAM'S PLAYBOOK</h1>
+  </div>
+</section>
+
+<!-- ====== 31. WHAT IS CLAUDE.MD + TIPS (MERGED) ====== -->
+<section class="s-gray" data-background="#F0F0F0">
+  <div class="sq">SQUIRE</div>
+  <h2>What Is Claude.md?</h2>
+  <div class="two-col grow">
+    <div>
+      <p style="color:var(--dark-text);font-weight:600;">A markdown file at your repo root that Claude reads every time it starts.</p>
+      <p>Think of it as your team's constitution -- coding style, architecture decisions, what to never do.</p>
+      <p>Version control it. Review changes in PRs like any other code.</p>
+      <div class="vscode" style="margin-top:10px;">
+        <div class="vscode-bar">
+          <div class="d dr"></div><div class="d dy"></div><div class="d dg"></div>
+          <div class="tab"><span class="icon">M&#8595;</span> CLAUDE.md</div>
+        </div>
+        <div class="vscode-body">
+          <div class="vscode-gutter">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17</div>
+          <div class="vscode-code">
+            <div class="ln"><span class="vsc-h"># squire-platform</span></div>
+            <div class="ln">&nbsp;</div>
+            <div class="ln"><span class="vsc-h">## Architecture</span></div>
+            <div class="ln"><span class="vsc-b">Monorepo: apps/web, apps/api, packages/</span></div>
+            <div class="ln"><span class="vsc-b">Stack: React, TypeScript, Express, Prisma</span></div>
+            <div class="ln">&nbsp;</div>
+            <div class="ln"><span class="vsc-h">## Conventions</span></div>
+            <div class="ln"><span class="vsc-b">- Use Zod for all input validation</span></div>
+            <div class="ln"><span class="vsc-b">- camelCase vars, PascalCase types</span></div>
+            <div class="ln"><span class="vsc-b">- Barrel exports from index.ts</span></div>
+            <div class="ln">&nbsp;</div>
+            <div class="ln"><span class="vsc-h">## Testing</span></div>
+            <div class="ln"><span class="vsc-b">- Vitest for unit, Playwright for e2e</span></div>
+            <div class="ln"><span class="vsc-b">- Run: </span><span class="vsc-s">pnpm test</span></div>
+            <div class="ln">&nbsp;</div>
+            <div class="ln"><span class="vsc-k">## Never</span></div>
+            <div class="ln"><span class="vsc-b">- No </span><span class="vsc-s">`any`</span><span class="vsc-b"> -- use </span><span class="vsc-s">`unknown`</span><span class="vsc-b"> + narrowing</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="term" style="margin-bottom:10px;">
+        <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">good vs bad CLAUDE.md</div></div>
+        <div class="term-body" style="font-size:13px;">
+          <div class="ln"><span class="cm"># Bad -- too vague:</span></div>
+          <div class="ln"><span class="er">Validate inputs.</span></div>
+          <div class="ln"><span class="er">Use good naming.</span></div>
+          <div class="ln"><span class="er">Follow best practices.</span></div>
+          <div class="ln">&nbsp;</div>
+          <div class="ln"><span class="cm"># Good -- specific:</span></div>
+          <div class="ln"><span class="ok">Use Zod schemas for all API input validation.</span></div>
+          <div class="ln"><span class="ok">Variables: camelCase. Types: PascalCase.</span></div>
+          <div class="ln"><span class="ok">Run `pnpm lint && pnpm test` before committing.</span></div>
+          <div class="ln"><span class="ok">Never use `any` -- use `unknown` + narrowing.</span></div>
+        </div>
+      </div>
+      <div class="pro-tip">
+        <span class="label">Pro Tip</span>
+        <p>CLAUDE.md costs tokens every session (~500-2K depending on size). Keep it concise -- every line gets loaded every time. Use <code>/init</code> to scaffold one for an existing project.</p>
+      </div>
+      <p style="font-size:0.5em;color:var(--blue);font-weight:600;margin-top:8px;">Non-engineers: you don't edit this file, but it shapes how Claude responds for everyone -- terminal and desktop app alike.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ====== 32. SECTION: PROMPTING ====== -->
 <section class="s-black" data-background="#000">
   <div class="sq">SQUIRE</div>
   <div class="grow" style="display:flex;align-items:flex-end;">
@@ -1293,22 +1354,22 @@ code { font-family:'Menlo','Consolas',monospace;font-size:0.9em;background:rgba(
   </div>
 </section>
 
-<!-- ====== 28. EFFECTIVE PROMPTING ====== -->
+<!-- ====== 33. EFFECTIVE PROMPTING ====== -->
 <section class="s-gray" data-background="#F0F0F0">
   <div class="sq">SQUIRE</div>
   <h2>Effective Prompting</h2>
   <div class="two-col">
     <div class="term">
-      <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">❌ vague</div></div>
+      <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">vague</div></div>
       <div class="term-body" style="font-size:13px;">
         <div class="ln"><span class="p">></span> <span class="er">"Fix the bug"</span></div>
         <div class="ln">&nbsp;</div>
         <div class="ln"><span class="cm"># What bug? Where? What's expected?</span></div>
-        <div class="ln"><span class="cm"># Claude will guess — probably wrong.</span></div>
+        <div class="ln"><span class="cm"># Claude will guess -- probably wrong.</span></div>
       </div>
     </div>
     <div class="term">
-      <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">✅ specific</div></div>
+      <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">specific</div></div>
       <div class="term-body" style="font-size:12px;">
         <div class="ln"><span class="p">></span> <span class="ok">"The /api/users endpoint returns</span></div>
         <div class="ln"><span class="ok">   500 when email has +. Fix</span></div>
@@ -1321,18 +1382,28 @@ code { font-family:'Menlo','Consolas',monospace;font-size:0.9em;background:rgba(
   </div>
   <div style="margin-top:14px;">
     <p style="color:var(--dark-text);font-weight:700;font-size:0.65em;">The formula: What + Where + Constraints + Expected Behavior</p>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:8px;">
-      <div style="background:#E4E4E4;border-radius:6px;padding:12px;font-size:0.45em;">
-        <span class="role-tag eng" style="margin-bottom:6px;">ENG</span>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:8px;">
+      <div style="background:#E4E4E4;border-radius:6px;padding:10px;font-size:0.42em;">
+        <span class="role-tag eng" style="margin-bottom:4px;">ENG</span>
         <p style="color:var(--dark-text);margin:6px 0 0 0;font-weight:600;">"The /api/users endpoint returns 500 when email has +. Fix validation in userController.ts"</p>
       </div>
-      <div style="background:#E4E4E4;border-radius:6px;padding:12px;font-size:0.45em;">
-        <span class="role-tag pm" style="margin-bottom:6px;">PM</span>
+      <div style="background:#E4E4E4;border-radius:6px;padding:10px;font-size:0.42em;">
+        <span class="role-tag pm" style="margin-bottom:4px;">PM</span>
         <p style="color:var(--dark-text);margin:6px 0 0 0;font-weight:600;">"Review SHOP-456 PRD and list edge cases the refund spec doesn't cover"</p>
       </div>
-      <div style="background:#E4E4E4;border-radius:6px;padding:12px;font-size:0.45em;">
-        <span class="role-tag qa" style="margin-bottom:6px;">QA</span>
+      <div style="background:#E4E4E4;border-radius:6px;padding:10px;font-size:0.42em;">
+        <span class="role-tag qa" style="margin-bottom:4px;">QA</span>
         <p style="color:var(--dark-text);margin:6px 0 0 0;font-weight:600;">"Generate 10 edge-case test scenarios for the checkout flow including payment failures"</p>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px;">
+      <div style="background:#E4E4E4;border-radius:6px;padding:10px;font-size:0.42em;">
+        <span class="role-tag recruit" style="margin-bottom:4px;">RECRUITING</span>
+        <p style="color:var(--dark-text);margin:6px 0 0 0;font-weight:600;">"Draft a job description for a senior backend engineer. Our stack is TypeScript, Express, Prisma, and AWS."</p>
+      </div>
+      <div style="background:#E4E4E4;border-radius:6px;padding:10px;font-size:0.42em;">
+        <span class="role-tag design" style="margin-bottom:4px;">DESIGN</span>
+        <p style="color:var(--dark-text);margin:6px 0 0 0;font-weight:600;">"What components are used on the settings page? List their Figma names and code equivalents."</p>
       </div>
     </div>
     <div class="pro-tip" style="margin-top:8px;">
@@ -1342,44 +1413,72 @@ code { font-family:'Menlo','Consolas',monospace;font-size:0.9em;background:rgba(
   </div>
 </section>
 
-<!-- ====== 29. PITFALLS ====== -->
-<section class="s-gray" data-background="#F0F0F0">
+<!-- ====== 34. LIVE DEMO ====== -->
+<section class="s-black" data-background="#000">
   <div class="sq">SQUIRE</div>
-  <h2>Pitfalls & Next Steps</h2>
-  <div class="term">
-    <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">safety checklist</div></div>
-    <div class="term-body" style="font-size:13px;">
-      <div class="ln"><span class="ok">✓</span> Always read the diff before accepting changes.</div>
-      <div class="ln"><span class="ok">✓</span> Commit before big changes — git is your safety net.</div>
-      <div class="ln"><span class="ok">✓</span> <span class="c">/clear</span> and restart beats fighting a confused conversation.</div>
-      <div class="ln"><span class="ok">✓</span> Don't over-trust on security, billing, or migrations.</div>
+  <div class="grow" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;">
+    <span class="live-badge" style="font-size:14px;padding:6px 20px;margin-bottom:16px;">LIVE DEMO</span>
+    <h1 style="font-size:3em;text-align:center;">LET'S SEE IT<br>IN ACTION</h1>
+    <p style="color:#888;font-size:0.5em;max-width:600px;margin-top:12px;">Install Claude Code, run <code style="color:var(--code-green);">/init</code> to scaffold CLAUDE.md, try <code style="color:var(--code-green);">/context</code>, <code style="color:var(--code-green);">/compact</code>, and ask it to explain the project.</p>
+    <div class="term" style="max-width:560px;margin-top:20px;text-align:left;">
+      <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">live demo -- auto-playing</div></div>
+      <div class="term-body demo-anim" style="font-size:13px;">
+        <div class="ln"><span class="p">~/squire-platform $</span> <span class="c">claude</span></div>
+        <div class="ln"><span class="spinner"></span> <span class="o">Scanning project...</span></div>
+        <div class="ln"><span class="ok">&#10003;</span> <span class="o">Found 847 files, 23 directories</span></div>
+        <div class="ln"><span class="ok">&#10003;</span> <span class="o">Read CLAUDE.md</span></div>
+        <div class="ln">&nbsp;</div>
+        <div class="ln"><span class="p">></span> <span class="s">"explain the checkout service"</span></div>
+        <div class="ln">&nbsp;</div>
+        <div class="ln"><span class="o">The checkout service handles payment</span></div>
+        <div class="ln"><span class="o">processing via Stripe. Entry point:</span></div>
+        <div class="ln"><span class="s">src/checkout/index.ts</span></div>
+        <div class="ln">&nbsp;</div>
+        <div class="ln"><span class="p">></span> <span class="cursor"></span></div>
+      </div>
     </div>
   </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;" class="mt">
-    <div style="background:#E4E4E4;border-radius:8px;padding:16px;">
-      <p style="color:var(--dark-text);font-weight:700;font-size:0.6em;margin:0 0 6px 0;">HOMEWORK: Engineers</p>
-      <p style="font-size:0.48em;">1. Install Claude Code</p>
-      <p style="font-size:0.48em;">2. Run <code>/init</code> to scaffold CLAUDE.md</p>
-      <p style="font-size:0.48em;">3. Try 5 slash commands</p>
-      <p style="font-size:0.48em;">4. Ask it to explain one file</p>
+  <aside class="notes">Switch to terminal. Have repo ready. Show /init, /context, ask a question about the codebase. Keep it under 3 minutes.</aside>
+</section>
+
+<!-- ====== 35. PITFALLS + HOMEWORK (STRENGTHENED) ====== -->
+<section class="s-gray" data-background="#F0F0F0">
+  <div class="sq">SQUIRE</div>
+  <h2>Pitfalls & Homework</h2>
+  <div class="term" style="margin-bottom:10px;">
+    <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">safety checklist</div></div>
+    <div class="term-body" style="font-size:13px;">
+      <div class="ln"><span class="ok">&#10003;</span> Always read the diff before accepting changes.</div>
+      <div class="ln"><span class="ok">&#10003;</span> Commit before big changes -- git is your safety net.</div>
+      <div class="ln"><span class="ok">&#10003;</span> <span class="c">/clear</span> and restart beats fighting a confused conversation.</div>
+      <div class="ln"><span class="ok">&#10003;</span> Don't over-trust on security, billing, or migrations.</div>
     </div>
+  </div>
+  <div style="background:linear-gradient(135deg,#0D1117,#161B22);border:2px solid var(--blue);border-radius:10px;padding:16px 20px;margin-bottom:10px;text-align:center;">
+    <p style="color:var(--white);font-size:0.65em;font-weight:700;margin:0;">Do it NOW -- open your laptop, download the app, send your first message before you leave this room.</p>
+    <p style="color:var(--blue);font-size:0.55em;font-weight:600;margin:6px 0 0 0;">Post your first screenshot in <strong style="color:var(--code-green);">#claude-code-workshop</strong> on Slack</p>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
     <div style="background:#E4E4E4;border-radius:8px;padding:16px;">
-      <p style="color:var(--dark-text);font-weight:700;font-size:0.6em;margin:0 0 6px 0;">HOMEWORK: Everyone Else</p>
-      <p style="font-size:0.48em;">1. Download Claude Desktop App</p>
-      <p style="font-size:0.48em;">2. Ask it to explain a Jira ticket</p>
-      <p style="font-size:0.48em;">3. Try Chat vs Cowork mode</p>
-      <p style="font-size:0.48em;">4. Ask a question about our product</p>
+      <p style="color:var(--dark-text);font-weight:700;font-size:0.6em;margin:0 0 8px 0;">HOMEWORK</p>
+      <p style="font-size:0.48em;">1. Install Claude Code + download <a class="doc-link" href="https://claude.ai/download" target="_blank" rel="noopener">Desktop App</a></p>
+      <p style="font-size:0.48em;">2. Run <code>/init</code> to scaffold CLAUDE.md (engineers)</p>
+      <p style="font-size:0.48em;">3. Send your first message — try both terminal and app</p>
+      <p style="font-size:0.48em;">4. Try <code>/context</code>, <code>/compact</code>, and explore new commands</p>
+      <p style="font-size:0.48em;">5. Ask Claude about a file, a Jira ticket, or a doc</p>
+      <p style="font-size:0.48em;">6. Run <code>/buddy</code> and share your buddy in Slack!</p>
     </div>
-    <div style="background:var(--dark-text);border-radius:8px;padding:16px;color:#FFF;">
-      <p style="font-weight:700;font-size:0.6em;margin:0 0 6px 0;color:var(--blue);">NEXT SESSION</p>
-      <p style="font-size:0.52em;color:#DDD;font-weight:600;">Session 2: Skills & MCP</p>
+    <div style="background:var(--dark-text);border-radius:8px;padding:16px;color:#FFF;display:flex;flex-direction:column;justify-content:center;">
+      <p style="font-weight:700;font-size:0.6em;margin:0 0 8px 0;color:var(--blue);">NEXT SESSION</p>
+      <p style="font-size:0.55em;color:#DDD;font-weight:600;">Session 2: Skills & MCP</p>
       <p style="font-size:0.45em;color:#999;">Connect Claude to Jira, Slack, Figma. Build custom workflows. Two live demos.</p>
       <p style="font-size:0.45em;color:var(--blue);font-weight:600;margin-top:8px;">Presented by Artur</p>
     </div>
   </div>
+  <aside class="notes">Open your laptops NOW. Don't let people leave without having sent at least one message. Walk around and help anyone stuck.</aside>
 </section>
 
-<!-- ====== 30. THE WORKSHOP SERIES ====== -->
+<!-- ====== 36. THE WORKSHOP SERIES ====== -->
 <section class="s-gray" data-background="#F0F0F0">
   <div class="sq">SQUIRE</div>
   <h2>The Workshop Series</h2>
@@ -1387,87 +1486,102 @@ code { font-family:'Menlo','Consolas',monospace;font-size:0.9em;background:rgba(
     <div class="cmd-list">
       <div class="item" style="background:#E4E4E4;border-radius:6px;padding:10px 14px;margin:6px 0;border:none;border-left:3px solid var(--blue);">
         <span class="k" style="color:var(--blue);min-width:60px;">S1</span>
-        <span class="v" style="color:var(--dark-text);font-weight:700;">Getting Started — Terminal, Commands & Context</span>
+        <span class="v" style="color:var(--dark-text);font-weight:700;">Getting Started -- Terminal, Commands & Context</span>
         <span style="margin-left:auto;font-size:0.85em;color:var(--blue);font-weight:600;">@Santi</span>
-        <span class="role-tag all" style="margin-left:8px;">TODAY</span>
+        <span style="margin-left:8px;background:var(--blue);color:#FFF;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;">TODAY</span>
       </div>
       <div class="item" style="background:#E4E4E4;border-radius:6px;padding:10px 14px;margin:6px 0;border:none;border-left:3px solid var(--green);">
         <span class="k" style="color:var(--green);min-width:60px;">S2</span>
-        <span class="v" style="color:var(--dark-text);font-weight:700;">Skills & MCP Integrations — Jira, Slack, Figma</span>
+        <span class="v" style="color:var(--dark-text);font-weight:700;">Skills & MCP Integrations -- Jira, Slack, Figma</span>
         <span style="margin-left:auto;font-size:0.85em;color:var(--green);font-weight:600;">@Artur</span>
-        <span class="role-tag all" style="margin-left:8px;">ALL</span>
+
       </div>
       <div class="item" style="background:#E4E4E4;border-radius:6px;padding:10px 14px;margin:6px 0;border:none;border-left:3px solid var(--orange);">
         <span class="k" style="color:var(--orange);min-width:60px;">S3</span>
         <span class="v" style="color:var(--dark-text);font-weight:700;">Subagents, Agent Teams & Hooks</span>
         <span style="margin-left:auto;font-size:0.85em;color:var(--orange);font-weight:600;">@Jonathan</span>
-        <span class="role-tag eng" style="margin-left:8px;">ENG</span>
       </div>
       <div class="item" style="background:#E4E4E4;border-radius:6px;padding:10px 14px;margin:6px 0;border:none;border-left:3px solid var(--code-purple);">
         <span class="k" style="color:var(--code-purple);min-width:60px;">S4</span>
         <span class="v" style="color:var(--dark-text);font-weight:700;">Specification-Driven Development</span>
         <span style="margin-left:auto;font-size:0.85em;color:var(--code-purple);font-weight:600;">@Nico</span>
-        <span class="role-tag all" style="margin-left:8px;">ALL</span>
       </div>
       <div class="item" style="background:#E4E4E4;border-radius:6px;padding:10px 14px;margin:6px 0;border:none;border-left:3px solid var(--red);">
         <span class="k" style="color:var(--red);min-width:60px;">S5</span>
         <span class="v" style="color:var(--dark-text);font-weight:700;">Plugins, CI/CD & End-to-End Demo</span>
         <span style="margin-left:auto;font-size:0.85em;color:var(--red);font-weight:600;">TBD</span>
-        <span class="role-tag eng" style="margin-left:8px;">ENG</span>
       </div>
     </div>
-    <p style="font-size:0.45em;color:var(--muted);margin-top:8px;">Sessions build on each other. S1, S2, S4 are for everyone. S3, S5 go deeper into engineering topics.</p>
+    <p style="font-size:0.45em;color:var(--muted);margin-top:8px;">Sessions build on each other. Attending in order is recommended.</p>
   </div>
+  <aside class="notes">Sessions 1, 2 are for everyone. 3, 4, and 5 are engineering deep-dives.</aside>
 </section>
 
-<!-- ====== 31. MODELS & TOKENS: LOOKING AHEAD ====== -->
-<section class="s-black" data-background="#000">
-  <div class="sq">SQUIRE</div>
-  <h2 style="color:var(--white);font-size:1.4em;">Why Learning This Matters Now</h2>
-  <div class="grow" style="display:flex;flex-direction:column;justify-content:center;">
-    <div class="two-col">
-      <div>
-        <p style="color:#CCC;font-size:0.58em;">Models are getting smarter — but also more expensive to run.</p>
-        <p style="color:#CCC;font-size:0.58em;">Opus 4.6 consumes more tokens than 4.5 did. The "thinking" features add overhead. As models improve, <strong style="color:var(--blue);">knowing how to manage context, pick the right model, and prompt efficiently will matter more, not less.</strong></p>
-        <p style="color:#CCC;font-size:0.58em;margin-top:10px;">If you learn to work with models efficiently now:</p>
-        <p style="color:var(--green);font-size:0.55em;font-weight:600;">→ You'll get better results</p>
-        <p style="color:var(--green);font-size:0.55em;font-weight:600;">→ You'll burn fewer tokens</p>
-        <p style="color:var(--green);font-size:0.55em;font-weight:600;">→ You'll be ready when models get even more powerful</p>
-      </div>
-      <div style="display:flex;flex-direction:column;justify-content:center;">
-        <div style="background:#111;border-radius:8px;padding:16px;margin:4px 0;border-left:3px solid var(--orange);">
-          <p style="color:var(--orange);font-weight:700;font-size:0.5em;margin:0;">Haiku — learn the codebase</p>
-          <p style="color:#888;font-size:0.42em;margin:2px 0;">Low cost, fast answers</p>
-        </div>
-        <div style="background:#111;border-radius:8px;padding:16px;margin:4px 0;border-left:3px solid var(--code-purple);">
-          <p style="color:var(--code-purple);font-weight:700;font-size:0.5em;margin:0;">Opus — plan, architect, review</p>
-          <p style="color:#888;font-size:0.42em;margin:2px 0;">High cost, deep thinking</p>
-        </div>
-        <div style="background:#111;border-radius:8px;padding:16px;margin:4px 0;border-left:3px solid var(--blue);">
-          <p style="color:var(--blue);font-weight:700;font-size:0.5em;margin:0;">Sonnet — implement fast</p>
-          <p style="color:#888;font-size:0.42em;margin:2px 0;">Great balance, your default</p>
-        </div>
-        <p style="color:#666;font-size:0.42em;text-align:center;margin-top:6px;">The right model for the right job = better output, lower cost.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ====== 32. KEY TAKEAWAYS ====== -->
+<!-- ====== 37. KEY TAKEAWAYS (with fragments) ====== -->
 <section class="s-black" data-background="#000">
   <div class="sq">SQUIRE</div>
   <h2 style="color:var(--white);font-size:1.4em;">Key Takeaways</h2>
   <div class="grow" style="display:flex;flex-direction:column;justify-content:center;">
-    <div class="tk-row"><span class="n">1</span><span class="tx">Claude reads your codebase — just type naturally (terminal or app)</span></div>
-    <div class="tk-row"><span class="n">2</span><span class="tx">Context is your most valuable resource — /clear between tasks, new chat > auto-compact</span></div>
-    <div class="tk-row"><span class="n">3</span><span class="tx">Haiku explores → Opus plans → Sonnet builds — use the right model for the right job</span></div>
-    <div class="tk-row"><span class="n">4</span><span class="tx">Plan first, code second — /plan with Opus saves time and gets better results</span></div>
-    <div class="tk-row"><span class="n">5</span><span class="tx">CLAUDE.md is your team's playbook — it shapes how Claude behaves for everyone</span></div>
-    <div class="tk-row"><span class="n">6</span><span class="tx">Always review the output — Claude is a powerful partner, not autopilot</span></div>
+    <div class="tk-row fragment fade-up"><span class="n">1</span><span class="tx">Claude reads your codebase -- just type naturally (terminal or app)</span></div>
+    <div class="tk-row fragment fade-up"><span class="n">2</span><span class="tx">Context is your most valuable resource -- /clear between tasks, new chat > auto-compact</span></div>
+    <div class="tk-row fragment fade-up"><span class="n">3</span><span class="tx">Haiku explores &rarr; Opus plans &rarr; Sonnet builds -- use the right model for the right job</span></div>
+    <div class="tk-row fragment fade-up"><span class="n">4</span><span class="tx">Plan first, code second -- /plan with Opus saves time and gets better results</span></div>
+    <div class="tk-row fragment fade-up"><span class="n">5</span><span class="tx">CLAUDE.md is your team's playbook -- it shapes how Claude behaves for everyone</span></div>
+    <div class="tk-row fragment fade-up"><span class="n">6</span><span class="tx">Always review the output -- Claude is a powerful partner, not autopilot</span></div>
   </div>
   <div class="mt-auto">
-    <div class="dots"><div class="dot done"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    <p style="color:#555;font-size:0.42em;">Session 1 of 5 complete</p>
   </div>
+</section>
+
+<!-- ====== 38. BONUS: MEET YOUR BUDDY ====== -->
+<section class="s-black" data-background="#000">
+  <div class="sq">SQUIRE</div>
+  <div style="display:flex;align-items:center;justify-content:center;gap:40px;" class="grow">
+    <div style="max-width:400px;">
+      <p style="font-size:0.45em;color:var(--blue);font-weight:700;letter-spacing:2px;text-transform:uppercase;">BONUS</p>
+      <h2 style="color:#FFF;font-size:1.8em;">Meet Your Buddy</h2>
+      <p style="color:#CCC;font-size:0.52em;">Claude Code has a companion feature — a tiny character that appears beside your input and drops comments in a speech bubble.</p>
+      <p style="color:#CCC;font-size:0.48em;margin-top:6px;">Each person gets a unique buddy with its own name and personality. You activate it with one command:</p>
+      <div class="term" style="margin:12px 0;">
+        <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">meet your buddy</div></div>
+        <div class="term-body auto-anim" style="font-size:12px;">
+          <div class="ln"><span class="p">></span> <span class="c">/buddy</span></div>
+          <div class="ln">&nbsp;</div>
+          <div class="ln"><span class="ok">🍄</span> <span class="o">Waffletch has appeared!</span></div>
+          <div class="ln"><span class="o">   "Hey there! I'll be watching</span></div>
+          <div class="ln"><span class="o">    from the sideline."</span></div>
+          <div class="ln">&nbsp;</div>
+          <div class="ln"><span class="cm"># Talk to your buddy by name:</span></div>
+          <div class="ln"><span class="p">></span> <span class="s">"Waffletch, what do you think?"</span></div>
+          <div class="ln"><span class="ok">🍄</span> <span class="o">"Looking good! But maybe check</span></div>
+          <div class="ln"><span class="o">    that edge case first..."</span></div>
+        </div>
+      </div>
+      <p style="color:#888;font-size:0.42em;">That's mine — Waffletch, a mushroom with opinions. Yours will be someone else!</p>
+      <p style="color:var(--blue);font-size:0.48em;font-weight:600;">Share yours in <span style="color:var(--code-green);">#claude-code-workshop</span> on Slack!</p>
+    </div>
+    <div style="text-align:center;">
+      <img src="img/waffletch.png" style="width:280px;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,0.5);">
+    </div>
+  </div>
+  <aside class="notes">Fun ending. Show your Waffletch screenshot. Encourage people to find their buddy and share. This builds community.</aside>
+</section>
+
+<!-- ====== 39. THANK YOU ====== -->
+<section class="s-black" data-background="#000">
+  <div class="sq">SQUIRE</div>
+  <div class="grow" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;">
+    <h1 style="font-size:3.5em;text-align:center;">THANK YOU</h1>
+    <p style="color:#CCC;font-size:0.6em;margin-top:12px;">Now go use it.</p>
+    <div style="margin:24px 0;padding:16px 30px;background:#111;border-radius:8px;border:1px solid #333;">
+      <p style="color:var(--blue);font-weight:700;font-size:0.55em;margin:0;">Questions? Ideas? Screenshots? Q&A?</p>
+      <p style="color:var(--code-green);font-size:0.7em;font-weight:700;margin:6px 0 0 0;">#claude-code-workshop</p>
+      <p style="color:#888;font-size:0.4em;margin:4px 0 0 0;">Post your buddy, share tips, ask for help</p>
+    </div>
+    <p style="color:#555;font-size:0.45em;margin-top:20px;">Session 1 of 5 — See you at Session 2 with Artur!</p>
+  </div>
+  <aside class="notes">"Thank you everyone. Go install it, try it, and post in the Slack channel. See you at Session 2 with Artur!"</aside>
 </section>
 
 </div>
