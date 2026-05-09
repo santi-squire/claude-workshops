@@ -1,0 +1,1718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Code — Session 2: MCP & Skills</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/black.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+/* ================================================================
+   FAITHFUL TO ORIGINAL SQUIRE DECK STYLE
+   Black dividers | Light gray content | Bold condensed titles
+   ================================================================ */
+:root {
+  --black: #000000;
+  --gray-bg: #F0F0F0;
+  --white: #FFFFFF;
+  --dark-text: #1A1A1A;
+  --muted: #666666;
+  --blue: #4A8FE7;
+  --green: #4EC971;
+  --red: #E55B5B;
+  --orange: #E5A84E;
+  --code-bg: #0D1117;
+  --code-green: #7EE787;
+  --code-blue: #79C0FF;
+  --code-orange: #FFA657;
+  --code-red: #FF7B72;
+  --code-purple: #D2A8FF;
+  --code-gray: #8B949E;
+  --terminal-bar: #2D2D2D;
+  --dot-r: #FF5F57; --dot-y: #FEBC2E; --dot-g: #28C840;
+  --app-bg: #2B2B2B;
+  --app-user: #4A8FE7;
+  --app-claude: #3A3A3A;
+  --teal: #22D3EE;
+}
+.reveal { font-family: 'Inter', -apple-system, sans-serif; font-size: 28px; }
+.reveal .slides { text-align: left; }
+.reveal .slides section {
+  padding: 50px 70px; box-sizing: border-box; height: 100%;
+  display: flex !important; flex-direction: column; justify-content: flex-start;
+}
+.reveal h1 {
+  font-family: 'Bebas Neue', 'Impact', sans-serif;
+  font-weight: 400; font-size: 3em; text-transform: uppercase;
+  letter-spacing: 0.02em; line-height: 1.0; margin: 0 0 0.2em 0; text-align: left;
+}
+.reveal h2 {
+  font-family: 'Bebas Neue', 'Impact', sans-serif;
+  font-weight: 400; font-size: 2.1em; text-transform: uppercase;
+  letter-spacing: 0.02em; line-height: 1.05; margin: 0 0 0.4em 0; text-align: left;
+}
+.reveal h3 { font-weight: 700; font-size: 0.7em; margin: 0 0 0.3em 0; text-align: left; }
+.reveal p, .reveal li { font-size: 0.62em; line-height: 1.65; font-weight: 400; }
+.reveal ul { list-style: none; padding: 0; margin: 0; }
+.reveal li { margin-bottom: 6px; }
+
+/* Slide types */
+.s-black { background: var(--black) !important; color: var(--white) !important; }
+.s-black h1,.s-black h2,.s-black h3 { color: var(--white); }
+.s-black p,.s-black li { color: #CCC; }
+.s-gray { background: var(--gray-bg) !important; color: var(--dark-text) !important; }
+.s-gray h1,.s-gray h2 { color: var(--dark-text); }
+.s-gray p,.s-gray li { color: var(--muted); }
+
+/* Badge */
+.sq { position:absolute;top:24px;right:30px;font-weight:900;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;z-index:10; }
+.s-black .sq { color: var(--white); }
+.s-gray .sq { background:var(--black);color:var(--white);padding:6px 14px;border-radius:4px; }
+
+/* Layouts */
+.two-col { display:grid;grid-template-columns:1fr 1fr;gap:28px; }
+.three-col { display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px; }
+.grow { flex:1; }
+.mt-auto { margin-top:auto; }
+.mt { margin-top:20px; }
+.mt-sm { margin-top:10px; }
+code { font-family:'Menlo','Consolas',monospace;font-size:0.9em;background:rgba(0,0,0,0.08);padding:1px 6px;border-radius:3px; }
+.s-black code { background:rgba(255,255,255,0.1);color:var(--code-green); }
+
+/* ================================================================
+   TERMINAL MOCKUP
+   ================================================================ */
+.term { background:var(--code-bg);border-radius:10px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.3);font-family:'Menlo','Consolas',monospace;font-size:13px;line-height:1.7; }
+.term-bar { background:var(--terminal-bar);padding:10px 14px;display:flex;align-items:center;gap:8px; }
+.term-bar .d { width:12px;height:12px;border-radius:50%; }
+.term-bar .dr { background:var(--dot-r); } .term-bar .dy { background:var(--dot-y); } .term-bar .dg { background:var(--dot-g); }
+.term-bar .t { flex:1;text-align:center;font-size:12px;color:#999;font-family:'Inter',sans-serif; }
+.term-body { padding:14px 18px;color:#E6EDF3; }
+.term-body .ln { margin:2px 0; }
+.p { color:var(--code-green); }
+.c { color:#FFF;font-weight:600; }
+.f { color:var(--code-orange); }
+.s { color:var(--code-blue); }
+.cm { color:var(--code-gray); }
+.o { color:var(--code-gray); }
+.ok { color:var(--code-green); }
+.er { color:var(--code-red); }
+.pu { color:var(--code-purple); }
+
+/* ================================================================
+   CLAUDE APP MOCKUP
+   ================================================================ */
+.app { background:var(--app-bg);border-radius:10px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.3);font-family:'Inter',sans-serif;font-size:13px; }
+.app-bar { background:#1E1E1E;padding:12px 16px;display:flex;align-items:center;gap:10px; }
+.app-bar .app-icon { width:24px;height:24px;border-radius:6px;background:linear-gradient(135deg,#D4A574,#C4956A);display:flex;align-items:center;justify-content:center;font-size:14px;color:#FFF; }
+.app-bar .app-title { color:#DDD;font-weight:600;font-size:13px; }
+.app-bar .app-model { color:#888;font-size:11px;margin-left:auto; }
+.app-body { padding:14px 16px;display:flex;flex-direction:column;gap:10px; }
+.app-msg { max-width:85%;padding:10px 14px;border-radius:12px;font-size:12.5px;line-height:1.5; }
+.app-msg.user { background:var(--app-user);color:#FFF;align-self:flex-end;border-bottom-right-radius:4px; }
+.app-msg.claude { background:var(--app-claude);color:#DDD;align-self:flex-start;border-bottom-left-radius:4px; }
+.app-msg .label { font-size:10px;font-weight:600;color:#999;margin-bottom:3px;display:block; }
+.app-input { background:#1E1E1E;margin:0 -16px -14px;padding:10px 16px;display:flex;align-items:center;gap:8px; }
+.app-input .inp { flex:1;background:#333;border:none;border-radius:20px;padding:8px 14px;color:#AAA;font-size:11px; }
+
+/* ================================================================
+   COMMAND LIST
+   ================================================================ */
+.cmd-list .item { display:flex;gap:12px;align-items:baseline;padding:8px 0;border-bottom:1px solid rgba(0,0,0,0.06);font-size:0.6em; }
+.cmd-list .item:last-child { border-bottom:none; }
+.cmd-list .item .k { font-family:'Menlo','Consolas',monospace;font-weight:700;color:var(--dark-text);min-width:150px;flex-shrink:0; }
+.cmd-list .item .v { color:var(--muted); }
+
+/* Tags */
+.tag { display:inline-block;padding:3px 10px;border-radius:3px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px; }
+
+/* Cheat row */
+.cheat-row { display:flex;align-items:center;gap:16px;margin:10px 0; }
+.cheat-row .t { min-width:140px;text-align:center;padding:6px 12px;font-size:12px;font-weight:700;border-radius:3px; }
+.cheat-row .cmds { font-family:'Menlo','Consolas',monospace;font-size:15px;color:#DDD; }
+
+/* Takeaway row */
+.tk-row { display:flex;align-items:center;gap:20px;background:#111;padding:16px 20px;margin:6px 0;border-left:3px solid var(--blue); }
+.tk-row .n { font-weight:900;font-size:0.8em;color:var(--blue);min-width:30px; }
+.tk-row .tx { font-size:0.55em;color:#DDD; }
+
+/* Before/After */
+.ba-card { padding:28px 30px; }
+.ba-card h3 { font-size:0.9em;margin-bottom:18px;letter-spacing:2px; }
+.ba-card li { font-size:0.58em;margin-bottom:8px;padding-left:16px;position:relative;line-height:1.5; }
+.ba-card li::before { content:'>';position:absolute;left:0; }
+.ba-before { background:#1A1A1A;border-top:3px solid var(--red); }
+.ba-before h3 { color:var(--red); } .ba-before li { color:#999; } .ba-before li::before { color:var(--red); }
+.ba-after { background:#1A1A1A;border-top:3px solid var(--green); }
+.ba-after h3 { color:var(--green); } .ba-after li { color:#CCC; } .ba-after li::before { color:var(--green); }
+
+/* VS CODE MOCKUP */
+.vscode { background:#1E1E1E;border-radius:10px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.3);font-family:'Menlo','Consolas',monospace;font-size:12px;line-height:1.7; }
+.vscode-bar { background:#323233;padding:8px 14px;display:flex;align-items:center;gap:8px; }
+.vscode-bar .d { width:12px;height:12px;border-radius:50%; }
+.vscode-bar .tab { background:#1E1E1E;color:#CCC;padding:5px 14px;border-radius:4px 4px 0 0;font-size:11px;font-family:'Inter',sans-serif;display:flex;align-items:center;gap:6px; }
+.vscode-bar .tab .icon { color:#519ABA;font-size:13px; }
+.vscode-body { display:flex; }
+.vscode-gutter { padding:8px 10px 8px 14px;text-align:right;color:#858585;font-size:11px;line-height:1.7;user-select:none;min-width:32px; }
+.vscode-code { padding:8px 14px;color:#D4D4D4;flex:1;overflow-x:auto; }
+.vscode-code .ln { margin:0;white-space:pre; }
+.vsc-h { color:#569CD6; }
+.vsc-s { color:#CE9178; }
+.vsc-c { color:#6A9955; }
+.vsc-b { color:#D4D4D4; }
+.vsc-k { color:#C586C0; }
+.vsc-p { color:#DCDCAA; }
+
+/* PRO TIP CALLOUT */
+.pro-tip { background:linear-gradient(135deg,#1a1a2e,#16213e);border-left:3px solid var(--blue);border-radius:6px;padding:12px 16px;margin:8px 0;font-size:0.5em; }
+.pro-tip .label { color:var(--blue);font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;display:block; }
+.pro-tip p { color:#BBB;margin:0;font-size:1em;line-height:1.5; }
+.s-gray .pro-tip { background:linear-gradient(135deg,#E8EAF0,#DDE1EA);border-left-color:var(--blue); }
+.s-gray .pro-tip .label { color:var(--blue); }
+.s-gray .pro-tip p { color:#444; }
+
+/* ================================================================
+   ANIMATIONS
+   ================================================================ */
+@keyframes blink { 50%{opacity:0;} }
+.cursor { display:inline-block;width:8px;height:15px;background:var(--code-green);vertical-align:text-bottom;animation:blink 1s step-end infinite; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(12px);} to{opacity:1;transform:translateY(0);} }
+@keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
+@keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+@keyframes spin { to{transform:rotate(360deg);} }
+@keyframes subtlePulse { 0%,100%{box-shadow:0 0 0 0 rgba(74,143,231,0.4);} 50%{box-shadow:0 0 12px 4px rgba(74,143,231,0.2);} }
+
+.fragment.visible .anim-line { animation: fadeUp 0.4s ease both; }
+.fragment.visible .anim-line:nth-child(1) { animation-delay:0s; }
+.fragment.visible .anim-line:nth-child(2) { animation-delay:0.15s; }
+.fragment.visible .anim-line:nth-child(3) { animation-delay:0.3s; }
+.fragment.visible .anim-line:nth-child(4) { animation-delay:0.45s; }
+.fragment.visible .anim-line:nth-child(5) { animation-delay:0.6s; }
+.fragment.visible .anim-line:nth-child(6) { animation-delay:0.75s; }
+.fragment.visible .anim-line:nth-child(7) { animation-delay:0.9s; }
+.fragment.visible .anim-line:nth-child(8) { animation-delay:1.05s; }
+
+/* Auto-animate terminal lines on slide enter */
+.reveal section.present .auto-anim .ln {
+  opacity:0; transform:translateY(8px);
+  animation: typeLineIn 0.35s ease forwards;
+}
+@keyframes typeLineIn {
+  0% { opacity:0; transform:translateY(8px); }
+  100% { opacity:1; transform:translateY(0); }
+}
+.reveal section.present .auto-anim .ln:nth-child(1) { animation-delay:0.2s; }
+.reveal section.present .auto-anim .ln:nth-child(2) { animation-delay:0.5s; }
+.reveal section.present .auto-anim .ln:nth-child(3) { animation-delay:0.8s; }
+.reveal section.present .auto-anim .ln:nth-child(4) { animation-delay:1.1s; }
+.reveal section.present .auto-anim .ln:nth-child(5) { animation-delay:1.4s; }
+.reveal section.present .auto-anim .ln:nth-child(6) { animation-delay:1.7s; }
+.reveal section.present .auto-anim .ln:nth-child(7) { animation-delay:2.0s; }
+.reveal section.present .auto-anim .ln:nth-child(8) { animation-delay:2.3s; }
+.reveal section.present .auto-anim .ln:nth-child(9) { animation-delay:2.6s; }
+.reveal section.present .auto-anim .ln:nth-child(10) { animation-delay:2.9s; }
+.reveal section.present .auto-anim .ln:nth-child(11) { animation-delay:3.2s; }
+.reveal section.present .auto-anim .ln:nth-child(12) { animation-delay:3.5s; }
+.reveal section.present .auto-anim .ln:nth-child(13) { animation-delay:3.8s; }
+.reveal section.present .auto-anim .ln:nth-child(14) { animation-delay:4.1s; }
+.reveal section.present .auto-anim .ln:nth-child(15) { animation-delay:4.4s; }
+
+/* Demo terminal auto-play */
+.reveal section.present .demo-anim .ln { opacity:0; animation: fadeUp 0.4s ease forwards; }
+.reveal section.present .demo-anim .ln:nth-child(1) { animation-delay:0.3s; }
+.reveal section.present .demo-anim .ln:nth-child(2) { animation-delay:1.0s; }
+.reveal section.present .demo-anim .ln:nth-child(3) { animation-delay:1.5s; }
+.reveal section.present .demo-anim .ln:nth-child(4) { animation-delay:2.2s; }
+.reveal section.present .demo-anim .ln:nth-child(5) { animation-delay:2.8s; }
+.reveal section.present .demo-anim .ln:nth-child(6) { animation-delay:3.5s; }
+.reveal section.present .demo-anim .ln:nth-child(7) { animation-delay:4.2s; }
+.reveal section.present .demo-anim .ln:nth-child(8) { animation-delay:4.8s; }
+.reveal section.present .demo-anim .ln:nth-child(9) { animation-delay:5.5s; }
+.reveal section.present .demo-anim .ln:nth-child(10) { animation-delay:6.0s; }
+.reveal section.present .demo-anim .ln:nth-child(11) { animation-delay:6.5s; }
+.reveal section.present .demo-anim .ln:nth-child(12) { animation-delay:7.0s; }
+
+/* Spinner */
+.spinner { display:inline-block;width:14px;height:14px;border:2px solid var(--code-green);border-top-color:transparent;border-radius:50%;animation:spin 0.8s linear infinite;vertical-align:middle;margin-right:6px; }
+
+/* Live badge */
+.live-badge { display:inline-block;background:var(--red);color:#FFF;font-size:10px;font-weight:700;padding:3px 10px;border-radius:12px;text-transform:uppercase;letter-spacing:1px;animation:pulse 2s ease infinite; }
+
+/* Role tag */
+.role-tag { display:inline-block;padding:3px 10px;border-radius:12px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px; }
+.role-tag.eng { background:var(--blue);color:#FFF; }
+.role-tag.pm { background:var(--green);color:#FFF; }
+.role-tag.qa { background:var(--orange);color:#FFF; }
+.role-tag.design { background:var(--code-purple);color:#FFF; }
+.role-tag.recruit { background:var(--teal);color:#000; }
+.role-tag.all { background:#666;color:#FFF; }
+
+/* Try-it-now action box */
+.try-now { background:linear-gradient(135deg,#0D1117,#161B22);border:2px solid var(--blue);border-radius:8px;padding:12px 18px;margin:10px 0;animation:subtlePulse 3s ease infinite;display:flex;align-items:center;gap:12px; }
+.try-now .arrow { color:var(--blue);font-weight:900;font-size:1.2em; }
+.try-now code { background:rgba(74,143,231,0.15);color:var(--code-green);font-size:0.85em;padding:4px 10px;border-radius:4px; }
+.try-now span { color:#DDD;font-size:0.5em;font-weight:600; }
+.s-gray .try-now { background:linear-gradient(135deg,#E0E4EA,#D8DCE6);border-color:var(--blue); }
+.s-gray .try-now span { color:var(--dark-text); }
+.s-gray .try-now code { background:rgba(74,143,231,0.12);color:var(--dark-text); }
+
+/* Doc link style */
+a.doc-link { color:inherit;text-decoration:underline;text-decoration-style:dotted; }
+
+/* Comparison table */
+.cmp-table { width:100%;border-collapse:collapse;font-size:0.5em; }
+.cmp-table th { text-align:left;padding:8px 12px;font-weight:700;border-bottom:2px solid rgba(0,0,0,0.15); }
+.cmp-table td { padding:8px 12px;border-bottom:1px solid rgba(0,0,0,0.06); }
+.s-gray .cmp-table th { color:var(--dark-text); }
+.s-gray .cmp-table td { color:var(--muted); }
+.s-black .cmp-table th { color:var(--white);border-bottom-color:rgba(255,255,255,0.2); }
+.s-black .cmp-table td { color:#CCC;border-bottom-color:rgba(255,255,255,0.06); }
+
+/* Progress dots */
+.dots { display:flex;gap:10px; }
+.dots .dot { width:14px;height:14px;border-radius:50%;background:#333; }
+.dots .dot.on { background:var(--blue); }
+.dots .dot.done { background:var(--green); }
+</style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- ============================================================
+     PART 0: OPENING
+     ============================================================ -->
+
+<!-- ====== 1. TITLE ====== -->
+<section class="s-black" data-background="#000">
+  <div class="sq">SQUIRE</div>
+  <div class="grow" style="display:flex;flex-direction:column;justify-content:center;">
+    <h1 style="font-size:4.5em;margin-bottom:0;">MCP & SKILLS</h1>
+    <h1 style="color:var(--green);font-size:2.8em;margin-top:-5px;">SESSION 2: INTEGRATIONS</h1>
+    <p style="color:#888;font-size:0.5em;font-style:italic;margin-top:16px;">Everything has a place. Here's how to think about it.</p>
+  </div>
+  <div class="mt-auto">
+    <p style="color:#666;font-size:0.5em;">Workshop 2 of 5 &nbsp;&middot;&nbsp; Open to all roles</p>
+    <div class="dots"><div class="dot done"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+  </div>
+  <aside class="notes">Welcome back. Session 1 was about getting started with Claude Code. Today we go deeper - MCP gives Claude tools to work with, Skills teach it how to use them.</aside>
+</section>
+
+<!-- ====== 2. PRESENTER ====== -->
+<section class="s-black" data-background="#000">
+  <div class="sq">SQUIRE</div>
+  <div class="grow" style="display:flex;align-items:center;justify-content:center;gap:60px;">
+    <div style="text-align:center;">
+      <div style="width:128px;height:128px;border-radius:50%;background:linear-gradient(135deg,var(--green),#38A169);margin:0 auto 12px;padding:3px;box-shadow:0 0 0 2px #222;">
+        <img src="img/ava.jpeg" style="width:100%;height:100%;border-radius:50%;object-fit:cover;display:block;">
+      </div>
+      <p style="color:#FFF;font-weight:700;font-size:0.65em;margin:0;">Artur Badretdinov</p>
+      <p style="color:var(--green);font-size:0.55em;margin:2px 0;">Presenter</p>
+    </div>
+  </div>
+</section>
+
+<!-- ====== 3. SESSION 1 RECAP ====== -->
+<section class="s-black" data-background="#000">
+  <div class="sq">SQUIRE</div>
+  <h2 style="font-size:1.4em;color:var(--white);">Quick Recap: Session 1</h2>
+  <div class="three-col grow" style="align-items:stretch;">
+    <div style="background:#111;border-radius:8px;padding:16px;border-top:3px solid var(--blue);">
+      <p style="color:var(--blue);font-weight:700;font-size:0.55em;margin:0;">THE TERMINAL</p>
+      <p style="color:#CCC;font-size:0.55em;margin:6px 0 0 0;">Claude Code runs in your terminal or Desktop App. Same brain, different window.</p>
+    </div>
+    <div style="background:#111;border-radius:8px;padding:16px;border-top:3px solid var(--green);">
+      <p style="color:var(--green);font-weight:700;font-size:0.55em;margin:0;">CONTEXT WINDOW</p>
+      <p style="color:#CCC;font-size:0.55em;margin:6px 0 0 0;">Your desk has limited space. Use <code>/clear</code>, <code>/compact</code>, pick the right model.</p>
+    </div>
+    <div style="background:#111;border-radius:8px;padding:16px;border-top:3px solid var(--orange);">
+      <p style="color:var(--orange);font-weight:700;font-size:0.55em;margin:0;">CLAUDE.MD</p>
+      <p style="color:#CCC;font-size:0.55em;margin:6px 0 0 0;">Your team's playbook. Shared conventions, loaded every session.</p>
+    </div>
+  </div>
+  <p style="color:#888;font-size:0.48em;text-align:center;margin-top:auto;">Today we answer: <strong style="color:var(--white);">how do you connect Claude to your tools and teach it your workflows?</strong></p>
+</section>
+
+<!-- ====== 4. THE EVOLUTION: CHAT → TOOLS → SKILLS ====== -->
+<section class="s-black" data-background="#000">
+  <div class="sq">SQUIRE</div>
+  <h2 style="color:var(--white);font-size:1.6em;">How We Got Here</h2>
+  <div style="display:flex;flex-direction:column;gap:6px;max-width:800px;margin:16px auto 0;" class="grow">
+    <div class="fragment fade-up" data-fragment-index="0" style="background:#111;border-radius:8px;padding:16px 24px;border-left:4px solid var(--muted);">
+      <div style="display:flex;align-items:center;gap:16px;">
+        <p style="color:var(--muted);font-weight:700;font-size:0.7em;margin:0;min-width:100px;">2022-23</p>
+        <div>
+          <p style="color:var(--white);font-weight:700;font-size:0.6em;margin:0;">CHAT: Text in, text out</p>
+          <p style="color:#888;font-size:0.52em;margin:4px 0 0 0;">LLMs could only talk. Ask a question, get an answer. No files, no APIs, no actions. A brain in a jar.</p>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;color:#444;font-size:12px;margin:1px 0;">&darr;</div>
+    <div class="fragment fade-up" data-fragment-index="1" style="background:#111;border-radius:8px;padding:16px 24px;border-left:4px solid var(--blue);">
+      <div style="display:flex;align-items:center;gap:16px;">
+        <p style="color:var(--blue);font-weight:700;font-size:0.7em;margin:0;min-width:100px;">2024</p>
+        <div>
+          <p style="color:var(--white);font-weight:700;font-size:0.6em;margin:0;">TOOLS: LLMs learn to act</p>
+          <p style="color:#888;font-size:0.52em;margin:4px 0 0 0;">Function calling. Tool use. The brain gets hands - it can call APIs, query databases, run code. But every integration is bespoke. N agents x M tools = N&times;M custom wiring.</p>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;color:#444;font-size:12px;margin:1px 0;">&darr;</div>
+    <div class="fragment fade-up" data-fragment-index="2" style="background:#111;border-radius:8px;padding:16px 24px;border-left:4px solid var(--orange);">
+      <div style="display:flex;align-items:center;gap:16px;">
+        <p style="color:var(--orange);font-weight:700;font-size:0.7em;margin:0;min-width:100px;">2024-25</p>
+        <div>
+          <p style="color:var(--white);font-weight:700;font-size:0.6em;margin:0;">MCP: A standard protocol</p>
+          <p style="color:#888;font-size:0.52em;margin:4px 0 0 0;">Model Context Protocol standardizes the wiring. Build one MCP server, any agent can use it. Jira, Slack, Figma, Sentry - all connected through one protocol. The N&times;M problem becomes N+M.</p>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;color:#444;font-size:12px;margin:1px 0;">&darr;</div>
+    <div class="fragment fade-up" data-fragment-index="3" style="background:#111;border-radius:8px;padding:16px 24px;border-left:4px solid var(--green);">
+      <div style="display:flex;align-items:center;gap:16px;">
+        <p style="color:var(--green);font-weight:700;font-size:0.7em;margin:0;min-width:100px;">NOW</p>
+        <div>
+          <p style="color:var(--white);font-weight:700;font-size:0.6em;margin:0;">SKILLS: LLMs learn to think consistently</p>
+          <p style="color:#888;font-size:0.52em;margin:4px 0 0 0;">Packaged expertise. The brain has hands AND training. It doesn't just act - it follows your team's procedures, applies domain knowledge, and gets better over time.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p style="color:var(--blue);font-weight:700;font-size:0.55em;text-align:center;margin-top:auto;">Today's session covers the last two leaps: MCP (the standard plumbing) and Skills (the playbook).</p>
+  <aside class="notes">Set the stage. Chat was impressive but useless for real work. Tools gave LLMs hands but every integration was bespoke. MCP standardized the wiring. Now skills give them expertise. This session covers MCP and Skills - the last two leaps.</aside>
+</section>
+
+<!-- ====== 5. AGENDA ====== -->
+<section class="s-gray" data-background="#F0F0F0">
+  <div class="sq">SQUIRE</div>
+  <h1 style="font-size:2.6em;">What We'll<br>Cover Today</h1>
+  <div class="two-col grow">
+    <div class="cmd-list">
+      <div class="item"><span class="k" style="color:var(--green);min-width:30px;">01</span><span class="v" style="color:var(--dark-text);">DEFINITIONS - MCP, Skills, Tools, Agents</span></div>
+      <div class="item"><span class="k" style="color:var(--green);min-width:30px;">02</span><span class="v" style="color:var(--dark-text);">MCP - THE PROTOCOL & TRANSPORTS</span></div>
+      <div class="item"><span class="k" style="color:var(--green);min-width:30px;">03</span><span class="v" style="color:var(--dark-text);">PERMISSIONS, AUTH & TRUST</span></div>
+      <div class="item"><span class="k" style="color:var(--green);min-width:30px;">04</span><span class="v" style="color:var(--dark-text);">WHAT PEOPLE GET WRONG (& MISS)</span></div>
+      <div class="item"><span class="k" style="color:var(--green);min-width:30px;">05</span><span class="v" style="color:var(--dark-text);">REAL STORY: POSTHOG AT SQUIRE</span></div>
+      <div class="item"><span class="k" style="color:var(--green);min-width:30px;">06</span><span class="v" style="color:var(--dark-text);">"DON'T BUILD AGENTS, BUILD SKILLS"</span></div>
+      <div class="item"><span class="k" style="color:var(--green);min-width:30px;">07</span><span class="v" style="color:var(--dark-text);">SKILLS IN PRACTICE</span></div>
+      <div class="item"><span class="k" style="color:var(--green);min-width:30px;">08</span><span class="v" style="color:var(--dark-text);">CONTEXT, AGENTS & ECOSYSTEM</span></div>
+      <div class="item"><span class="k" style="color:var(--green);min-width:30px;">09</span><span class="v" style="color:var(--dark-text);">DEMO: MCP + SKILLS IN ACTION</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PART 1: DEFINITIONS
+     ============================================================ -->
+
+<!-- ====== 5. SECTION: DEFINITIONS ====== -->
+<section class="s-black" data-background="#000">
+  <div class="sq">SQUIRE</div>
+  <div class="grow" style="display:flex;align-items:flex-end;">
+    <h1 style="font-size:3.8em;">DEFINITIONS</h1>
+  </div>
+</section>
+
+<!-- ====== 6. Three CONCEPTS ====== -->
+<section class="s-gray" data-background="#F0F0F0">
+  <div class="sq">SQUIRE</div>
+  <h2>Three Concepts to Know</h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;" class="grow">
+    <div class="fragment fade-up" data-fragment-index="0" style="background:#E4E4E4;border-radius:8px;padding:16px;border-left:3px solid var(--orange);">
+      <p style="color:var(--orange);font-weight:700;font-size:0.6em;margin:0;">MCP (MODEL CONTEXT PROTOCOL)</p>
+      <p style="font-size:0.48em;margin:6px 0 0 0;color:var(--dark-text);">Protocol for exposing RPCs as tools</p>
+      <p style="font-size:0.52em;margin:4px 0 0 0;">How you connect Claude to external services. The protocol is separate from implementation quality.</p>
+    </div>
+    <div class="fragment fade-up" data-fragment-index="1" style="background:#E4E4E4;border-radius:8px;padding:16px;border-left:3px solid var(--green);">
+      <p style="color:var(--green);font-weight:700;font-size:0.6em;margin:0;">SKILLS</p>
+      <p style="font-size:0.48em;margin:6px 0 0 0;color:var(--dark-text);">Organized collections of files that package procedural knowledge</p>
+      <p style="font-size:0.52em;margin:4px 0 0 0;">Loaded on-demand - minimal context footprint. Encode how to do something, not what to do it with.</p>
+    </div>
+    <div class="fragment fade-up" data-fragment-index="2" style="background:#E4E4E4;border-radius:8px;padding:16px;border-left:3px solid var(--blue);">
+      <p style="color:var(--blue);font-weight:700;font-size:0.6em;margin:0;">TOOLS</p>
+      <p style="font-size:0.48em;margin:6px 0 0 0;color:var(--dark-text);">Function calls exposed to the agent grammar</p>
+      <p style="font-size:0.52em;margin:4px 0 0 0;">JSON schema describes parameters. MCP servers expose collections of tools. Slightly heavier context cost.</p>
+    </div>
+  </div>
+  <aside class="notes">Take a moment on each card. MCP = the plumbing. Skills = the playbook. Tools = individual pipes exposed by MCP servers.</aside>
+</section>
+
+<!-- ====== 7. PLUMBING + PLAYBOOK ====== -->
+<section class="s-gray" data-background="#F0F0F0">
+  <div class="sq">SQUIRE</div>
+  <h2>Plumbing + Playbook</h2>
+  <div style="background:#111;border-left:3px solid var(--orange);border-radius:6px;padding:14px 18px;margin-bottom:14px;">
+    <p style="color:#DDD;font-size:0.6em;font-style:italic;margin:0;">"MCP is the plumbing connecting Claude to the outside world. Skills are the playbook of procedural knowledge."</p>
+  </div>
+  <div class="two-col grow">
+    <div>
+      <table class="cmp-table">
+        <tr><th></th><th style="color:var(--orange);">MCP (Plumbing)</th><th style="color:var(--green);">Skills (Playbook)</th></tr>
+        <tr><td style="font-weight:600;color:var(--dark-text);">Provides</td><td>Connectivity - <em>what</em> you can reach</td><td>Knowledge - <em>how</em> to do it right</td></tr>
+        <tr><td style="font-weight:600;color:var(--dark-text);">Context cost</td><td>Higher (+ JSON schema)</td><td>Low (prompt + description)</td></tr>
+        <tr><td style="font-weight:600;color:var(--dark-text);">Best for</td><td>Network services, authenticated APIs</td><td>Reusable prompts, team workflows</td></tr>
+        <tr><td style="font-weight:600;color:var(--dark-text);">Example</td><td>Jira, Slack, Figma, Sentry</td><td>"Create a PR with our format"</td></tr>
+      </table>
+      <div class="pro-tip" style="margin-top:10px;">
+        <span class="label">Concrete Example</span>
+        <p>You connect the Jira MCP. Claude can now read tickets - that's the plumbing. But a skill tells it: "When you read a ticket, extract acceptance criteria, check for missing edge cases, cross-reference the codebase, and draft a test plan." That's the playbook. Plumbing alone gets you raw data. Plumbing + playbook gets you expertise.</p>
+      </div>
+    </div>
+    <div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="background:var(--white);border-radius:8px;padding:14px 16px;border-left:3px solid var(--orange);">
+          <p style="color:var(--orange);font-weight:700;font-size:0.55em;margin:0;">MCP = THE PLUMBING</p>
+          <p style="font-size:0.52em;margin:4px 0 0 0;">Pipes connecting Claude to the outside world. Jira, Slack, Figma, Sentry. Always available, invisible when working.</p>
+        </div>
+        <div style="text-align:center;color:#BBB;font-size:16px;">+</div>
+        <div style="background:var(--white);border-radius:8px;padding:14px 16px;border-left:3px solid var(--green);">
+          <p style="color:var(--green);font-weight:700;font-size:0.55em;margin:0;">SKILLS = THE PLAYBOOK</p>
+          <p style="font-size:0.52em;margin:4px 0 0 0;">Step-by-step procedures. "Here's how we do PRs at Squire - conventional commits, test plan, tag reviewers, link the ticket."</p>
+        </div>
+      </div>
+      <div style="background:var(--white);border-radius:8px;padding:14px 16px;margin-top:12px;text-align:center;border-top:3px solid var(--blue);">
+        <p style="color:var(--dark-text);font-weight:700;font-size:0.5em;margin:0 0 4px 0;">With just plumbing, Claude can flush the toilet.</p>
+        <p style="color:var(--dark-text);font-weight:700;font-size:0.5em;margin:0;">With plumbing + playbook, Claude can renovate the bathroom.</p>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:0.5em;color:var(--dark-text);font-weight:600;text-align:center;margin-top:auto;">They're complementary, not competing.</p>
+  <aside class="notes">This is the mental model for the whole session. MCP provides connectivity - the pipes. Skills provide expertise - the procedures. Plumbing alone gets you raw access. Add a playbook and you get real results.</aside>
+</section>
+
+<!-- ============================================================
+     PART 2: MCP
+     ============================================================ -->
+
+<!-- ====== 8. SECTION: MCP ====== -->
+<section class="s-black" data-background="#000">
+  <div class="sq">SQUIRE</div>
+  <div class="grow" style="display:flex;flex-direction:column;justify-content:flex-end;">
+    <h1 style="font-size:3.8em;">MCP:<br>THE PROTOCOL</h1>
+  </div>
+  <aside class="notes">MCP does way more than people think. We're going to break down the protocol, transports, permissions, and the parts most people miss.</aside>
+</section>
+
+<!-- ====== 9. WHY NOT JUST OPENAPI? ====== -->
+<section class="s-gray" data-background="#F0F0F0">
+  <div class="sq">SQUIRE</div>
+  <h2>"But Couldn't It Just Be OpenAPI?"</h2>
+  <p style="font-size:0.5em;color:var(--muted);font-style:italic;">The most common objection to MCP. Here's why tool calling is more complicated than you think.</p>
+  <div class="two-col grow mt-sm">
+    <div>
+      <p style="color:var(--dark-text);font-weight:700;font-size:0.6em;">What MCP gives you that OpenAPI doesn't:</p>
+      <div style="display:flex;flex-direction:column;gap:6px;margin-top:8px;">
+        <div class="fragment fade-up" style="background:#E4E4E4;border-radius:6px;padding:10px 14px;border-left:3px solid var(--orange);">
+          <p style="color:var(--dark-text);font-weight:600;font-size:0.5em;margin:0;">Dynamic tools</p>
+          <p style="font-size:0.5em;margin:2px 0 0 0;">Tools that come and go during agent execution depending on server state.</p>
+        </div>
+        <div class="fragment fade-up" style="background:#E4E4E4;border-radius:6px;padding:10px 14px;border-left:3px solid var(--blue);">
+          <p style="color:var(--dark-text);font-weight:600;font-size:0.5em;margin:0;">stdio transport</p>
+          <p style="font-size:0.5em;margin:2px 0 0 0;">Run as a subprocess over stdin/stdout. No HTTP overhead. Extremely useful for local tools.</p>
+        </div>
+        <div class="fragment fade-up" style="background:#E4E4E4;border-radius:6px;padding:10px 14px;border-left:3px solid var(--green);">
+          <p style="color:var(--dark-text);font-weight:600;font-size:0.5em;margin:0;">OAuth-native auth</p>
+          <p style="font-size:0.5em;margin:2px 0 0 0;">Authentication baked into the protocol. Built once, works for all services. Not bolted on.</p>
+        </div>
+        <div class="fragment fade-up" style="background:#E4E4E4;border-radius:6px;padding:10px 14px;border-left:3px solid var(--code-purple);">
+          <p style="color:var(--dark-text);font-weight:600;font-size:0.5em;margin:0;">Context steering</p>
+          <p style="font-size:0.5em;margin:2px 0 0 0;">Tool responses shape the agent's next move. Rich output, not just return values.</p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <p style="color:var(--dark-text);font-weight:700;font-size:0.6em;">The browser analogy:</p>
+      <div style="background:#111;border-left:3px solid var(--orange);border-radius:6px;padding:14px 18px;margin:8px 0;">
+        <p style="color:#DDD;font-size:0.48em;font-style:italic;margin:0;">"The agent doesn't need to be designed with those tools in mind. Those tools can be designed without knowing anything about the agent. Just like a browser and a website don't need to know about each other."</p>
+        <p style="color:#888;font-size:0.48em;margin:6px 0 0 0;"></p>
+      </div>
+      <p style="font-size:0.48em;">MCP follows the same idea as the web: many different clients, all connecting over the same protocol. The tool doesn't care which agent calls it.</p>
+      <div class="pro-tip" style="margin-top:8px;">
+        <span class="label">Three MCP Primitives</span>
+        <p><strong>Prompts</strong> and <strong>Resources</strong> are useful for coding agents (Cursor, Claude Code). <strong>Tool calling</strong> is the primitive that matters for everything else - and it's far richer than a REST endpoint.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== 10. MCP TRANSPORT ====== -->
+<section class="s-gray" data-background="#F0F0F0">
+  <div class="sq">SQUIRE</div>
+  <h2>How MCP Servers Connect</h2>
+  <p style="font-size:0.52em;color:var(--muted);font-style:italic;">You don't pick a transport - the server does. But it helps to know what's happening under the hood.</p>
+  <div class="three-col grow mt-sm" style="align-items:stretch;">
+    <div class="fragment fade-up" data-fragment-index="0" style="background:#E4E4E4;border-radius:8px;padding:18px;border-top:3px solid var(--green);display:flex;flex-direction:column;">
+      <p style="font-size:0.65em;font-weight:700;color:var(--dark-text);margin:0;">Local / stdio</p>
+      <p style="font-size:0.52em;color:var(--muted);margin:2px 0 8px 0;">Runs on your machine as a subprocess</p>
+      <p style="font-size:0.52em;">Fast, private, no network. The MCP server launches alongside Claude and communicates directly.</p>
+      <p style="font-size:0.52em;color:var(--green);font-weight:600;margin-top:auto;">&rarr; Playwright, local databases, file tools</p>
+    </div>
+    <div class="fragment fade-up" data-fragment-index="1" style="background:#E4E4E4;border-radius:8px;padding:18px;border-top:3px solid var(--blue);display:flex;flex-direction:column;">
+      <p style="font-size:0.65em;font-weight:700;color:var(--dark-text);margin:0;">SSE (Streaming)</p>
+      <p style="font-size:0.52em;color:var(--muted);margin:2px 0 8px 0;">Server pushes updates over HTTP</p>
+      <p style="font-size:0.52em;">For real-time data. The server can send progress updates while a long task runs.</p>
+      <p style="font-size:0.52em;color:var(--blue);font-weight:600;margin-top:auto;">&rarr; CI status, monitoring, live dashboards</p>
+    </div>
+    <div class="fragment fade-up" data-fragment-index="2" style="background:#E4E4E4;border-radius:8px;padding:18px;border-top:3px solid var(--orange);display:flex;flex-direction:column;">
+      <p style="font-size:0.65em;font-weight:700;color:var(--dark-text);margin:0;">HTTP</p>
+      <p style="font-size:0.52em;color:var(--muted);margin:2px 0 8px 0;">Classic request-response over the web</p>
+      <p style="font-size:0.52em;">The most common for cloud services. Claude sends a request, server responds with data.</p>
+      <p style="font-size:0.52em;color:var(--orange);font-weight:600;margin-top:auto;">&rarr; Jira, Slack, Sentry, Stripe, Figma</p>
+    </div>
+  </div>
+  <p style="font-size:0.52em;color:var(--dark-text);font-weight:600;text-align:center;margin-top:auto;">As a user, you just run <code>/mcp</code> and connect. The transport is chosen by the server, not by you.</p>
+</section>
+
+<!-- ====== 10. CONNECTING MCP SERVERS ====== -->
+<section class="s-gray" data-background="#F0F0F0">
+  <div class="sq">SQUIRE</div>
+  <h2>Connecting MCP Servers</h2>
+  <div class="two-col grow">
+    <div>
+      <div class="term">
+        <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">adding MCP servers</div></div>
+        <div class="term-body auto-anim" style="font-size:12px;">
+          <div class="ln"><span class="cm"># Add Figma via HTTP transport</span></div>
+          <div class="ln"><span class="p">$</span> <span class="c">claude mcp add</span> <span class="s">--transport http</span> \</div>
+          <div class="ln"><span class="s">  figma-remote-mcp https://mcp.figma.com/mcp</span></div>
+          <div class="ln"><span class="ok">&#10003;</span> <span class="o">Added figma-remote-mcp (HTTP)</span></div>
+          <div class="ln">&nbsp;</div>
+          <div class="ln"><span class="cm"># Add Atlassian (stdio, OAuth)</span></div>
+          <div class="ln"><span class="p">$</span> <span class="c">claude mcp add</span> <span class="s">atlassian</span></div>
+          <div class="ln"><span class="ok">&#10003;</span> <span class="o">OAuth flow completed</span></div>
+          <div class="ln"><span class="ok">&#10003;</span> <span class="o">Available tools: 28</span></div>
+          <div class="ln">&nbsp;</div>
+          <div class="ln"><span class="cm"># /mcp manages existing servers only</span></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <p style="color:var(--dark-text);font-weight:700;font-size:0.65em;">Available MCP servers:</p>
+      <div class="cmd-list" style="margin-top:4px;">
+        <div class="item"><span class="k" style="min-width:120px;color:var(--blue);">Atlassian</span><span class="v">Jira issues, Confluence pages, search</span></div>
+        <div class="item"><span class="k" style="min-width:120px;color:var(--blue);">Slack</span><span class="v">Read channels, send messages, create canvases</span></div>
+        <div class="item"><span class="k" style="min-width:120px;color:var(--blue);">Figma</span><span class="v">Read designs, generate code, manage Code Connect</span></div>
+        <div class="item"><span class="k" style="min-width:120px;color:var(--blue);">Sentry</span><span class="v">Query errors, traces, performance data</span></div>
+        <div class="item"><span class="k" style="min-width:120px;color:var(--blue);">Stripe</span><span class="v">Payments, customers, subscriptions</span></div>
+        <div class="item"><span class="k" style="min-width:120px;color:var(--blue);">PostHog</span><span class="v">Feature flags, analytics, events</span></div>
+        <div class="item"><span class="k" style="min-width:120px;color:var(--blue);">Gmail</span><span class="v">Read emails, create drafts</span></div>
+      </div>
+      <div class="pro-tip" style="margin-top:8px;">
+        <span class="label">Setup</span>
+        <p>Use <code>claude mcp add</code> to install servers. <code>/mcp</code> only manages servers already added. One-time setup per service.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== 11. MCP PERMISSIONS ====== -->
+<section class="s-gray" data-background="#F0F0F0">
+  <div class="sq">SQUIRE</div>
+  <h2>Permissions: Read vs Write</h2>
+  <div class="two-col grow">
+    <div>
+      <table class="cmp-table">
+        <tr><th></th><th style="color:var(--green);">Read</th><th style="color:var(--red);">Write</th></tr>
+        <tr><td style="font-weight:600;color:var(--dark-text);">What</td><td>Query, fetch, search</td><td>Create, update, delete, send</td></tr>
+        <tr><td style="font-weight:600;color:var(--dark-text);">Risk</td><td>Data exposure, over-fetching</td><td>Unintended actions, data loss</td></tr>
+        <tr><td style="font-weight:600;color:var(--dark-text);">Example</td><td>Slack: read channels</td><td>Slack: send a message as you</td></tr>
+        <tr><td style="font-weight:600;color:var(--dark-text);">Trust</td><td>Low stakes - observe</td><td>High stakes - act</td></tr>
+      </table>
+      <div style="background:var(--white);border-radius:8px;padding:14px 16px;border-left:3px solid var(--blue);margin-top:12px;">
+        <p style="color:var(--dark-text);font-weight:700;font-size:0.5em;margin:0 0 4px 0;">Sentry's approach: capability picker</p>
+        <p style="font-size:0.52em;margin:0;">Choose which tool groups to enable upon authorization. Optimizes token consumption AND sets permissions in one step.</p>
+      </div>
+    </div>
+    <div>
+      <p style="color:var(--dark-text);font-weight:700;font-size:0.6em;">Real risks to know:</p>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <div style="background:#E4E4E4;border-radius:6px;padding:8px 12px;border-left:3px solid var(--red);">
+          <p style="color:var(--dark-text);font-weight:600;font-size:0.55em;margin:0;">Blast radius</p>
+          <p style="font-size:0.48em;margin:2px 0 0 0;">A write to Slack hits a real channel. No undo.</p>
+        </div>
+        <div style="background:#E4E4E4;border-radius:6px;padding:8px 12px;border-left:3px solid var(--red);">
+          <p style="color:var(--dark-text);font-weight:600;font-size:0.55em;margin:0;">Prompt injection</p>
+          <p style="font-size:0.48em;margin:2px 0 0 0;">Malicious content in fetched data could trigger unintended writes.</p>
+        </div>
+        <div style="background:#E4E4E4;border-radius:6px;padding:8px 12px;border-left:3px solid var(--orange);">
+          <p style="color:var(--dark-text);font-weight:600;font-size:0.55em;margin:0;">Approval fatigue</p>
+          <p style="font-size:0.48em;margin:2px 0 0 0;">"Allow all" is one click away. Scope creep is real.</p>
+        </div>
+        <div style="background:#E4E4E4;border-radius:6px;padding:8px 12px;border-left:3px solid var(--green);">
+          <p style="color:var(--dark-text);font-weight:600;font-size:0.55em;margin:0;">OAuth-native auth</p>
+          <p style="font-size:0.48em;margin:2px 0 0 0;">Baked into the MCP spec. Secure by default when used.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:0.48em;color:var(--dark-text);font-weight:600;text-align:center;margin-top:auto;">"Read access answers questions. Write access takes action. The gap between them is where trust lives."</p>
+  <aside class="notes">This matters a lot. Emphasize: read is low risk, write is high risk. Always scope permissions down. The Sentry capability picker is the gold standard.</aside>
+</section>
+
+<!-- ====== 12. WHAT PEOPLE GET WRONG & MISS ====== -->
+<section class="s-black" data-background="#000">
+  <div class="sq">SQUIRE</div>
+  <h2 style="color:var(--white);font-size:1.4em;">What People Get Wrong (& Miss)</h2>
+  <div class="two-col grow" style="gap:24px;">
+    <div>
+      <p style="color:var(--red);font-weight:700;font-size:0.6em;">The problem is implementations, not the protocol.</p>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-top:10px;">
+        <div style="background:#111;border-radius:6px;padding:10px 14px;border-left:3px solid var(--red);">
+          <p style="color:var(--red);font-weight:600;font-size:0.5em;margin:0;">Too many tools exposed</p>
+          <p style="color:#888;font-size:0.52em;margin:4px 0 0 0;">More tools = more wasted tokens + worse model recall</p>
+        </div>
+        <div style="background:#111;border-radius:6px;padding:10px 14px;border-left:3px solid var(--red);">
+          <p style="color:var(--red);font-weight:600;font-size:0.5em;margin:0;">Bad API wrappers</p>
+          <p style="color:#888;font-size:0.52em;margin:4px 0 0 0;">Many MCP servers are thin shims that should've been skills</p>
+        </div>
+        <div style="background:#111;border-radius:6px;padding:10px 14px;border-left:3px solid var(--red);">
+          <p style="color:var(--red);font-weight:600;font-size:0.5em;margin:0;">No capability scoping</p>
+          <p style="color:#888;font-size:0.52em;margin:4px 0 0 0;">All-or-nothing tool exposure. No granular control.</p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <p style="color:var(--green);font-weight:700;font-size:0.6em;">Three overlooked wins:</p>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-top:10px;">
+        <div style="background:#111;border-radius:6px;padding:10px 14px;border-left:3px solid var(--green);">
+          <p style="color:var(--green);font-weight:600;font-size:0.5em;margin:0;">1. Authentication</p>
+          <p style="color:#888;font-size:0.52em;margin:4px 0 0 0;">OAuth-native - not bolted on, baked in. Built once for all services.</p>
+        </div>
+        <div style="background:#111;border-radius:6px;padding:10px 14px;border-left:3px solid var(--green);">
+          <p style="color:var(--green);font-weight:600;font-size:0.5em;margin:0;">2. Context steering</p>
+          <p style="color:#888;font-size:0.52em;margin:4px 0 0 0;">Tool RESPONSES steer the agent. Sentry returns hints: "You might want to call XYZ." You shape the next move through output.</p>
+        </div>
+        <div style="background:#111;border-radius:6px;padding:10px 14px;border-left:3px solid var(--green);">
+          <p style="color:var(--green);font-weight:600;font-size:0.5em;margin:0;">3. Capability scoping</p>
+          <p style="color:#888;font-size:0.52em;margin:4px 0 0 0;">Choose which tool groups to enable per session. Minimize blast radius + optimize tokens.</p>
+        </div>
+      </div>
+      <div class="pro-tip" style="margin-top:12px;">
+        <span class="label">Key Message</span>
+        <p>Bad implementations != bad protocol. Judge MCP by its best, not its worst.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== 13. THE CONTEXT TAX (AND WHY IT'S SHRINKING) ====== -->
+<section class="s-gray" data-background="#F0F0F0">
+  <div class="sq">SQUIRE</div>
+  <h2>The Context Tax</h2>
+  <p style="font-size:0.5em;color:var(--muted);font-style:italic;">Every MCP tool you connect costs tokens before a single user message is sent.</p>
+  <div class="two-col grow mt-sm">
+    <div>
+      <p style="color:var(--red);font-weight:700;font-size:0.6em;">The problem (was real):</p>
+      <div style="background:#E4E4E4;border-radius:8px;padding:14px;margin-top:6px;">
+        <table class="cmp-table" style="font-size:0.9em;">
+          <tr><th>Integration</th><th>Tools</th><th>Tokens</th></tr>
+          <tr><td>GitHub</td><td>35</td><td>~26,000</td></tr>
+          <tr><td>Slack</td><td>11</td><td>~21,000</td></tr>
+          <tr><td>Sentry</td><td>5</td><td>~3,000</td></tr>
+          <tr><td>Grafana</td><td>5</td><td>~3,000</td></tr>
+          <tr><td style="font-weight:700;color:var(--dark-text);">Total</td><td style="font-weight:700;">58</td><td style="font-weight:700;color:var(--red);">~55,000</td></tr>
+        </table>
+      </div>
+      <p style="font-size:0.55em;color:var(--red);font-weight:600;margin-top:8px;">That's 45% of a 128K context window - before you type anything.</p>
+      <p style="font-size:0.52em;">Perplexity dropped MCP internally citing 72% context window waste. The token math was brutal.</p>
+    </div>
+    <div>
+      <p style="color:var(--green);font-weight:700;font-size:0.6em;">The fix (already shipped):</p>
+      <div style="display:flex;flex-direction:column;gap:6px;margin-top:6px;">
+        <div style="background:#E4E4E4;border-radius:6px;padding:10px 14px;border-left:3px solid var(--green);">
+          <p style="color:var(--dark-text);font-weight:600;font-size:0.5em;margin:0;">Deferred tool loading (Claude Code)</p>
+          <p style="font-size:0.48em;margin:2px 0 0 0;">All tool definitions are now lazy-loaded by default. The model sees only tool <em>names</em> upfront, fetches full schemas on demand. That 55K+ token wall is now a handful of name-only lines.</p>
+        </div>
+        <div style="background:#E4E4E4;border-radius:6px;padding:10px 14px;border-left:3px solid var(--blue);">
+          <p style="color:var(--dark-text);font-weight:600;font-size:0.5em;margin:0;">MCP proxy aggregators (Rube, MCProxy)</p>
+          <p style="font-size:0.48em;margin:2px 0 0 0;">Services like <strong>Rube</strong> connect 500+ apps through a single MCP server. Instead of loading all tools, a meta-tool (<code>RUBE_SEARCH_TOOLS</code>) inspects your task and returns only the relevant subset.</p>
+        </div>
+        <div style="background:#E4E4E4;border-radius:6px;padding:10px 14px;border-left:3px solid var(--orange);">
+          <p style="color:var(--dark-text);font-weight:600;font-size:0.5em;margin:0;">Capability scoping (Sentry model)</p>
+          <p style="font-size:0.48em;margin:2px 0 0 0;">Choose which tool groups to enable. Don't expose 58 tools when you need 5.</p>
+        </div>
+      </div>
+      <div class="pro-tip" style="margin-top:8px;">
+        <span class="label">Bottom Line</span>
+        <p>The context tax used to be brutal. Deferred loading, proxy aggregators, and scoping have largely solved it. Connecting MCP servers is now cheap. Run <code>/context</code> to see how much of your window is used - check it before and after adding MCPs.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">Remind people about /context from Session 1. Run it before and after adding MCP servers to see the difference. With deferred loading, the impact is minimal now.</aside>
+</section>
+
+<!-- ====== 14. YOU DON'T ALWAYS NEED AN MCP ====== -->
+<section class="s-gray" data-background="#F0F0F0">
+  <div class="sq">SQUIRE</div>
+  <h2>You Don't Always Need an MCP</h2>
+  <div class="two-col grow">
+    <div>
+      <p style="color:var(--dark-text);font-weight:700;font-size:0.65em;">Example: <code>gh</code> CLI (GitHub)</p>
+      <p>Claude Code already knows how to use <code>gh</code> - it's a CLI on your machine. No MCP server needed. No auth flow. No tool schema overhead.</p>
+      <div class="term" style="font-size:11px;margin-top:8px;">
+        <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">no MCP needed</div></div>
+        <div class="term-body">
+          <div class="ln"><span class="p">></span> <span class="s">"create a PR for this branch"</span></div>
+          <div class="ln"><span class="ok">&#10003;</span> <span class="o">Running: gh pr create ...</span></div>
+          <div class="ln"><span class="ok">&#10003;</span> <span class="o">Created PR #142</span></div>
+        </div>
+      </div>
+      <div style="margin-top:10px;">
+        <p style="color:var(--dark-text);font-weight:700;font-size:0.6em;">Skip MCP when:</p>
+        <p>The tool is a <strong style="color:var(--dark-text);">local CLI</strong> the agent already knows</p>
+        <p>There's <strong style="color:var(--dark-text);">no auth boundary</strong> to cross</p>
+        <p>The integration is <strong style="color:var(--dark-text);">prompt-driven</strong>, not API-driven</p>
+      </div>
+    </div>
+    <div>
+      <p style="color:var(--dark-text);font-weight:700;font-size:0.65em;">But sometimes you DO need MCP:</p>
+      <p><strong style="color:var(--dark-text);">Playwright</strong> is the perfect example. It exists as both a skill and an MCP:</p>
+      <div style="background:var(--white);border-radius:8px;padding:12px 16px;border-left:3px solid var(--green);margin-top:8px;">
+        <p style="color:var(--green);font-weight:700;font-size:0.5em;margin:0;">SKILL: writing tests</p>
+        <p style="font-size:0.52em;margin:4px 0 0 0;">Teaches test patterns. Agent uses <code>npx playwright test</code>. No server.</p>
+      </div>
+      <div style="background:var(--white);border-radius:8px;padding:12px 16px;border-left:3px solid var(--orange);margin-top:6px;">
+        <p style="color:var(--orange);font-weight:700;font-size:0.5em;margin:0;">MCP: controlling a live browser</p>
+        <p style="font-size:0.52em;margin:4px 0 0 0;">Structured tools: <code>navigate</code>, <code>click</code>, <code>screenshot</code>. Stateful session.</p>
+      </div>
+      <div style="background:var(--white);border-radius:8px;padding:12px 18px;margin-top:10px;text-align:center;">
+        <p style="color:var(--dark-text);font-weight:700;font-size:0.5em;margin:0;">The skill is the playbook. MCP is the plumbing.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">Same tool, different needs. Writing tests? Skill (playbook). Controlling a live browser? MCP (plumbing). Playwright is the clearest example of why you need both.</aside>
+</section>
+
+<!-- ====== 15. SCRIPTS ON DEMAND ====== -->
+<section class="s-black" data-background="#000">
+  <div class="sq">SQUIRE</div>
+  <h2 style="color:var(--white);font-size:1.6em;">The Agent Writes Scripts Too</h2>
+  <div class="two-col grow" style="gap:24px;">
+    <div>
+      <p style="color:#CCC;font-size:0.52em;">Claude doesn't just use existing CLIs - it can <strong style="color:var(--white);">write scripts on the fly</strong> to solve problems no tool was built for.</p>
+      <p style="color:#CCC;font-size:0.52em;">Need to parse a CSV, hit an API with custom logic, transform data between formats? Claude writes a script, runs it, and gives you the result.</p>
+      <p style="color:var(--green);font-weight:700;font-size:0.6em;margin-top:14px;">And here's the bridge to skills:</p>
+      <p style="color:#CCC;font-size:0.52em;">If Claude keeps writing the same script for you, <strong style="color:var(--white);">save it as a skill</strong>. What starts as an ad-hoc script becomes a reusable piece of your team's playbook.</p>
+      <div class="pro-tip" style="margin-top:12px;">
+        <span class="label">The Lifecycle</span>
+        <p>Ad-hoc script &rarr; works well &rarr; save to a skill &rarr; team shares it &rarr; everyone benefits. Scripts are prototypes. Skills are the production version.</p>
+      </div>
+    </div>
+    <div>
+      <div class="term" style="font-size:11px;">
+        <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">script on demand</div></div>
+        <div class="term-body auto-anim">
+          <div class="ln"><span class="p">></span> <span class="s">"bulk-rename all feature flags</span></div>
+          <div class="ln"><span class="s">  from camelCase to snake_case"</span></div>
+          <div class="ln">&nbsp;</div>
+          <div class="ln"><span class="cm"># Claude writes a script on the fly</span></div>
+          <div class="ln"><span class="ok">&#10003;</span> <span class="o">Writing rename_flags.py...</span></div>
+          <div class="ln"><span class="ok">&#10003;</span> <span class="o">Running script...</span></div>
+          <div class="ln"><span class="ok">&#10003;</span> <span class="o">Renamed 47 flags across 4 projects</span></div>
+          <div class="ln">&nbsp;</div>
+          <div class="ln"><span class="cm"># That worked great. Save it?</span></div>
+          <div class="ln"><span class="p">></span> <span class="s">"save that as a reusable skill"</span></div>
+          <div class="ln"><span class="ok">&#10003;</span> <span class="o">Created .claude/skills/rename-flags/</span></div>
+          <div class="ln"><span class="ok">&#10003;</span> <span class="o">  SKILL.md + rename_flags.py</span></div>
+          <div class="ln">&nbsp;</div>
+          <div class="ln"><span class="cm"># Now anyone on the team can use it</span></div>
+          <div class="ln"><span class="p">></span> <span class="c">/rename-flags</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">This is the key bridge between CLIs and skills. Claude can write scripts ad-hoc. When a script proves useful, save it as a skill. Scripts are prototypes, skills are the production version.</aside>
+</section>
+
+<!-- ====== 16. REAL STORY: POSTHOG FLAGS ====== -->
+<section class="s-gray" data-background="#F0F0F0">
+  <div class="sq">SQUIRE</div>
+  <h2>Real Story @ Squire</h2>
+  <p style="font-size:0.5em;color:var(--muted);font-style:italic;">Claude chose the right tool for the job - without being told.</p>
+  <div class="two-col grow mt-sm">
+    <div>
+      <p style="color:var(--dark-text);font-weight:700;font-size:0.65em;">The task: create 262 feature flags across 4 PostHog projects</p>
+      <p>That's <strong style="color:var(--dark-text);">1,048 individual MCP calls</strong>. Claude did the math and made a judgment call:</p>
+      <div style="background:#111;border-left:3px solid var(--green);border-radius:6px;padding:14px 18px;margin:12px 0;">
+        <p style="color:#DDD;font-size:0.5em;font-style:italic;margin:0;">"Creating 262 flags x 4 projects = 1,048 individual MCP calls will be very slow. Do you have a PostHog personal API key I can use to bulk-create via the API directly?"</p>
+      </div>
+      <p style="color:var(--dark-text);font-weight:600;">What happened:</p>
+      <p>Claude used MCP to discover the projects, then realized MCP was the wrong instrument for bulk work. It searched for an API key, didn't find one, and <strong style="color:var(--dark-text);">asked the human</strong> instead of plowing through 1,048 slow calls.</p>
+    </div>
+    <div>
+      <div class="term" style="font-size:11px;">
+        <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">PostHog MCP + API fallback</div></div>
+        <div class="term-body auto-anim">
+          <div class="ln"><span class="cm"># Step 1: MCP to discover projects</span></div>
+          <div class="ln"><span class="pu">&#9881;</span> <span class="o">posthog.list-projects()</span></div>
+          <div class="ln"><span class="ok">&#10003;</span> <span class="o">QA: 374061</span></div>
+          <div class="ln"><span class="ok">&#10003;</span> <span class="o">Production: 125334</span></div>
+          <div class="ln"><span class="ok">&#10003;</span> <span class="o">Staging: 375454</span></div>
+          <div class="ln"><span class="ok">&#10003;</span> <span class="o">Demo: 375455</span></div>
+          <div class="ln">&nbsp;</div>
+          <div class="ln"><span class="cm"># Step 2: 1,048 MCP calls? No thanks.</span></div>
+          <div class="ln"><span class="er">&#9888;</span> <span class="o">Checked env for POSTHOG_API_KEY</span></div>
+          <div class="ln"><span class="er">&#10007;</span> <span class="o">No key found</span></div>
+          <div class="ln">&nbsp;</div>
+          <div class="ln"><span class="cm"># Step 3: Asked the human</span></div>
+          <div class="ln"><span class="ok">?</span> <span class="s">"Do you have a personal API key?"</span></div>
+          <div class="ln">&nbsp;</div>
+          <div class="ln"><span class="cm"># Step 4: Got key, bulk API calls</span></div>
+          <div class="ln"><span class="ok">&#10003;</span> <span class="o">Created 1,048 flags in 45 seconds</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pro-tip" style="margin-top:auto;">
+    <span class="label">Why This Matters</span>
+    <p>MCP is great for discovery and structured interaction. But a smart agent knows when to <strong>bypass MCP</strong> and use the API directly. The best tool isn't always the most structured one.</p>
+  </div>
+  <aside class="notes">Real story from our team. Claude used MCP for discovery, then made a smart judgment call to ask for an API key. This is agent intelligence in action.</aside>
+</section>
+
+<!-- ============================================================
+     PART 3: SKILLS
+     ============================================================ -->
+
+<!-- ====== 15. SECTION: SKILLS ====== -->
+<section class="s-black" data-background="#000">
+  <div class="sq">SQUIRE</div>
+  <div class="grow" style="display:flex;flex-direction:column;justify-content:flex-end;">
+    <h1 style="font-size:3.8em;">"DON'T BUILD<br>AGENTS, BUILD<br>SKILLS INSTEAD"</h1>
+  </div>
+  <aside class="notes">Core thesis: stop building specialized agents, start building skills that any agent can use. One universal agent + domain-specific skills = expertise.</aside>
+</section>
+
+<!-- ====== 16. THE TAX PROFESSIONAL ANALOGY ====== -->
+<section class="s-black" data-background="#000">
+  <div class="sq">SQUIRE</div>
+  <h2 style="color:var(--white);font-size:1.6em;">Expertise &gt; Intelligence</h2>
+  <div class="two-col grow" style="gap:24px;">
+    <div>
+      <div style="background:#111;border-left:3px solid var(--red);border-radius:6px;padding:18px;margin-bottom:14px;">
+        <p style="color:var(--red);font-weight:700;font-size:0.6em;margin:0;">THE GENIUS</p>
+        <p style="color:#CCC;font-size:0.5em;margin:8px 0 0 0;">A mathematical genius who has to <em>derive tax codes from first principles</em> every time you ask a tax question.</p>
+        <p style="color:#888;font-size:0.52em;margin:6px 0 0 0;">Brilliant. But slow, expensive, and error-prone on specialized work.</p>
+      </div>
+      <div style="background:#111;border-left:3px solid var(--green);border-radius:6px;padding:18px;">
+        <p style="color:var(--green);font-weight:700;font-size:0.6em;margin:0;">THE TAX PROFESSIONAL</p>
+        <p style="color:#CCC;font-size:0.5em;margin:8px 0 0 0;">An experienced professional who <em>already knows the tax code</em> and applies it instantly.</p>
+        <p style="color:#888;font-size:0.52em;margin:6px 0 0 0;">Skills turn the genius into the professional.</p>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;justify-content:center;">
+      <p style="color:#CCC;font-size:0.58em;"><strong style="color:var(--white);">Agents today are brilliant but lack expertise.</strong></p>
+      <p style="color:#CCC;font-size:0.52em;">They can't absorb your organizational knowledge. They don't learn over time. Every conversation starts from scratch.</p>
+      <p style="color:var(--green);font-weight:700;font-size:0.65em;margin-top:14px;">Skills solve this.</p>
+      <p style="color:#CCC;font-size:0.52em;">They package procedural knowledge so the agent doesn't have to figure it out every time. Claude on day 30 should outperform Claude on day 1.</p>
+    </div>
+  </div>
+  <aside class="notes">Would you rather have a genius who derives tax law from scratch, or a tax professional who already knows it? Skills make agents into professionals.</aside>
+</section>
+
+<!-- ====== 17. SKILL ANATOMY ====== -->
+<section class="s-gray" data-background="#F0F0F0">
+  <div class="sq">SQUIRE</div>
+  <h2>What Is a Skill?</h2>
+  <div class="two-col grow">
+    <div>
+      <p style="color:var(--dark-text);font-weight:700;font-size:0.65em;">"Organized collections of files that package composable procedural knowledge for agents."</p>
+      <p>At their core, skills are just folders with a deliberate, minimal design.</p>
+      <div style="display:flex;flex-direction:column;gap:6px;margin-top:10px;">
+        <div style="background:#E4E4E4;border-radius:6px;padding:10px 14px;border-left:3px solid var(--green);">
+          <p style="color:var(--dark-text);font-weight:600;font-size:0.5em;margin:0;">Progressive disclosure</p>
+          <p style="font-size:0.5em;margin:2px 0 0 0;">Only name + description loaded at first. Full content on invocation. Prevents context window explosion.</p>
+        </div>
+        <div style="background:#E4E4E4;border-radius:6px;padding:10px 14px;border-left:3px solid var(--blue);">
+          <p style="color:var(--dark-text);font-weight:600;font-size:0.5em;margin:0;">Self-documenting code</p>
+          <p style="font-size:0.5em;margin:2px 0 0 0;">Scripts, instructions, assets - all stored in the file system. Agents can read AND modify them.</p>
+        </div>
+        <div style="background:#E4E4E4;border-radius:6px;padding:10px 14px;border-left:3px solid var(--orange);">
+          <p style="color:var(--dark-text);font-weight:600;font-size:0.5em;margin:0;">Three categories</p>
+          <p style="font-size:0.5em;margin:2px 0 0 0;"><strong>Foundational</strong> (built by Anthropic) + <strong>Third-party</strong> (ecosystem) + <strong>Enterprise</strong> (your org's knowledge)</p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="term" style="font-size:11px;">
+        <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">a skill is just a folder</div></div>
+        <div class="term-body">
+          <div class="ln"><span class="ok">create-pr/</span></div>
+          <div class="ln"><span class="s">  SKILL.md</span>          <span class="cm"># entry point</span></div>
+          <div class="ln"><span class="o">  templates/</span></div>
+          <div class="ln"><span class="o">    pr-body.md</span>       <span class="cm"># PR template</span></div>
+          <div class="ln"><span class="o">    commit-msg.md</span>    <span class="cm"># commit format</span></div>
+          <div class="ln"><span class="o">  scripts/</span></div>
+          <div class="ln"><span class="o">    validate-pr.sh</span>   <span class="cm"># pre-submit check</span></div>
+          <div class="ln"><span class="o">    find-reviewers.py</span> <span class="cm"># CODEOWNERS lookup</span></div>
+        </div>
+      </div>
+      <div class="vscode" style="margin-top:8px;">
+        <div class="vscode-bar">
+          <div class="d dr"></div><div class="d dy"></div><div class="d dg"></div>
+          <div class="tab"><span class="icon">M&#8595;</span> SKILL.md</div>
+        </div>
+        <div class="vscode-body">
+          <div class="vscode-gutter">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10</div>
+          <div class="vscode-code">
+            <div class="ln"><span class="vsc-h">---</span></div>
+            <div class="ln"><span class="vsc-k">name:</span> <span class="vsc-s">Create PR</span></div>
+            <div class="ln"><span class="vsc-k">description:</span> <span class="vsc-s">Create a pull request</span></div>
+            <div class="ln"><span class="vsc-h">---</span></div>
+            <div class="ln">&nbsp;</div>
+            <div class="ln"><span class="vsc-b">Use `templates/pr-body.md` for format.</span></div>
+            <div class="ln"><span class="vsc-b">Run `scripts/find-reviewers.py` for</span></div>
+            <div class="ln"><span class="vsc-b">  CODEOWNERS lookup.</span></div>
+            <div class="ln"><span class="vsc-b">Run `scripts/validate-pr.sh` before</span></div>
+            <div class="ln"><span class="vsc-b">  submitting.</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="pro-tip" style="margin-top:6px;">
+        <span class="label">Key Insight</span>
+        <p>SKILL.md is the entry point - it points to scripts, templates, and docs in the folder. The agent reads the skill, then uses the bundled assets. Just a folder you commit to your repo.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">Progressive disclosure pattern. Metadata first, full content on demand. Same principle that makes deferred MCP tool loading work.</aside>
+</section>
+
+<!-- ====== 18. THE COMPUTING ANALOGY ====== -->
+<section class="s-black" data-background="#000">
+  <div class="sq">SQUIRE</div>
+  <h2 style="color:var(--white);font-size:1.6em;">The Computing Stack</h2>
+  <p style="color:#888;font-size:0.5em;font-style:italic;">Where skills fit in the bigger picture.</p>
+  <div style="display:flex;flex-direction:column;gap:6px;max-width:700px;margin:20px auto 0;" class="grow">
+    <div class="fragment fade-up" data-fragment-index="0" style="background:#111;border-radius:8px;padding:18px 24px;border-left:4px solid var(--green);text-align:center;">
+      <p style="color:var(--green);font-weight:700;font-size:0.7em;margin:0;">SKILLS = APPLICATIONS</p>
+      <p style="color:#CCC;font-size:0.48em;margin:6px 0 0 0;">Where millions of developers encode domain expertise.<br>Anyone can create and share them. Git-compatible. Composable.</p>
+    </div>
+    <div style="text-align:center;color:#444;font-size:12px;margin:2px 0;">&uarr;</div>
+    <div class="fragment fade-up" data-fragment-index="1" style="background:#111;border-radius:8px;padding:18px 24px;border-left:4px solid var(--blue);text-align:center;">
+      <p style="color:var(--blue);font-weight:700;font-size:0.7em;margin:0;">AGENT RUNTIME = OPERATING SYSTEM</p>
+      <p style="color:#CCC;font-size:0.48em;margin:6px 0 0 0;">Claude Code, Cursor, etc. Manages information flow to/from models.<br>MCP connections live here. Tools, file system access, code execution.</p>
+    </div>
+    <div style="text-align:center;color:#444;font-size:12px;margin:2px 0;">&uarr;</div>
+    <div class="fragment fade-up" data-fragment-index="2" style="background:#111;border-radius:8px;padding:18px 24px;border-left:4px solid var(--code-purple);text-align:center;">
+      <p style="color:var(--code-purple);font-weight:700;font-size:0.7em;margin:0;">MODELS = PROCESSORS</p>
+      <p style="color:#CCC;font-size:0.48em;margin:6px 0 0 0;">Massive investment, inherent potential, limited standalone value.<br>Few companies build these. Opus, Sonnet, Haiku, GPT, etc.</p>
+    </div>
+  </div>
+  <p style="color:var(--green);font-weight:700;font-size:0.55em;text-align:center;margin-top:auto;">Just as few companies build processors while millions create apps - <br>the real innovation happens at the skill layer.</p>
+  <aside class="notes">Models are processors - expensive, few providers. Agent runtimes are operating systems. Skills are where everyone builds. That's where the value creation happens.</aside>
+</section>
+
+<!-- ====== 19. SKILLS IN PRACTICE ====== -->
+<section class="s-gray" data-background="#F0F0F0">
+  <div class="sq">SQUIRE</div>
+  <h2>Using Skills</h2>
+  <div class="two-col grow">
+    <div>
+      <div class="term">
+        <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">invoking skills</div></div>
+        <div class="term-body auto-anim" style="font-size:12px;">
+          <div class="ln"><span class="cm"># Type / to see all available skills</span></div>
+          <div class="ln"><span class="p">></span> <span class="c">/</span></div>
+          <div class="ln"><span class="o">  /commit        Create a git commit</span></div>
+          <div class="ln"><span class="o">  /batch         Split work into parallel agents</span></div>
+          <div class="ln"><span class="o">  /simplify      Find and reduce complexity</span></div>
+          <div class="ln"><span class="o">  /create-pr     Create a pull request (custom)</span></div>
+          <div class="ln">&nbsp;</div>
+          <div class="ln"><span class="cm"># Invoke a skill by name</span></div>
+          <div class="ln"><span class="p">></span> <span class="c">/create-pr</span></div>
+          <div class="ln"><span class="spinner"></span> <span class="o">Loading skill...</span></div>
+          <div class="ln"><span class="ok">&#10003;</span> <span class="o">Pushing to origin/feat/checkout</span></div>
+          <div class="ln"><span class="ok">&#10003;</span> <span class="o">Created PR #247 with test plan</span></div>
+        </div>
+      </div>
+      <p style="font-size:0.48em;margin-top:10px;"><strong style="color:var(--dark-text);">Team-shareable:</strong> Commit skills to your repo. Everyone gets the same workflows. Version control them like code.</p>
+    </div>
+    <div>
+      <p style="color:var(--dark-text);font-weight:700;font-size:0.6em;">Who can build skills?</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;">
+        <div style="background:#E4E4E4;border-radius:6px;padding:10px;font-size:0.52em;">
+          <span class="role-tag eng" style="margin-bottom:4px;">ENG</span>
+          <p style="color:var(--dark-text);margin:6px 0 0 0;">PR workflows, code review standards, deployment checklists</p>
+        </div>
+        <div style="background:#E4E4E4;border-radius:6px;padding:10px;font-size:0.52em;">
+          <span class="role-tag pm" style="margin-bottom:4px;">PM</span>
+          <p style="color:var(--dark-text);margin:6px 0 0 0;">Spec templates, ticket formatting, release notes</p>
+        </div>
+        <div style="background:#E4E4E4;border-radius:6px;padding:10px;font-size:0.52em;">
+          <span class="role-tag qa" style="margin-bottom:4px;">QA</span>
+          <p style="color:var(--dark-text);margin:6px 0 0 0;">Test plan generation, edge case patterns, regression scripts</p>
+        </div>
+        <div style="background:#E4E4E4;border-radius:6px;padding:10px;font-size:0.52em;">
+          <span class="role-tag all" style="margin-bottom:4px;">EVERYONE</span>
+          <p style="color:var(--dark-text);margin:6px 0 0 0;">Meeting summaries, status updates, onboarding guides</p>
+        </div>
+      </div>
+      <div class="pro-tip" style="margin-top:10px;">
+        <span class="label">Key Insight</span>
+        <p>Non-technical professionals in finance, legal, recruiting, and accounting are creating skills. You don't need to code - you need domain expertise.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== 20. GSD: SKILLS AS WORKFLOW ENGINE ====== -->
+<section class="s-black" data-background="#000">
+  <div class="sq">SQUIRE</div>
+  <h2 style="color:var(--white);font-size:1.4em;">Advanced example: Get Shit Done (GSD)</h2>
+  <div class="two-col grow" style="gap:24px;">
+    <div>
+      <p style="color:var(--green);font-weight:700;font-size:0.6em;">70+ skills. Zero MCP servers.</p>
+      <p style="color:#CCC;font-size:0.52em;">GSD turns Claude Code into a full project management system - roadmaps, research, planning, execution, verification, code review - all from <strong style="color:var(--white);">prompt engineering alone</strong>.</p>
+      <p style="color:#CCC;font-size:0.52em;">Skills spawn sub-agents, manage state through markdown files, and coordinate multi-phase projects.</p>
+      <p style="color:#CCC;font-size:0.52em;">No protocol overhead. No server process. Just reusable prompts that compose.</p>
+      <div class="pro-tip" style="margin-top:10px;">
+        <span class="label">Why This Matters</span>
+        <p>GSD demonstrates the ceiling of what skills alone can achieve. If your workflow is prompt-driven - skills are enough.</p>
+      </div>
+    </div>
+    <div>
+      <div class="term" style="font-size:11px;">
+        <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">GSD workflow</div></div>
+        <div class="term-body auto-anim">
+          <div class="ln"><span class="cm"># Plan a phase</span></div>
+          <div class="ln"><span class="p">></span> <span class="c">/gsd-plan-phase</span> <span class="s">auth-migration</span></div>
+          <div class="ln"><span class="spinner"></span> <span class="o">Researching codebase...</span></div>
+          <div class="ln"><span class="ok">&#10003;</span> <span class="o">Created .planning/PLAN.md</span></div>
+          <div class="ln">&nbsp;</div>
+          <div class="ln"><span class="cm"># Execute the plan</span></div>
+          <div class="ln"><span class="p">></span> <span class="c">/gsd-execute-phase</span></div>
+          <div class="ln"><span class="spinner"></span> <span class="o">Spawning 3 sub-agents...</span></div>
+          <div class="ln"><span class="ok">&#10003;</span> <span class="o">Phase 1 complete, 4 commits</span></div>
+          <div class="ln">&nbsp;</div>
+          <div class="ln"><span class="cm"># Verify the work</span></div>
+          <div class="ln"><span class="p">></span> <span class="c">/gsd-verify-work</span></div>
+          <div class="ln"><span class="ok">&#10003;</span> <span class="o">All goals met. VERIFICATION.md created</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PART 4: CONTEXT, AGENTS & ECOSYSTEM
+     ============================================================ -->
+
+<!-- ====== 21. SECTION: ADVANCED ====== -->
+<section class="s-black" data-background="#000">
+  <div class="sq">SQUIRE</div>
+  <div class="grow" style="display:flex;align-items:flex-end;">
+    <h1 style="font-size:3.8em;">CONTEXT,<br>AGENTS &<br>ECOSYSTEM</h1>
+  </div>
+</section>
+
+<!-- ====== 22. THE CONTEXT PROBLEM ====== -->
+<section class="s-gray" data-background="#F0F0F0">
+  <div class="sq">SQUIRE</div>
+  <h2>The Context Problem</h2>
+  <p style="font-size:0.5em;color:var(--muted);font-style:italic;">Every tool you expose costs tokens before a single user message is sent.</p>
+  <div class="two-col grow mt-sm">
+    <div>
+      <div class="ba-card ba-before" style="border-radius:8px;">
+        <h3>THE OLD WORLD</h3>
+        <ul>
+          <li>MCP tools eagerly loaded - full JSON schema in system prompt</li>
+          <li>50 tools = thousands of tokens burned on descriptions alone</li>
+          <li>More tools = worse model recall = worse results</li>
+        </ul>
+      </div>
+      <div class="ba-card ba-after" style="border-radius:8px;margin-top:8px;">
+        <h3 style="color:var(--green);">DEFERRED TOOL LOADING</h3>
+        <ul>
+          <li>Claude Code now only loads tool names - not full schemas</li>
+          <li>Schemas fetched on-demand when actually needed</li>
+          <li>Connecting an MCP server is now cheap</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div style="border:3px solid #CCC;border-radius:10px;padding:14px;background:#E4E4E4;position:relative;">
+        <div style="text-align:center;font-size:10px;color:#999;font-weight:600;margin-bottom:8px;letter-spacing:1px;">OLD: EAGER LOADING</div>
+        <div style="display:flex;gap:4px;height:60px;">
+          <div style="background:#888;flex:0 0 10%;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#FFF;font-size:8px;font-weight:600;text-align:center;">System</div>
+          <div style="background:var(--red);flex:0 0 25%;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#FFF;font-size:8px;font-weight:600;text-align:center;">MCP schemas<br>(all 50 tools)</div>
+          <div style="background:var(--blue);flex:0 0 8%;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#FFF;font-size:8px;font-weight:600;text-align:center;">Skills</div>
+          <div style="background:var(--green);flex:1 1 30%;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#FFF;font-size:8px;font-weight:600;text-align:center;">Conversation</div>
+          <div style="background:repeating-linear-gradient(45deg,transparent,transparent 3px,#D0D0D0 3px,#D0D0D0 6px);flex:0 0 15%;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#999;font-size:8px;font-weight:600;text-align:center;border:1px dashed #BBB;">Free</div>
+        </div>
+      </div>
+      <div style="border:3px solid #CCC;border-radius:10px;padding:14px;background:#E4E4E4;position:relative;margin-top:8px;">
+        <div style="text-align:center;font-size:10px;color:#999;font-weight:600;margin-bottom:8px;letter-spacing:1px;">NEW: DEFERRED LOADING</div>
+        <div style="display:flex;gap:4px;height:60px;">
+          <div style="background:#888;flex:0 0 10%;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#FFF;font-size:8px;font-weight:600;text-align:center;">System</div>
+          <div style="background:var(--green);flex:0 0 5%;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#FFF;font-size:7px;font-weight:600;text-align:center;">Names</div>
+          <div style="background:var(--blue);flex:0 0 8%;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#FFF;font-size:8px;font-weight:600;text-align:center;">Skills</div>
+          <div style="background:var(--green);flex:1 1 40%;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#FFF;font-size:8px;font-weight:600;text-align:center;">Conversation</div>
+          <div style="background:repeating-linear-gradient(45deg,transparent,transparent 3px,#D0D0D0 3px,#D0D0D0 6px);flex:0 0 25%;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#999;font-size:8px;font-weight:600;text-align:center;border:1px dashed #BBB;">Free space</div>
+        </div>
+      </div>
+      <div class="pro-tip" style="margin-top:10px;">
+        <span class="label">Same Pattern</span>
+        <p>Skills use progressive disclosure (metadata first). MCP uses deferred loading (names first). Same idea, both win.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== 23. MCP MARKETPLACES ====== -->
+<section class="s-gray" data-background="#F0F0F0">
+  <div class="sq">SQUIRE</div>
+  <h2>Finding MCPs & Skills</h2>
+  <div class="two-col grow">
+    <div>
+      <p style="color:var(--dark-text);font-weight:700;font-size:0.65em;">The ecosystem is self-organizing.</p>
+      <div class="cmd-list" style="margin-top:8px;">
+        <div class="item"><span class="k" style="min-width:160px;color:var(--blue);">mcpmarket.com</span><span class="v">Community marketplace with skills section. Browsable categories.</span></div>
+        <div class="item"><span class="k" style="min-width:160px;color:var(--dark-text);">GitHub</span><span class="v">Open source discovery. Scattered but rich.</span></div>
+        <div class="item"><span class="k" style="min-width:160px;color:var(--dark-text);">Anthropic registry</span><span class="v">Vetted, smaller, official.</span></div>
+        <div class="item"><span class="k" style="min-width:160px;color:var(--dark-text);">Vendor-provided</span><span class="v">Sentry, Stripe, Figma, Slack ship their own.</span></div>
+      </div>
+      <p style="font-size:0.48em;color:var(--dark-text);font-weight:600;margin-top:12px;">Marketplaces are emerging the same way npm, VS Code extensions, and app stores did.</p>
+    </div>
+    <div>
+      <p style="color:var(--dark-text);font-weight:700;font-size:0.6em;">The ecosystem is compounding:</p>
+      <p>Thousands of skills deployed within weeks of launch.</p>
+      <p style="font-size:0.5em;color:var(--dark-text);font-weight:600;margin-top:10px;">Skill complexity is growing:</p>
+      <div style="display:flex;flex-direction:column;gap:6px;margin-top:6px;">
+        <div style="background:#E4E4E4;border-radius:6px;padding:8px 12px;">
+          <p style="color:var(--dark-text);font-weight:600;font-size:0.52em;margin:0;">Simple: markdown instructions</p>
+        </div>
+        <div style="text-align:center;font-size:12px;color:#BBB;">&darr;</div>
+        <div style="background:#E4E4E4;border-radius:6px;padding:8px 12px;">
+          <p style="color:var(--dark-text);font-weight:600;font-size:0.52em;margin:0;">Medium: scripts + assets + instructions</p>
+        </div>
+        <div style="text-align:center;font-size:12px;color:#BBB;">&darr;</div>
+        <div style="background:#E4E4E4;border-radius:6px;padding:8px 12px;">
+          <p style="color:var(--dark-text);font-weight:600;font-size:0.52em;margin:0;">Complex: software packages with binaries, weeks to develop</p>
+        </div>
+      </div>
+      <div class="pro-tip" style="margin-top:8px;">
+        <span class="label">Future</span>
+        <p>Testing, versioning, dependencies, composability - skills are becoming real software. Treat them that way.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PART 5: SETUP & CLOSE
+     ============================================================ -->
+
+<!-- ====== 25. SECTION: HOW TO SET UP ====== -->
+<section class="s-black" data-background="#000">
+  <div class="sq">SQUIRE</div>
+  <div class="grow" style="display:flex;align-items:flex-end;">
+    <h1 style="font-size:3.8em;">HOW TO<br>SET IT UP</h1>
+  </div>
+</section>
+
+<!-- ====== 26. ADDING MCP SERVERS ====== -->
+<section class="s-gray" data-background="#F0F0F0">
+  <div class="sq">SQUIRE</div>
+  <h2>Adding MCP Servers</h2>
+  <div class="two-col grow">
+    <div>
+      <div class="term">
+        <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">connect an MCP server</div></div>
+        <div class="term-body auto-anim" style="font-size:12px;">
+          <div class="ln"><span class="cm"># Add Figma via HTTP</span></div>
+          <div class="ln"><span class="p">$</span> <span class="c">claude mcp add</span> <span class="s">--transport http</span> \</div>
+          <div class="ln"><span class="s">  figma-remote-mcp https://mcp.figma.com/mcp</span></div>
+          <div class="ln"><span class="ok">&#10003;</span> <span class="o">Added figma-remote-mcp</span></div>
+          <div class="ln">&nbsp;</div>
+          <div class="ln"><span class="cm"># Share with team (stored in .mcp.json)</span></div>
+          <div class="ln"><span class="p">$</span> <span class="c">claude mcp add</span> <span class="s">--scope project</span> \</div>
+          <div class="ln"><span class="s">  --transport http figma-remote-mcp \</span></div>
+          <div class="ln"><span class="s">  https://mcp.figma.com/mcp</span></div>
+          <div class="ln"><span class="ok">&#10003;</span> <span class="o">Added to .mcp.json (commit to share)</span></div>
+        </div>
+      </div>
+      <div class="pro-tip" style="margin-top:8px;">
+        <span class="label">Note</span>
+        <p><code>/mcp</code> only manages servers already added. Use <code>claude mcp add</code> to install. <a class="doc-link" href="https://code.claude.com/docs/en/mcp" target="_blank" rel="noopener" style="color:var(--blue);">Full docs &rarr;</a></p>
+      </div>
+    </div>
+    <div>
+      <p style="color:var(--dark-text);font-weight:700;font-size:0.6em;">Available first-party MCPs:</p>
+      <div class="cmd-list" style="margin-top:4px;">
+        <div class="item"><span class="k" style="min-width:120px;color:var(--blue);">Atlassian</span><span class="v">Jira issues, Confluence pages</span></div>
+        <div class="item"><span class="k" style="min-width:120px;color:var(--blue);">Slack</span><span class="v">Read channels, send messages</span></div>
+        <div class="item"><span class="k" style="min-width:120px;color:var(--blue);">Figma</span><span class="v">Read designs, generate code</span></div>
+        <div class="item"><span class="k" style="min-width:120px;color:var(--blue);">Sentry</span><span class="v">Errors, traces, performance</span></div>
+        <div class="item"><span class="k" style="min-width:120px;color:var(--blue);">Stripe</span><span class="v">Payments, customers</span></div>
+        <div class="item"><span class="k" style="min-width:120px;color:var(--blue);">PostHog</span><span class="v">Feature flags, analytics</span></div>
+        <div class="item"><span class="k" style="min-width:120px;color:var(--blue);">Gmail</span><span class="v">Read emails, create drafts</span></div>
+      </div>
+      <p style="font-size:0.52em;color:var(--dark-text);font-weight:600;margin-top:8px;">One-time setup per service. OAuth handles auth. <a class="doc-link" href="https://code.claude.com/docs/en/mcp" target="_blank" rel="noopener" style="color:var(--blue);">Full docs &rarr;</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ====== 27. MCP INSTALLATION SCOPES ====== -->
+<section class="s-gray" data-background="#F0F0F0">
+  <div class="sq">SQUIRE</div>
+  <h2>MCP Installation Scopes</h2>
+  <p style="font-size:0.55em;color:var(--muted);margin-bottom:16px;">The <code>--scope</code> flag controls where config is stored and who shares it.</p>
+  <div class="grow" style="display:flex;flex-direction:column;gap:12px;">
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0;background:#DDD;border-radius:8px;overflow:hidden;font-size:0.48em;">
+      <div style="background:var(--dark-text);color:#FFF;padding:10px 14px;font-weight:700;">Scope</div>
+      <div style="background:var(--dark-text);color:#FFF;padding:10px 14px;font-weight:700;">Loads in</div>
+      <div style="background:var(--dark-text);color:#FFF;padding:10px 14px;font-weight:700;">Shared with team</div>
+      <div style="background:var(--dark-text);color:#FFF;padding:10px 14px;font-weight:700;">Stored in</div>
+
+      <div style="background:#FFF;padding:10px 14px;font-weight:700;color:var(--blue);">Local <span style="font-weight:400;color:var(--muted);font-size:0.9em;">(default)</span></div>
+      <div style="background:#FFF;padding:10px 14px;">Current project only</div>
+      <div style="background:#FFF;padding:10px 14px;color:var(--orange);">No</div>
+      <div style="background:#FFF;padding:10px 14px;"><code>~/.claude.json</code></div>
+
+      <div style="background:#F5F5F5;padding:10px 14px;font-weight:700;color:var(--blue);">Project</div>
+      <div style="background:#F5F5F5;padding:10px 14px;">Current project only</div>
+      <div style="background:#F5F5F5;padding:10px 14px;color:var(--green);font-weight:600;">Yes, via version control</div>
+      <div style="background:#F5F5F5;padding:10px 14px;"><code>.mcp.json</code> in project root</div>
+
+      <div style="background:#FFF;padding:10px 14px;font-weight:700;color:var(--blue);">User</div>
+      <div style="background:#FFF;padding:10px 14px;">All your projects</div>
+      <div style="background:#FFF;padding:10px 14px;color:var(--orange);">No</div>
+      <div style="background:#FFF;padding:10px 14px;"><code>~/.claude.json</code></div>
+    </div>
+    <div class="term" style="flex:0;">
+      <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">scope examples</div></div>
+      <div class="term-body" style="font-size:12px;">
+        <div class="ln"><span class="cm"># Local (default) — just you, this project</span></div>
+        <div class="ln"><span class="p">$</span> <span class="c">claude mcp add</span> <span class="s">--transport http figma-remote-mcp https://mcp.figma.com/mcp</span></div>
+        <div class="ln">&nbsp;</div>
+        <div class="ln"><span class="cm"># Project — commit .mcp.json so the whole team gets it</span></div>
+        <div class="ln"><span class="p">$</span> <span class="c">claude mcp add</span> <span class="s">--scope project --transport http figma-remote-mcp https://mcp.figma.com/mcp</span></div>
+        <div class="ln">&nbsp;</div>
+        <div class="ln"><span class="cm"># User — available in all your projects</span></div>
+        <div class="ln"><span class="p">$</span> <span class="c">claude mcp add</span> <span class="s">--scope user --transport http figma-remote-mcp https://mcp.figma.com/mcp</span></div>
+      </div>
+    </div>
+    <p style="font-size:0.48em;color:var(--muted);margin-top:auto;">Note: <em>local</em> was called <em>project</em> in older versions. <em>user</em> was called <em>global</em>. &nbsp;<a class="doc-link" href="https://code.claude.com/docs/en/mcp" target="_blank" rel="noopener" style="color:var(--blue);">Full docs &rarr;</a></p>
+  </div>
+</section>
+
+<!-- ====== 28. ADDING SKILLS ====== -->
+<section class="s-gray" data-background="#F0F0F0">
+  <div class="sq">SQUIRE</div>
+  <h2>Adding Skills</h2>
+  <div class="two-col grow">
+    <div>
+      <div class="term">
+        <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">create a skill</div></div>
+        <div class="term-body auto-anim" style="font-size:12px;">
+          <div class="ln"><span class="cm"># 1. Create the skill folder</span></div>
+          <div class="ln"><span class="p">$</span> <span class="c">mkdir -p</span> <span class="s">.claude/skills/create-pr</span></div>
+          <div class="ln">&nbsp;</div>
+          <div class="ln"><span class="cm"># 2. Write SKILL.md (the entry point)</span></div>
+          <div class="ln"><span class="p">$</span> <span class="c">cat</span> <span class="s">.claude/skills/create-pr/SKILL.md</span></div>
+          <div class="ln"><span class="o">---</span></div>
+          <div class="ln"><span class="pu">name:</span> <span class="s">create-pr</span></div>
+          <div class="ln"><span class="pu">description:</span> <span class="s">Create a pull request</span></div>
+          <div class="ln"><span class="o">---</span></div>
+          <div class="ln"><span class="o">Use conventional commits...</span></div>
+          <div class="ln">&nbsp;</div>
+          <div class="ln"><span class="cm"># 3. Use it</span></div>
+          <div class="ln"><span class="p">></span> <span class="c">/create-pr</span></div>
+          <div class="ln"><span class="ok">&#10003;</span> <span class="o">Created PR #247</span></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <p style="color:var(--dark-text);font-weight:700;font-size:0.6em;">Where skills live:</p>
+      <table class="cmp-table" style="margin-top:6px;">
+        <tr><th>Scope</th><th>Path</th></tr>
+        <tr><td style="font-weight:600;color:var(--dark-text);">Personal</td><td><code>~/.claude/skills/&lt;name&gt;/</code></td></tr>
+        <tr><td style="font-weight:600;color:var(--dark-text);">Project</td><td><code>.claude/skills/&lt;name&gt;/</code></td></tr>
+        <tr><td style="font-weight:600;color:var(--dark-text);">Enterprise</td><td>Managed settings (org-wide)</td></tr>
+      </table>
+      <p style="font-size:0.52em;margin-top:10px;">Personal skills work across all projects. Project skills commit to the repo - everyone on the team gets them.</p>
+      <p style="color:var(--dark-text);font-weight:700;font-size:0.6em;margin-top:10px;">Key frontmatter options:</p>
+      <div class="cmd-list" style="font-size:0.9em;">
+        <div class="item"><span class="k" style="min-width:180px;">description</span><span class="v">When Claude should use this skill</span></div>
+        <div class="item"><span class="k" style="min-width:180px;">disable-model-invocation</span><span class="v">Manual-only (e.g. /deploy)</span></div>
+        <div class="item"><span class="k" style="min-width:180px;">allowed-tools</span><span class="v">Pre-approve tools for this skill</span></div>
+        <div class="item"><span class="k" style="min-width:180px;">context: fork</span><span class="v">Run in isolated sub-agent</span></div>
+      </div>
+      <p style="font-size:0.52em;color:var(--dark-text);font-weight:600;margin-top:8px;"><a class="doc-link" href="https://code.claude.com/docs/en/skills" target="_blank" rel="noopener" style="color:var(--blue);">Full skills docs &rarr;</a></p>
+    </div>
+  </div>
+  <aside class="notes">This is practical setup. Show the folder structure, the frontmatter, and the scope options. Project skills commit to the repo - that's how the whole team shares them.</aside>
+</section>
+
+<!-- ====== 28. INSTALLING PLUGINS ====== -->
+<section class="s-gray" data-background="#F0F0F0">
+  <div class="sq">SQUIRE</div>
+  <h2>Plugins: One-Click Packages</h2>
+  <p style="font-size:0.52em;color:var(--muted);font-style:italic;">Plugins bundle skills, MCP servers, agents, and configuration into a single installable package.</p>
+  <div class="two-col grow mt-sm">
+    <div>
+      <div class="term">
+        <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">/plugin - discover &amp; install</div></div>
+        <div class="term-body auto-anim" style="font-size:12px;">
+          <div class="ln"><span class="p">></span> <span class="c">/plugin</span></div>
+          <div class="ln">&nbsp;</div>
+          <div class="ln"><span class="pu">Plugins</span> <span class="s" style="background:#444;padding:2px 6px;border-radius:3px;">Discover</span> <span class="o">Installed  Marketplaces</span></div>
+          <div class="ln"><span class="o">Discover plugins (1/140)</span></div>
+          <div class="ln">&nbsp;</div>
+          <div class="ln"><span class="ok">&#9679;</span> <span class="c">frontend-design</span> <span class="o">507.5K installs</span></div>
+          <div class="ln"><span class="cm">  Production-grade frontend interfaces</span></div>
+          <div class="ln"><span class="ok">&#9679;</span> <span class="c">superpowers</span> <span class="o">410.3K installs</span></div>
+          <div class="ln"><span class="cm">  Brainstorming, subagent driven dev</span></div>
+          <div class="ln"><span class="ok">&#9679;</span> <span class="c">context7</span> <span class="o">248.6K installs</span></div>
+          <div class="ln"><span class="cm">  Up-to-date documentation lookup</span></div>
+          <div class="ln"><span class="ok">&#9679;</span> <span class="c">code-review</span> <span class="o">232.6K installs</span></div>
+          <div class="ln"><span class="cm">  Automated PR review with specs</span></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <p style="color:var(--dark-text);font-weight:700;font-size:0.6em;">What's in a plugin?</p>
+      <p>A plugin can include any combination of skills, MCP servers, sub-agents, CLAUDE.md rules, and hooks - all installed at once.</p>
+      <div class="term" style="font-size:11px;margin-top:8px;">
+        <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">install a plugin</div></div>
+        <div class="term-body">
+          <div class="ln"><span class="cm"># Browse and install from /plugin</span></div>
+          <div class="ln"><span class="p">></span> <span class="c">/plugin</span> <span class="s">frontend-design</span></div>
+          <div class="ln"><span class="ok">&#10003;</span> <span class="o">Installed frontend-design</span></div>
+          <div class="ln"><span class="o">  + 8 skills, 1 agent, CLAUDE.md rules</span></div>
+          <div class="ln">&nbsp;</div>
+          <div class="ln"><span class="cm"># Or install directly by name</span></div>
+          <div class="ln"><span class="p">$</span> <span class="c">claude plugin add</span> <span class="s">context7</span></div>
+          <div class="ln"><span class="ok">&#10003;</span> <span class="o">Installed context7 (MCP server)</span></div>
+        </div>
+      </div>
+      <div class="pro-tip" style="margin-top:8px;">
+        <span class="label">140+ plugins available</span>
+        <p>Type <code>/plugin</code> to browse. Search by name. Space to toggle. One command to install. <a class="doc-link" href="https://code.claude.com/docs/en/discover-plugins" target="_blank" rel="noopener" style="color:var(--blue);">Browse plugins &rarr;</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== 29. CONNECTORS: WEB & DESKTOP ====== -->
+<section class="s-gray" data-background="#F0F0F0">
+  <div class="sq">SQUIRE</div>
+  <h2>Connectors: Web & Desktop</h2>
+  <p style="font-size:0.52em;color:var(--muted);font-style:italic;">Claude connects to your tools in two ways - through the web or through the Desktop app.</p>
+  <div class="two-col grow mt-sm">
+    <div>
+      <div style="background:var(--white);border-radius:8px;padding:18px;border-top:3px solid var(--blue);">
+        <p style="color:var(--blue);font-weight:700;font-size:0.6em;margin:0;">REMOTE CONNECTORS (WEB)</p>
+        <p style="font-size:0.52em;color:var(--muted);margin:4px 0 8px 0;">Cloud-based services, accessible everywhere</p>
+        <p style="font-size:0.52em;color:var(--dark-text);">Works across <strong>all Claude surfaces</strong> - web, mobile, Cowork, Desktop, and Claude Code.</p>
+        <p style="color:var(--dark-text);font-weight:600;font-size:0.52em;margin-top:8px;">Use for:</p>
+        <p style="font-size:0.52em;">Slack, Notion, Linear, GitHub, Jira, Google Drive, company SaaS tools</p>
+        <p style="color:var(--dark-text);font-weight:600;font-size:0.52em;margin-top:6px;">Setup:</p>
+        <p style="font-size:0.52em;">Settings &rarr; Connectors, or browse the Connectors Directory</p>
+      </div>
+    </div>
+    <div>
+      <div style="background:var(--white);border-radius:8px;padding:18px;border-top:3px solid var(--green);">
+        <p style="color:var(--green);font-weight:700;font-size:0.6em;margin:0;">DESKTOP EXTENSIONS (LOCAL)</p>
+        <p style="font-size:0.52em;color:var(--muted);margin:4px 0 8px 0;">Locally-running tools, OS-level access</p>
+        <p style="font-size:0.52em;color:var(--dark-text);">Works in <strong>Claude Desktop and Claude Code</strong> only. Not on web or mobile.</p>
+        <p style="color:var(--dark-text);font-weight:600;font-size:0.52em;margin-top:8px;">Use for:</p>
+        <p style="font-size:0.52em;">Local files, databases on localhost, desktop apps, filesystem, clipboard</p>
+        <p style="color:var(--dark-text);font-weight:600;font-size:0.52em;margin-top:6px;">Setup:</p>
+        <p style="font-size:0.52em;">Claude Desktop &rarr; Settings &rarr; Extensions</p>
+      </div>
+    </div>
+  </div>
+  <div style="background:var(--white);border-radius:8px;padding:12px 18px;margin-top:auto;text-align:center;">
+    <p style="color:var(--dark-text);font-weight:700;font-size:0.52em;margin:0;">Remote connectors = cloud services, works everywhere. Desktop extensions = local tools, needs the app.</p>
+    <p style="font-size:0.52em;margin:4px 0 0 0;"><a class="doc-link" href="https://support.claude.com/en/articles/11725091-when-to-use-desktop-and-web-connectors" target="_blank" rel="noopener" style="color:var(--blue);">When to use which &rarr;</a></p>
+  </div>
+  <aside class="notes">Non-engineers especially benefit from remote connectors - they work on web and mobile without any terminal setup. Engineers will use both. The key question: does the tool run in the cloud or on your machine?</aside>
+</section>
+
+<!-- ====== 30. SQUIRE MARKETPLACE ====== -->
+<section class="s-black" data-background="#000">
+  <div class="sq">SQUIRE</div>
+  <h2 style="color:var(--white);font-size:1.6em;">Squire Skills & Agents Marketplace</h2>
+  <div class="two-col grow" style="gap:24px;">
+    <div>
+      <p style="color:var(--green);font-weight:700;font-size:0.6em;">One place to share, discover, and reuse.</p>
+      <p style="color:#CCC;font-size:0.52em;">We've built an internal marketplace - a single place across the org to store, share, and discover commonly used skills, agents, services, and more.</p>
+      <p style="color:#CCC;font-size:0.52em;">No more hunting across teams to find what's already been built.</p>
+      <div style="display:flex;flex-direction:column;gap:6px;margin-top:12px;">
+        <div style="background:#111;border-radius:6px;padding:10px 14px;border-left:3px solid var(--green);">
+          <p style="color:var(--green);font-weight:600;font-size:0.52em;margin:0;">Contribute your skills</p>
+          <p style="color:#888;font-size:0.52em;margin:4px 0 0 0;">Built a useful skill? Add it so everyone benefits.</p>
+        </div>
+        <div style="background:#111;border-radius:6px;padding:10px 14px;border-left:3px solid var(--blue);">
+          <p style="color:var(--blue);font-weight:600;font-size:0.52em;margin:0;">Discover what exists</p>
+          <p style="color:#888;font-size:0.52em;margin:4px 0 0 0;">Browse skills your teammates have already created.</p>
+        </div>
+        <div style="background:#111;border-radius:6px;padding:10px 14px;border-left:3px solid var(--orange);">
+          <p style="color:var(--orange);font-weight:600;font-size:0.52em;margin:0;">Give feedback</p>
+          <p style="color:#888;font-size:0.52em;margin:4px 0 0 0;">It's early. Your input shapes what this becomes.</p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="term">
+        <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">squire marketplace - /plugin</div></div>
+        <div class="term-body auto-anim" style="font-size:12px;">
+          <div class="ln"><span class="pu">Plugins</span> <span style="background:#444;padding:2px 6px;border-radius:3px;color:#FFF;font-weight:600;">Discover</span> <span class="o">Installed  Marketplaces  Errors</span></div>
+          <div class="ln"><span class="c">Install Plugins</span></div>
+          <div class="ln">&nbsp;</div>
+          <div class="ln"><span class="ok">&#9679;</span> <span class="c">design-tools</span> <span class="o">[design]</span></div>
+          <div class="ln"><span class="cm">  Design system and component development tools...</span></div>
+          <div class="ln"><span class="ok">&#9679;</span> <span class="c">engineering-tools</span> <span class="o">[development]</span></div>
+          <div class="ln"><span class="cm">  Code quality and testing automation. ESLint, Jest...</span></div>
+          <div class="ln"><span class="ok">&#9679;</span> <span class="c">onboarding-tools</span> <span class="o">[onboarding]</span></div>
+          <div class="ln"><span class="cm">  Automation skills for SQUIRE Onboarding Specialists...</span></div>
+          <div class="ln"><span class="ok">&#9679;</span> <span class="c">pm-tools</span> <span class="o">[product]</span></div>
+          <div class="ln"><span class="cm">  Product management skills for PRDs, PRFAQs...</span></div>
+          <div class="ln"><span class="ok">&#9679;</span> <span class="c">qa-tools</span> <span class="o">[qa]</span></div>
+          <div class="ln"><span class="cm">  QA: draft TestRail plans and CSV cases from Jira...</span></div>
+          <div class="ln"><span class="o">&darr; more below</span></div>
+          <div class="ln">&nbsp;</div>
+          <div class="ln"><span class="pu">Space to toggle &middot; Enter to details &middot; Esc to back</span></div>
+        </div>
+      </div>
+      <div class="try-now" style="margin-top:10px;">
+        <span class="arrow">&rarr;</span>
+        <span>Try it now: check out the repo and add your first skill</span>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">This is our own marketplace - private beta, live on GitHub. Ask everyone to contribute at least one skill. The value compounds: every skill added helps the whole team.</aside>
+</section>
+
+<!-- ====== 31. CHEAT SHEET ====== -->
+<section class="s-black" data-background="#000">
+  <div class="sq">SQUIRE</div>
+  <h2 style="color:var(--white);">MCP & Skills Cheat Sheet</h2>
+  <div class="grow" style="display:flex;flex-direction:column;justify-content:center;">
+    <div class="cheat-row"><span class="t" style="background:var(--orange);color:#FFF;">MCP SETUP</span><span class="cmds">/mcp  OAuth flow  capability picker  claude mcp add</span></div>
+    <div class="cheat-row"><span class="t" style="background:var(--blue);color:#FFF;">MCP TOOLS</span><span class="cmds">Atlassian  Slack  Figma  Sentry  Stripe  PostHog  Gmail</span></div>
+    <div class="cheat-row"><span class="t" style="background:#888;color:#FFF;">TRANSPORT</span><span class="cmds">stdio (local)  SSE (streaming)  HTTP (request-response)</span></div>
+    <div class="cheat-row"><span class="t" style="background:var(--red);color:#FFF;">SAFETY</span><span class="cmds">read vs write  blast radius  approval fatigue  scoping</span></div>
+    <div class="cheat-row"><span class="t" style="background:var(--green);color:#FFF;">SKILLS</span><span class="cmds">SKILL.md  /commit  /batch  /simplify  /create-pr  /loop</span></div>
+    <div class="cheat-row"><span class="t" style="background:var(--code-purple);color:#FFF;">PLUGINS</span><span class="cmds">/plugin  discover  install  frontend-design  context7  code-review</span></div>
+    <div class="cheat-row"><span class="t" style="background:var(--blue);color:#FFF;opacity:0.7;">CONTEXT</span><span class="cmds">deferred loading  progressive disclosure  /compact  /context</span></div>
+  </div>
+  <p style="text-align:center;color:var(--green);font-weight:700;font-style:italic;font-size:0.75em;margin-top:16px;">Screenshot this slide.</p>
+  <aside class="notes">"Pull out your phones. Screenshot this now. I'll wait."</aside>
+</section>
+
+<!-- ====== FIGMA TO CODE: MOBILE ====== -->
+<section class="s-black" data-background="#000">
+  <div class="sq">SQUIRE</div>
+  <h2 style="color:var(--white);">Figma → Code <span style="color:#555;font-size:0.6em;font-weight:400;letter-spacing:0.06em;">MOBILE</span></h2>
+  <p style="font-size:0.52em;color:#999;margin-bottom:12px;">Claude reads the design, applies the mobile DLS, and ships the component.</p>
+  <div class="grow" style="display:grid;grid-template-columns:1fr 48px 1fr;gap:16px;align-items:center;">
+    <div style="display:flex;flex-direction:column;gap:8px;height:100%;">
+      <span style="font-size:0.42em;font-weight:700;letter-spacing:0.08em;color:#666;">FIGMA</span>
+      <img src="img/mobile-figma.png" style="width:100%;border-radius:12px;object-fit:cover;object-position:top;flex:1;min-height:0;">
+    </div>
+    <div style="text-align:center;font-size:2em;color:#444;">&rarr;</div>
+    <div style="display:flex;flex-direction:column;gap:8px;height:100%;">
+      <span style="font-size:0.42em;font-weight:700;letter-spacing:0.08em;color:var(--green);">SHIPPED</span>
+      <img src="img/mobile-code.png" style="width:100%;border-radius:12px;object-fit:cover;object-position:top;flex:1;min-height:0;">
+    </div>
+  </div>
+</section>
+
+<!-- ====== FIGMA TO CODE: WEB ====== -->
+<section class="s-black" data-background="#000">
+  <div class="sq">SQUIRE</div>
+  <h2 style="color:var(--white);">Figma → Code <span style="color:#555;font-size:0.6em;font-weight:400;letter-spacing:0.06em;">WEB</span></h2>
+  <p style="font-size:0.52em;color:#999;margin-bottom:12px;">Claude reads the design, applies the web DLS, and ships the component.</p>
+  <div class="grow" style="display:grid;grid-template-columns:1fr 48px 1fr;gap:16px;align-items:center;">
+    <div style="display:flex;flex-direction:column;gap:8px;height:100%;">
+      <span style="font-size:0.42em;font-weight:700;letter-spacing:0.08em;color:#666;">FIGMA</span>
+      <img src="img/web-figma.png" style="width:100%;border-radius:12px;object-fit:cover;object-position:top;flex:1;min-height:0;">
+    </div>
+    <div style="text-align:center;font-size:2em;color:#444;">&rarr;</div>
+    <div style="display:flex;flex-direction:column;gap:8px;height:100%;">
+      <span style="font-size:0.42em;font-weight:700;letter-spacing:0.08em;color:var(--green);">SHIPPED</span>
+      <img src="img/web-code.png" style="width:100%;border-radius:12px;object-fit:cover;object-position:top;flex:1;min-height:0;">
+    </div>
+  </div>
+</section>
+
+<!-- ====== 29. KEY TAKEAWAYS ====== -->
+<section class="s-black" data-background="#000">
+  <div class="sq">SQUIRE</div>
+  <h2 style="color:var(--white);font-size:1.4em;">Key Takeaways</h2>
+  <div class="grow" style="display:flex;flex-direction:column;justify-content:center;">
+    <div class="tk-row fragment fade-up"><span class="n">1</span><span class="tx">MCP is the plumbing - connectivity. Skills are the playbook - expertise. You need both.</span></div>
+    <div class="tk-row fragment fade-up"><span class="n">2</span><span class="tx">Don't build agents - build skills. One universal agent + domain-specific skills = expertise.</span></div>
+    <div class="tk-row fragment fade-up"><span class="n">3</span><span class="tx">Read vs write permissions matter - blast radius is real. Always scope down.</span></div>
+    <div class="tk-row fragment fade-up"><span class="n">4</span><span class="tx">Context steering is an underused superpower - tool responses shape agent behavior.</span></div>
+    <div class="tk-row fragment fade-up"><span class="n">5</span><span class="tx">Progressive disclosure works everywhere - skills and MCP both use metadata-first loading.</span></div>
+    <div class="tk-row fragment fade-up"><span class="n">6</span><span class="tx">The best MCP server is the one you don't have to build. The best skill is the one your team shares.</span></div>
+  </div>
+  <div class="mt-auto">
+    <p style="color:#555;font-size:0.52em;">Session 2 of 5 complete</p>
+  </div>
+</section>
+
+<!-- ====== 30. PITFALLS & HOMEWORK ====== -->
+<section class="s-gray" data-background="#F0F0F0">
+  <div class="sq">SQUIRE</div>
+  <h2>Pitfalls & Homework</h2>
+  <div class="two-col grow">
+    <div>
+      <div class="term" style="margin-bottom:10px;">
+        <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">pitfalls</div></div>
+        <div class="term-body" style="font-size:13px;">
+          <div class="ln"><span class="er">&#10007;</span> Don't build an MCP when a CLI already works</div>
+          <div class="ln"><span class="er">&#10007;</span> Don't expose all tools - scope to what you need</div>
+          <div class="ln"><span class="er">&#10007;</span> Don't grant write access without thinking</div>
+          <div class="ln"><span class="er">&#10007;</span> Don't rebuild agents - build skills instead</div>
+          <div class="ln">&nbsp;</div>
+          <div class="ln"><span class="ok">&#10003;</span> Use MCP for authenticated external services</div>
+          <div class="ln"><span class="ok">&#10003;</span> Use skills for team workflows and conventions</div>
+          <div class="ln"><span class="ok">&#10003;</span> Use plugins to share skills across the team</div>
+          <div class="ln"><span class="ok">&#10003;</span> Start with read-only, add writes carefully</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div style="background:#E4E4E4;border-radius:8px;padding:16px;">
+        <p style="color:var(--dark-text);font-weight:700;font-size:0.6em;margin:0 0 8px 0;">HOMEWORK</p>
+        <p style="font-size:0.48em;">1. Connect at least one MCP server (Atlassian, Slack, or Figma)</p>
+        <p style="font-size:0.48em;">2. Try a built-in skill: <code>/commit</code> or <code>/batch</code></p>
+        <p style="font-size:0.48em;">3. Write a custom SKILL.md for a team workflow</p>
+        <p style="font-size:0.48em;">4. Read a Jira ticket through Claude (MCP in action)</p>
+        <p style="font-size:0.48em;">5. Watch: <a class="doc-link" href="https://www.youtube.com/watch?v=CEvIs9y1uog" target="_blank" rel="noopener" style="color:var(--blue);">"Don't Build Agents, Build Skills Instead"</a></p>
+      </div>
+      <div style="background:var(--dark-text);border-radius:8px;padding:16px;color:#FFF;margin-top:10px;">
+        <p style="font-weight:700;font-size:0.6em;margin:0 0 8px 0;color:var(--orange);">NEXT SESSION</p>
+        <p style="font-size:0.55em;color:#DDD;font-weight:600;">Session 3: Subagents, Agent Teams & Hooks</p>
+        <p style="font-size:0.55em;color:#999;">Deep dive into parallel agents, hooks system, and building agent workflows.</p>
+        <p style="font-size:0.55em;color:var(--orange);font-weight:600;margin-top:8px;">Presented by Jonathan</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== DEMO SECTION HEADER ====== -->
+<section class="s-black" data-background="#000">
+  <div class="sq">SQUIRE</div>
+  <div class="grow" style="display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;">
+    <p style="color:var(--orange);font-size:0.55em;font-weight:700;letter-spacing:0.12em;margin-bottom:8px;">LIVE DEMO</p>
+    <h1 style="font-size:3.8em;line-height:1;">LET'S SEE<br>IT IN ACTION</h1>
+  </div>
+</section>
+
+<!-- ====== DEMO: PLAN ====== -->
+<section class="s-black" data-background="#000">
+  <div class="sq">SQUIRE</div>
+  <h2 style="color:var(--white);">Demo Plan</h2>
+  <div class="grow" style="display:flex;flex-direction:column;justify-content:center;gap:20px;">
+
+    <div style="display:flex;align-items:flex-start;gap:20px;background:#111;border-radius:10px;padding:20px 24px;border-left:4px solid var(--blue);">
+      <span style="font-size:1.8em;font-weight:900;color:var(--blue);line-height:1;min-width:32px;">1</span>
+      <div>
+        <p style="color:#FFF;font-weight:700;font-size:0.65em;margin:0;">MCP &amp; Skill Marketplaces</p>
+        <p style="color:#777;font-size:0.5em;margin:4px 0 0 0;">Browse claude.ai/integrations and mcpmarket.com — what's available out of the box and what Squire already has connected.</p>
+      </div>
+    </div>
+
+    <div style="display:flex;align-items:flex-start;gap:20px;background:#111;border-radius:10px;padding:20px 24px;border-left:4px solid var(--orange);">
+      <span style="font-size:1.8em;font-weight:900;color:var(--orange);line-height:1;min-width:32px;">2</span>
+      <div>
+        <p style="color:#FFF;font-weight:700;font-size:0.65em;margin:0;">Setting It Up in Claude Desktop</p>
+        <p style="color:#777;font-size:0.5em;margin:4px 0 0 0;">Add an MCP server live — <code style="color:var(--orange);">claude mcp add</code>, OAuth flow, and picking capabilities.</p>
+      </div>
+    </div>
+
+    <div style="display:flex;align-items:flex-start;gap:20px;background:#111;border-radius:10px;padding:20px 24px;border-left:4px solid var(--green);">
+      <span style="font-size:1.8em;font-weight:900;color:var(--green);line-height:1;min-width:32px;">3</span>
+      <div>
+        <p style="color:#FFF;font-weight:700;font-size:0.65em;margin:0;">GSD in Claude Code</p>
+        <p style="color:#777;font-size:0.5em;margin:4px 0 0 0;">Run <code style="color:var(--green);">/gsd-plan-phase</code> on a real ticket — skills orchestrating agents, reading Jira, writing code, opening a PR.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ====== 31. WORKSHOP SERIES ====== -->
+<section class="s-gray" data-background="#F0F0F0">
+  <div class="sq">SQUIRE</div>
+  <h2>The Workshop Series</h2>
+  <div class="grow">
+    <div class="cmd-list">
+      <div class="item" style="background:#E4E4E4;border-radius:6px;padding:10px 14px;margin:6px 0;border:none;border-left:3px solid var(--blue);">
+        <span class="k" style="color:var(--blue);min-width:60px;">S1</span>
+        <span class="v" style="color:var(--dark-text);font-weight:700;">Getting Started - Terminal, Commands & Context</span>
+        <span style="margin-left:auto;font-size:0.85em;color:var(--blue);font-weight:600;">@Santi</span>
+        <span style="margin-left:8px;background:var(--green);color:#FFF;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;">DONE</span>
+      </div>
+      <div class="item" style="background:#E4E4E4;border-radius:6px;padding:10px 14px;margin:6px 0;border:none;border-left:3px solid var(--green);">
+        <span class="k" style="color:var(--green);min-width:60px;">S2</span>
+        <span class="v" style="color:var(--dark-text);font-weight:700;">MCP & Skills - Integrations & Workflows</span>
+        <span style="margin-left:auto;font-size:0.85em;color:var(--green);font-weight:600;">@Artur</span>
+        <span style="margin-left:8px;background:var(--green);color:#FFF;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;">TODAY</span>
+      </div>
+      <div class="item" style="background:#E4E4E4;border-radius:6px;padding:10px 14px;margin:6px 0;border:none;border-left:3px solid var(--orange);">
+        <span class="k" style="color:var(--orange);min-width:60px;">S3</span>
+        <span class="v" style="color:var(--dark-text);font-weight:700;">Subagents, Agent Teams & Hooks</span>
+        <span style="margin-left:auto;font-size:0.85em;color:var(--orange);font-weight:600;">@Jonathan</span>
+      </div>
+      <div class="item" style="background:#E4E4E4;border-radius:6px;padding:10px 14px;margin:6px 0;border:none;border-left:3px solid var(--code-purple);">
+        <span class="k" style="color:var(--code-purple);min-width:60px;">S4</span>
+        <span class="v" style="color:var(--dark-text);font-weight:700;">Specification-Driven Development</span>
+        <span style="margin-left:auto;font-size:0.85em;color:var(--code-purple);font-weight:600;">@Nico</span>
+      </div>
+      <div class="item" style="background:#E4E4E4;border-radius:6px;padding:10px 14px;margin:6px 0;border:none;border-left:3px solid var(--red);">
+        <span class="k" style="color:var(--red);min-width:60px;">S5</span>
+        <span class="v" style="color:var(--dark-text);font-weight:700;">Plugins, CI/CD & End-to-End Demo</span>
+        <span style="margin-left:auto;font-size:0.85em;color:var(--red);font-weight:600;">TBD</span>
+      </div>
+    </div>
+    <p style="font-size:0.55em;color:var(--muted);margin-top:8px;">Sessions build on each other. Attending in order is recommended.</p>
+  </div>
+</section>
+
+<!-- ====== 32. THANK YOU ====== -->
+<section class="s-black" data-background="#000">
+  <div class="sq">SQUIRE</div>
+  <div class="grow" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;">
+    <h1 style="font-size:3.5em;text-align:center;">THANK YOU</h1>
+    <p style="color:#CCC;font-size:0.6em;margin-top:12px;">Now go connect your tools and build your skills.</p>
+    <div style="margin:20px 0;padding:16px 30px;background:#111;border-radius:8px;border:1px solid #333;">
+      <p style="color:var(--green);font-weight:700;font-size:0.55em;margin:0;">Resources</p>
+      <p style="color:#CCC;font-size:0.52em;margin:8px 0 0 0;"><a class="doc-link" href="https://modelcontextprotocol.io" target="_blank" rel="noopener" style="color:var(--blue);">modelcontextprotocol.io</a> - MCP spec &amp; docs</p>
+      <p style="color:#CCC;font-size:0.52em;margin:4px 0 0 0;"><a class="doc-link" href="https://mcpmarket.com" target="_blank" rel="noopener" style="color:var(--blue);">mcpmarket.com</a> - Browse MCP tools and skills</p>
+      <p style="color:#CCC;font-size:0.52em;margin:4px 0 0 0;"><a class="doc-link" href="https://docs.anthropic.com/en/docs/claude-code" target="_blank" rel="noopener" style="color:var(--blue);">Claude Code docs</a> - Skills, MCP setup, agent config</p>
+    </div>
+    <div style="margin:8px 0;padding:16px 30px;background:#111;border-radius:8px;border:1px solid #333;">
+      <p style="color:var(--blue);font-weight:700;font-size:0.55em;margin:0;">Questions? Ideas? Screenshots?</p>
+      <p style="color:var(--code-green);font-size:0.7em;font-weight:700;margin:6px 0 0 0;">#claude-code-workshop</p>
+    </div>
+    <p style="color:#555;font-size:0.55em;margin-top:20px;">Session 2 of 5 - See you at Session 3 with Jonathan!</p>
+  </div>
+  <aside class="notes">"Thank you everyone. Connect Jira, write a skill, and post in Slack. See you at Session 3!"</aside>
+</section>
+
+</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
+<script>
+Reveal.initialize({
+  hash: true,
+  slideNumber: 'c/t',
+  width: 1280,
+  height: 720,
+  margin: 0,
+  center: false,
+  transition: 'slide',
+  transitionSpeed: 'fast',
+  backgroundTransition: 'fade',
+});
+</script>
+</body>
+</html>
