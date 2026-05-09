@@ -290,7 +290,7 @@ a.doc-link { color:inherit;text-decoration:underline;text-decoration-style:dotte
   <div class="sq">SQUIRE</div>
   <div class="grow" style="display:flex;flex-direction:column;justify-content:center;">
     <h1 style="font-size:4.5em;margin-bottom:0;">MCP & SKILLS</h1>
-    <h1 style="color:var(--green);font-size:2.8em;margin-top:-5px;">SESSION 3: INTEGRATIONS</h1>
+    <h1 style="color:var(--green);font-size:2.8em;margin-top:-5px;">SESSION 2: INTEGRATIONS</h1>
     <p style="color:#888;font-size:0.5em;font-style:italic;margin-top:16px;">Everything has a place. Here's how to think about it.</p>
   </div>
   <div class="mt-auto">
@@ -305,7 +305,9 @@ a.doc-link { color:inherit;text-decoration:underline;text-decoration-style:dotte
   <div class="sq">SQUIRE</div>
   <div class="grow" style="display:flex;align-items:center;justify-content:center;gap:60px;">
     <div style="text-align:center;">
-      <div style="width:120px;height:120px;border-radius:50%;background:linear-gradient(135deg,var(--green),#38A169);margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:48px;color:#FFF;font-weight:700;">A</div>
+      <div style="width:128px;height:128px;border-radius:50%;background:linear-gradient(135deg,var(--green),#38A169);margin:0 auto 12px;padding:3px;box-shadow:0 0 0 2px #222;">
+        <img src="img/ava.jpeg" style="width:100%;height:100%;border-radius:50%;object-fit:cover;display:block;">
+      </div>
       <p style="color:#FFF;font-weight:700;font-size:0.65em;margin:0;">Artur Badretdinov</p>
       <p style="color:var(--green);font-size:0.55em;margin:2px 0;">Presenter</p>
     </div>
@@ -398,12 +400,6 @@ a.doc-link { color:inherit;text-decoration:underline;text-decoration-style:dotte
       <div class="item"><span class="k" style="color:var(--green);min-width:30px;">08</span><span class="v" style="color:var(--dark-text);">CONTEXT, AGENTS & ECOSYSTEM</span></div>
       <div class="item"><span class="k" style="color:var(--green);min-width:30px;">09</span><span class="v" style="color:var(--dark-text);">DEMO: MCP + SKILLS IN ACTION</span></div>
     </div>
-    <div style="font-size:0.48em;color:var(--muted);">
-      <p><strong style="color:var(--dark-text);">Duration:</strong> 40-45 minutes</p>
-      <p><strong style="color:var(--dark-text);">Audience:</strong> Everyone - eng, PM, QA, design</p>
-      <p><strong style="color:var(--dark-text);">Format:</strong> Slides + two live demos</p>
-      <p style="margin-top:12px;color:var(--dark-text);font-weight:600;">First half: MCP - connecting Claude to external tools and services.<br><br>Second half: Skills - teaching Claude your workflows and encoding your team's expertise.</p>
-    </div>
   </div>
 </section>
 
@@ -419,10 +415,10 @@ a.doc-link { color:inherit;text-decoration:underline;text-decoration-style:dotte
   </div>
 </section>
 
-<!-- ====== 6. FOUR CONCEPTS ====== -->
+<!-- ====== 6. Three CONCEPTS ====== -->
 <section class="s-gray" data-background="#F0F0F0">
   <div class="sq">SQUIRE</div>
-  <h2>Four Concepts to Know</h2>
+  <h2>Three Concepts to Know</h2>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;" class="grow">
     <div class="fragment fade-up" data-fragment-index="0" style="background:#E4E4E4;border-radius:8px;padding:16px;border-left:3px solid var(--orange);">
       <p style="color:var(--orange);font-weight:700;font-size:0.6em;margin:0;">MCP (MODEL CONTEXT PROTOCOL)</p>
@@ -578,19 +574,17 @@ a.doc-link { color:inherit;text-decoration:underline;text-decoration-style:dotte
       <div class="term">
         <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">adding MCP servers</div></div>
         <div class="term-body auto-anim" style="font-size:12px;">
-          <div class="ln"><span class="cm"># Add Atlassian (Jira + Confluence)</span></div>
-          <div class="ln"><span class="p">></span> <span class="c">/mcp</span></div>
-          <div class="ln"><span class="o">  Add a new MCP server...</span></div>
-          <div class="ln"><span class="p">></span> <span class="s">Atlassian</span></div>
-          <div class="ln"><span class="ok">&#10003;</span> <span class="o">OAuth flow started...</span></div>
-          <div class="ln"><span class="ok">&#10003;</span> <span class="o">Authenticated as artur@squire.com</span></div>
+          <div class="ln"><span class="cm"># Add Figma via HTTP transport</span></div>
+          <div class="ln"><span class="p">$</span> <span class="c">claude mcp add</span> <span class="s">--transport http</span> \</div>
+          <div class="ln"><span class="s">  figma-remote-mcp https://mcp.figma.com/mcp</span></div>
+          <div class="ln"><span class="ok">&#10003;</span> <span class="o">Added figma-remote-mcp (HTTP)</span></div>
+          <div class="ln">&nbsp;</div>
+          <div class="ln"><span class="cm"># Add Atlassian (stdio, OAuth)</span></div>
+          <div class="ln"><span class="p">$</span> <span class="c">claude mcp add</span> <span class="s">atlassian</span></div>
+          <div class="ln"><span class="ok">&#10003;</span> <span class="o">OAuth flow completed</span></div>
           <div class="ln"><span class="ok">&#10003;</span> <span class="o">Available tools: 28</span></div>
           <div class="ln">&nbsp;</div>
-          <div class="ln"><span class="cm"># Add Slack</span></div>
-          <div class="ln"><span class="p">></span> <span class="s">Slack</span></div>
-          <div class="ln"><span class="ok">&#10003;</span> <span class="o">Authenticated. 12 tools available.</span></div>
-          <div class="ln">&nbsp;</div>
-          <div class="ln"><span class="cm"># Now Claude can read Jira + post Slack</span></div>
+          <div class="ln"><span class="cm"># /mcp manages existing servers only</span></div>
         </div>
       </div>
     </div>
@@ -607,7 +601,7 @@ a.doc-link { color:inherit;text-decoration:underline;text-decoration-style:dotte
       </div>
       <div class="pro-tip" style="margin-top:8px;">
         <span class="label">Setup</span>
-        <p>Run <code>/mcp</code> in Claude Code to add servers. OAuth handles auth automatically. One-time setup per service.</p>
+        <p>Use <code>claude mcp add</code> to install servers. <code>/mcp</code> only manages servers already added. One-time setup per service.</p>
       </div>
     </div>
   </div>
@@ -1066,7 +1060,7 @@ a.doc-link { color:inherit;text-decoration:underline;text-decoration-style:dotte
 <!-- ====== 20. GSD: SKILLS AS WORKFLOW ENGINE ====== -->
 <section class="s-black" data-background="#000">
   <div class="sq">SQUIRE</div>
-  <h2 style="color:var(--white);font-size:1.4em;">Case Study: Get Shit Done (GSD)</h2>
+  <h2 style="color:var(--white);font-size:1.4em;">Advanced example: Get Shit Done (GSD)</h2>
   <div class="two-col grow" style="gap:24px;">
     <div>
       <p style="color:var(--green);font-weight:700;font-size:0.6em;">70+ skills. Zero MCP servers.</p>
@@ -1129,7 +1123,7 @@ a.doc-link { color:inherit;text-decoration:underline;text-decoration-style:dotte
         </ul>
       </div>
       <div class="ba-card ba-after" style="border-radius:8px;margin-top:8px;">
-        <h3>DEFERRED TOOL LOADING</h3>
+        <h3 style="color:var(--green);">DEFERRED TOOL LOADING</h3>
         <ul>
           <li>Claude Code now only loads tool names - not full schemas</li>
           <li>Schemas fetched on-demand when actually needed</li>
@@ -1227,22 +1221,21 @@ a.doc-link { color:inherit;text-decoration:underline;text-decoration-style:dotte
       <div class="term">
         <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">connect an MCP server</div></div>
         <div class="term-body auto-anim" style="font-size:12px;">
-          <div class="ln"><span class="cm"># Option 1: interactive setup</span></div>
-          <div class="ln"><span class="p">></span> <span class="c">/mcp</span></div>
-          <div class="ln"><span class="o">  Add a new MCP server...</span></div>
-          <div class="ln"><span class="p">></span> <span class="s">Atlassian</span></div>
-          <div class="ln"><span class="ok">&#10003;</span> <span class="o">OAuth flow completed</span></div>
-          <div class="ln"><span class="ok">&#10003;</span> <span class="o">28 tools available</span></div>
+          <div class="ln"><span class="cm"># Add Figma via HTTP</span></div>
+          <div class="ln"><span class="p">$</span> <span class="c">claude mcp add</span> <span class="s">--transport http</span> \</div>
+          <div class="ln"><span class="s">  figma-remote-mcp https://mcp.figma.com/mcp</span></div>
+          <div class="ln"><span class="ok">&#10003;</span> <span class="o">Added figma-remote-mcp</span></div>
           <div class="ln">&nbsp;</div>
-          <div class="ln"><span class="cm"># Option 2: CLI one-liner</span></div>
-          <div class="ln"><span class="p">$</span> <span class="c">claude mcp add</span> <span class="s">slack</span> \</div>
-          <div class="ln"><span class="s">  -t http -e SLACK_TOKEN=xoxb-...</span></div>
-          <div class="ln"><span class="ok">&#10003;</span> <span class="o">Added Slack (12 tools)</span></div>
+          <div class="ln"><span class="cm"># Share with team (stored in .mcp.json)</span></div>
+          <div class="ln"><span class="p">$</span> <span class="c">claude mcp add</span> <span class="s">--scope project</span> \</div>
+          <div class="ln"><span class="s">  --transport http figma-remote-mcp \</span></div>
+          <div class="ln"><span class="s">  https://mcp.figma.com/mcp</span></div>
+          <div class="ln"><span class="ok">&#10003;</span> <span class="o">Added to .mcp.json (commit to share)</span></div>
         </div>
       </div>
       <div class="pro-tip" style="margin-top:8px;">
-        <span class="label">Scopes</span>
-        <p>Add <code>--scope user</code> for all your projects, or <code>--scope project</code> for just this repo. Project-scoped servers live in <code>.claude/</code> and can be committed to version control.</p>
+        <span class="label">Note</span>
+        <p><code>/mcp</code> only manages servers already added. Use <code>claude mcp add</code> to install. <a class="doc-link" href="https://code.claude.com/docs/en/mcp" target="_blank" rel="noopener" style="color:var(--blue);">Full docs &rarr;</a></p>
       </div>
     </div>
     <div>
@@ -1261,7 +1254,51 @@ a.doc-link { color:inherit;text-decoration:underline;text-decoration-style:dotte
   </div>
 </section>
 
-<!-- ====== 27. ADDING SKILLS ====== -->
+<!-- ====== 27. MCP INSTALLATION SCOPES ====== -->
+<section class="s-gray" data-background="#F0F0F0">
+  <div class="sq">SQUIRE</div>
+  <h2>MCP Installation Scopes</h2>
+  <p style="font-size:0.55em;color:var(--muted);margin-bottom:16px;">The <code>--scope</code> flag controls where config is stored and who shares it.</p>
+  <div class="grow" style="display:flex;flex-direction:column;gap:12px;">
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0;background:#DDD;border-radius:8px;overflow:hidden;font-size:0.48em;">
+      <div style="background:var(--dark-text);color:#FFF;padding:10px 14px;font-weight:700;">Scope</div>
+      <div style="background:var(--dark-text);color:#FFF;padding:10px 14px;font-weight:700;">Loads in</div>
+      <div style="background:var(--dark-text);color:#FFF;padding:10px 14px;font-weight:700;">Shared with team</div>
+      <div style="background:var(--dark-text);color:#FFF;padding:10px 14px;font-weight:700;">Stored in</div>
+
+      <div style="background:#FFF;padding:10px 14px;font-weight:700;color:var(--blue);">Local <span style="font-weight:400;color:var(--muted);font-size:0.9em;">(default)</span></div>
+      <div style="background:#FFF;padding:10px 14px;">Current project only</div>
+      <div style="background:#FFF;padding:10px 14px;color:var(--orange);">No</div>
+      <div style="background:#FFF;padding:10px 14px;"><code>~/.claude.json</code></div>
+
+      <div style="background:#F5F5F5;padding:10px 14px;font-weight:700;color:var(--blue);">Project</div>
+      <div style="background:#F5F5F5;padding:10px 14px;">Current project only</div>
+      <div style="background:#F5F5F5;padding:10px 14px;color:var(--green);font-weight:600;">Yes, via version control</div>
+      <div style="background:#F5F5F5;padding:10px 14px;"><code>.mcp.json</code> in project root</div>
+
+      <div style="background:#FFF;padding:10px 14px;font-weight:700;color:var(--blue);">User</div>
+      <div style="background:#FFF;padding:10px 14px;">All your projects</div>
+      <div style="background:#FFF;padding:10px 14px;color:var(--orange);">No</div>
+      <div style="background:#FFF;padding:10px 14px;"><code>~/.claude.json</code></div>
+    </div>
+    <div class="term" style="flex:0;">
+      <div class="term-bar"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div><div class="t">scope examples</div></div>
+      <div class="term-body" style="font-size:12px;">
+        <div class="ln"><span class="cm"># Local (default) — just you, this project</span></div>
+        <div class="ln"><span class="p">$</span> <span class="c">claude mcp add</span> <span class="s">--transport http figma-remote-mcp https://mcp.figma.com/mcp</span></div>
+        <div class="ln">&nbsp;</div>
+        <div class="ln"><span class="cm"># Project — commit .mcp.json so the whole team gets it</span></div>
+        <div class="ln"><span class="p">$</span> <span class="c">claude mcp add</span> <span class="s">--scope project --transport http figma-remote-mcp https://mcp.figma.com/mcp</span></div>
+        <div class="ln">&nbsp;</div>
+        <div class="ln"><span class="cm"># User — available in all your projects</span></div>
+        <div class="ln"><span class="p">$</span> <span class="c">claude mcp add</span> <span class="s">--scope user --transport http figma-remote-mcp https://mcp.figma.com/mcp</span></div>
+      </div>
+    </div>
+    <p style="font-size:0.48em;color:var(--muted);margin-top:auto;">Note: <em>local</em> was called <em>project</em> in older versions. <em>user</em> was called <em>global</em>. &nbsp;<a class="doc-link" href="https://code.claude.com/docs/en/mcp" target="_blank" rel="noopener" style="color:var(--blue);">Full docs &rarr;</a></p>
+  </div>
+</section>
+
+<!-- ====== 28. ADDING SKILLS ====== -->
 <section class="s-gray" data-background="#F0F0F0">
   <div class="sq">SQUIRE</div>
   <h2>Adding Skills</h2>
@@ -1467,6 +1504,42 @@ a.doc-link { color:inherit;text-decoration:underline;text-decoration-style:dotte
   <aside class="notes">"Pull out your phones. Screenshot this now. I'll wait."</aside>
 </section>
 
+<!-- ====== FIGMA TO CODE: MOBILE ====== -->
+<section class="s-black" data-background="#000">
+  <div class="sq">SQUIRE</div>
+  <h2 style="color:var(--white);">Figma → Code <span style="color:#555;font-size:0.6em;font-weight:400;letter-spacing:0.06em;">MOBILE</span></h2>
+  <p style="font-size:0.52em;color:#999;margin-bottom:12px;">Claude reads the design, applies the mobile DLS, and ships the component.</p>
+  <div class="grow" style="display:grid;grid-template-columns:1fr 48px 1fr;gap:16px;align-items:center;">
+    <div style="display:flex;flex-direction:column;gap:8px;height:100%;">
+      <span style="font-size:0.42em;font-weight:700;letter-spacing:0.08em;color:#666;">FIGMA</span>
+      <img src="img/mobile-figma.png" style="width:100%;border-radius:12px;object-fit:cover;object-position:top;flex:1;min-height:0;">
+    </div>
+    <div style="text-align:center;font-size:2em;color:#444;">&rarr;</div>
+    <div style="display:flex;flex-direction:column;gap:8px;height:100%;">
+      <span style="font-size:0.42em;font-weight:700;letter-spacing:0.08em;color:var(--green);">SHIPPED</span>
+      <img src="img/mobile-code.png" style="width:100%;border-radius:12px;object-fit:cover;object-position:top;flex:1;min-height:0;">
+    </div>
+  </div>
+</section>
+
+<!-- ====== FIGMA TO CODE: WEB ====== -->
+<section class="s-black" data-background="#000">
+  <div class="sq">SQUIRE</div>
+  <h2 style="color:var(--white);">Figma → Code <span style="color:#555;font-size:0.6em;font-weight:400;letter-spacing:0.06em;">WEB</span></h2>
+  <p style="font-size:0.52em;color:#999;margin-bottom:12px;">Claude reads the design, applies the web DLS, and ships the component.</p>
+  <div class="grow" style="display:grid;grid-template-columns:1fr 48px 1fr;gap:16px;align-items:center;">
+    <div style="display:flex;flex-direction:column;gap:8px;height:100%;">
+      <span style="font-size:0.42em;font-weight:700;letter-spacing:0.08em;color:#666;">FIGMA</span>
+      <img src="img/web-figma.png" style="width:100%;border-radius:12px;object-fit:cover;object-position:top;flex:1;min-height:0;">
+    </div>
+    <div style="text-align:center;font-size:2em;color:#444;">&rarr;</div>
+    <div style="display:flex;flex-direction:column;gap:8px;height:100%;">
+      <span style="font-size:0.42em;font-weight:700;letter-spacing:0.08em;color:var(--green);">SHIPPED</span>
+      <img src="img/web-code.png" style="width:100%;border-radius:12px;object-fit:cover;object-position:top;flex:1;min-height:0;">
+    </div>
+  </div>
+</section>
+
 <!-- ====== 29. KEY TAKEAWAYS ====== -->
 <section class="s-black" data-background="#000">
   <div class="sq">SQUIRE</div>
@@ -1521,6 +1594,48 @@ a.doc-link { color:inherit;text-decoration:underline;text-decoration-style:dotte
         <p style="font-size:0.55em;color:var(--orange);font-weight:600;margin-top:8px;">Presented by Jonathan</p>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ====== DEMO SECTION HEADER ====== -->
+<section class="s-black" data-background="#000">
+  <div class="sq">SQUIRE</div>
+  <div class="grow" style="display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;">
+    <p style="color:var(--orange);font-size:0.55em;font-weight:700;letter-spacing:0.12em;margin-bottom:8px;">LIVE DEMO</p>
+    <h1 style="font-size:3.8em;line-height:1;">LET'S SEE<br>IT IN ACTION</h1>
+  </div>
+</section>
+
+<!-- ====== DEMO: PLAN ====== -->
+<section class="s-black" data-background="#000">
+  <div class="sq">SQUIRE</div>
+  <h2 style="color:var(--white);">Demo Plan</h2>
+  <div class="grow" style="display:flex;flex-direction:column;justify-content:center;gap:20px;">
+
+    <div style="display:flex;align-items:flex-start;gap:20px;background:#111;border-radius:10px;padding:20px 24px;border-left:4px solid var(--blue);">
+      <span style="font-size:1.8em;font-weight:900;color:var(--blue);line-height:1;min-width:32px;">1</span>
+      <div>
+        <p style="color:#FFF;font-weight:700;font-size:0.65em;margin:0;">MCP &amp; Skill Marketplaces</p>
+        <p style="color:#777;font-size:0.5em;margin:4px 0 0 0;">Browse claude.ai/integrations and mcpmarket.com — what's available out of the box and what Squire already has connected.</p>
+      </div>
+    </div>
+
+    <div style="display:flex;align-items:flex-start;gap:20px;background:#111;border-radius:10px;padding:20px 24px;border-left:4px solid var(--orange);">
+      <span style="font-size:1.8em;font-weight:900;color:var(--orange);line-height:1;min-width:32px;">2</span>
+      <div>
+        <p style="color:#FFF;font-weight:700;font-size:0.65em;margin:0;">Setting It Up in Claude Desktop</p>
+        <p style="color:#777;font-size:0.5em;margin:4px 0 0 0;">Add an MCP server live — <code style="color:var(--orange);">claude mcp add</code>, OAuth flow, and picking capabilities.</p>
+      </div>
+    </div>
+
+    <div style="display:flex;align-items:flex-start;gap:20px;background:#111;border-radius:10px;padding:20px 24px;border-left:4px solid var(--green);">
+      <span style="font-size:1.8em;font-weight:900;color:var(--green);line-height:1;min-width:32px;">3</span>
+      <div>
+        <p style="color:#FFF;font-weight:700;font-size:0.65em;margin:0;">GSD in Claude Code</p>
+        <p style="color:#777;font-size:0.5em;margin:4px 0 0 0;">Run <code style="color:var(--green);">/gsd-plan-phase</code> on a real ticket — skills orchestrating agents, reading Jira, writing code, opening a PR.</p>
+      </div>
+    </div>
+
   </div>
 </section>
 
